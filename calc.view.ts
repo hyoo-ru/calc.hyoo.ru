@@ -1,6 +1,6 @@
 namespace $.$$ {
 
-	export class $mol_app_calc extends $.$mol_app_calc {
+	export class $hyoo_calc extends $.$hyoo_calc {
 
 		@ $mol_mem
 		formulas( next? : { [ key : string ] : string } ) :  { [ key : string ] : string } {
@@ -329,7 +329,7 @@ namespace $.$$ {
 
 	}
 
-	export class $mol_app_calc_cell extends $.$mol_app_calc_cell {
+	export class $hyoo_calc_cell extends $.$hyoo_calc_cell {
 
 		click( event? : Event ) {
 			if( event ) this.selected( true )

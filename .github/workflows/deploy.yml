@@ -1,0 +1,30 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    
+#     - name: Set up NodeJS
+#       uses: actions/setup-node@v1
+    
+    - name: Checkout sources
+      uses: actions/checkout@v1
+    
+    - name: Build app
+      uses: hyoo-ru/mam_build@master
+      with:
+        module: 'hyoo/calc'
+    
+    - name: Deploy on GitHub Pages
+      uses: alex-page/blazing-fast-gh-pages-deploy@v1.0.1
+      with:
+        repo-token: ${{ secrets.GH_PAT }}
+        site-directory: '.'

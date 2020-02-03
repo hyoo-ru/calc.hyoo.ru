@@ -1,4 +1,4 @@
-$mol_app_calc $mol_page
+$hyoo_calc $mol_page
 	formula!id?val \
 	head /
 		<= Title_edit $mol_string
@@ -45,7 +45,7 @@ $mol_app_calc $mol_page
 	Row_head!id $mol_float
 		dom_name \th
 		sub / <= row_title!id \
-	Cell!id $mol_app_calc_cell
+	Cell!id $hyoo_calc_cell
 		value <= cell_content!id \
 		selected?val <=> selected!id?val false
 	plugins /
@@ -58,11 +58,11 @@ $mol_app_calc $mol_page
 	event *
 		paste?event <=> paste?event null
 
-$mol_app_calc_cell $mol_button
+$hyoo_calc_cell $mol_button
 	dom_name \td
 	sub /
 		<= value \
 	attr *
 		^
-		mol_app_calc_cell_selected <= selected?val false
-		mol_app_calc_cell_type <= type?val \
+		hyoo_calc_cell_selected <= selected?val false
+		hyoo_calc_cell_type <= type?val \

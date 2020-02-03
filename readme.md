@@ -1,4 +1,4 @@
-# [$mol_app_calc](http://mol.js.org/app/calc/) - simple spreedsheet app
+# [$hyoo_calc](http://mol.js.org/app/calc/) - simple spreedsheet app
 
 # Examples
 
@@ -6,4 +6,4 @@
 
 # Articles
 
-- [$mol_app_calc: вечеринка электронных таблиц](https://habrahabr.ru/post/338804/)
+- [$hyoo_calc: вечеринка электронных таблиц](https://habrahabr.ru/post/338804/)
