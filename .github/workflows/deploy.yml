@@ -2,8 +2,8 @@ name: Deploy
 
 on:
   push:
-    branches:
-    - master
+  schedule:
+  - cron: "0 7 * * *"
 
 jobs:
   build:
@@ -11,9 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    
-#     - name: Set up NodeJS
-#       uses: actions/setup-node@v1
     
     - name: Checkout sources
       uses: actions/checkout@v1
@@ -24,7 +21,8 @@ jobs:
         module: 'hyoo/calc'
     
     - name: Deploy on GitHub Pages
-      uses: alex-page/blazing-fast-gh-pages-deploy@v1.0.1
+      if: github.ref == 'refs/heads/master'
+      uses: alex-page/blazing-fast-gh-pages-deploy@v1.1.0
       with:
         repo-token: ${{ secrets.GH_PAT }}
         site-directory: '.'
