@@ -1251,9 +1251,6 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-}
-
-declare namespace $ {
     class $mol_svg_root extends $mol_svg {
         dom_name(): string;
         attr(): {
@@ -1263,6 +1260,9 @@ declare namespace $ {
         view_box(): string;
         aspect(): string;
     }
+}
+
+declare namespace $ {
 }
 
 declare namespace $ {
@@ -1302,11 +1302,11 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $mol_bar extends $mol_view {
+    }
 }
 
 declare namespace $ {
-    class $mol_bar extends $mol_view {
-    }
 }
 
 declare namespace $ {
@@ -1378,11 +1378,11 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $mol_float extends $mol_view {
+    }
 }
 
 declare namespace $ {
-    class $mol_float extends $mol_view {
-    }
 }
 
 declare namespace $ {
@@ -1421,12 +1421,12 @@ declare namespace $ {
 }
 
 declare namespace $ {
-}
-
-declare namespace $ {
     class $mol_check_box extends $mol_check {
         Icon(): $mol_icon_tick;
     }
+}
+
+declare namespace $ {
 }
 
 declare namespace $ {
@@ -1749,11 +1749,11 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $mol_check_icon extends $mol_check {
+    }
 }
 
 declare namespace $ {
-    class $mol_check_icon extends $mol_check {
-    }
 }
 
 declare namespace $ {
