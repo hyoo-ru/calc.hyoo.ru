@@ -722,7 +722,7 @@ var $;
             if (!master || master.constructor !== $mol_fiber) {
                 master = new $mol_fiber;
                 master.cursor = -3;
-                master.error = request.call(this, ...args).then($.$mol_log2.func(master.push).bind(master), $.$mol_log2.func(master.fail).bind(master));
+                master.error = request.call(this, ...args).then($.$mol_log2.func((next) => master.push(next)), $.$mol_log2.func((error) => master.fail(error)));
                 const prefix = slave ? `${slave}/${slave.cursor / 2}:` : '/';
                 master[Symbol.toStringTag] = prefix + (request.name || $mol_fiber_sync.name);
             }
@@ -1380,6 +1380,12 @@ var $;
     $.$mol_dom_context = self;
 })($ || ($ = {}));
 //context.web.js.map
+;
+"use strict";
+//param.js.map
+;
+"use strict";
+//result.js.map
 ;
 "use strict";
 var $;
@@ -2545,9 +2551,6 @@ var $;
 //view.web.js.map
 ;
 "use strict";
-//result.js.map
-;
-"use strict";
 //error.js.map
 ;
 "use strict";
@@ -2945,8 +2948,8 @@ var $;
                 return next;
             }
             event_scroll(next) {
-                if (this._event_scroll_timer())
-                    this._event_scroll_timer().destructor();
+                var _a;
+                (_a = this._event_scroll_timer()) === null || _a === void 0 ? void 0 : _a.destructor();
                 const el = this.dom_node();
                 this._event_scroll_timer(new $.$mol_after_frame($.$mol_fiber_solid.func(() => {
                     this.scroll_top(Math.max(0, el.scrollTop));
@@ -5872,6 +5875,8 @@ var $;
     (function ($$) {
         class $mol_nav extends $.$mol_nav {
             event_key(event) {
+                if (!event)
+                    return event;
                 if (event.defaultPrevented)
                     return;
                 if (this.mod_ctrl() && !event.ctrlKey)
@@ -5890,6 +5895,8 @@ var $;
                 }
             }
             event_up(event) {
+                if (!event)
+                    return event;
                 const keys = this.keys_y();
                 if (keys.length < 2)
                     return;
@@ -5902,6 +5909,8 @@ var $;
                 this.current_y(this.keys_y()[index_new]);
             }
             event_down(event) {
+                if (!event)
+                    return event;
                 const keys = this.keys_y();
                 if (keys.length < 2)
                     return;
@@ -5914,6 +5923,8 @@ var $;
                 this.current_y(this.keys_y()[index_new]);
             }
             event_left(event) {
+                if (!event)
+                    return event;
                 const keys = this.keys_x();
                 if (keys.length < 2)
                     return;
@@ -5926,6 +5937,8 @@ var $;
                 this.current_x(this.keys_x()[index_new]);
             }
             event_right(event) {
+                if (!event)
+                    return event;
                 const keys = this.keys_x();
                 if (keys.length < 2)
                     return;
