@@ -3027,9 +3027,6 @@ var $;
         }
         Head() {
             return ((obj) => {
-                obj.attr = () => ({
-                    "mol_theme": "$mol_theme_base",
-                });
                 obj.sub = () => this.head();
                 return obj;
             })(new this.$.$mol_view());
@@ -3071,9 +3068,6 @@ var $;
         }
         Foot() {
             return ((obj) => {
-                obj.attr = () => ({
-                    "mol_theme": "$mol_theme_base",
-                });
                 obj.sub = () => this.foot();
                 return obj;
             })(new this.$.$mol_view());
@@ -3159,6 +3153,7 @@ var $;
                 margin: 0,
                 minHeight: calc(`1.5em + 2rem`),
                 padding: rem(.5),
+                background: "var(--mol_theme_back)",
             },
             Title: {
                 flex: {
@@ -3169,6 +3164,7 @@ var $;
                 padding: rem(.5),
                 wordBreak: 'normal',
                 cursor: 'default',
+                fontWeight: 'bolder',
                 ':empty': {
                     display: 'none',
                 },
@@ -3195,6 +3191,7 @@ var $;
                 flex: 'none',
                 margin: 0,
                 overflow: 'hidden',
+                background: "var(--mol_theme_back)",
             },
         });
     })($$ = $.$$ || ($.$$ = {}));
@@ -6373,7 +6370,7 @@ var $;
                 return this.coord(next === undefined ? undefined : [next, this.coord()[1]])[0];
             }
             formula(id, next) {
-                return this.formulas(next === undefined ? undefined : { [id]: next || null })[id] || '';
+                return this.formulas(next === undefined ? undefined : { [id]: next || '' })[id] || '';
             }
             formula_current(next) {
                 return this.formula(this.pos(), next);
@@ -6395,20 +6392,20 @@ var $;
                     'RANGE': (from, to) => this.results([from, to]),
                     'SUM': (values) => values.reduce((accum, item) => accum + item, 0),
                     'AVG': (values) => values.reduce((accum, item) => accum + item, 0) / values.length,
-                    'MAX': (values) => values.reduce((max, item) => item > max ? item : max, undefined),
-                    'MIN': (values) => values.reduce((min, item) => item < min ? item : min, undefined),
+                    'MAX': (values) => values.reduce((max, item) => item > max ? item : max, Number.NEGATIVE_INFINITY),
+                    'MIN': (values) => values.reduce((min, item) => item < min ? item : min, Number.POSITIVE_INFINITY),
                 });
             }
             results(range) {
                 const start = this.id2coord(range[0]);
                 const end = this.id2coord(range[1]);
-                const ids = [];
+                const results = [];
                 for (let row = start[0]; row <= end[0]; ++row) {
                     for (let col = start[1]; col <= end[1]; ++col) {
-                        ids.push(this.result(this.coord2id([row, col])));
+                        results.push(this.result(this.coord2id([row, col])));
                     }
                 }
-                return ids;
+                return results;
             }
             sub() {
                 return [
@@ -6426,7 +6423,7 @@ var $;
                 let val = this.result(id);
                 if (typeof val === 'object')
                     val = JSON.stringify(val);
-                return name ? `${name} = ${val}` : val;
+                return name ? `${name} = ${val}` : String(val);
             }
             func(id) {
                 const formula = this.formula(id);

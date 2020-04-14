@@ -416,8 +416,8 @@ declare namespace $ {
         static get make(): ((contexts: Object[]) => (code: string) => () => void) | ((...args: Object[]) => (code: string) => any);
         constructor(...contexts: Object[]);
         contexts: Object[];
-        _eval: (code: string) => () => void;
-        get eval(): any;
+        _eval: ((code: string) => () => void) | undefined;
+        get eval(): (code: string) => any;
     }
 }
 
@@ -1884,7 +1884,7 @@ declare namespace $.$$ {
         };
         formula_name(id: string): string | null;
         refs(): Record<string, string>;
-        id2coord(id: string): [number, number];
+        id2coord(id: string): [number, number] | null;
         coord2id(coord: [number, number]): string;
         dimensions(): {
             rows: number;
@@ -1905,16 +1905,16 @@ declare namespace $.$$ {
         Edit_current(): $mol_textarea;
         current_row(next?: number): number;
         current_col(next?: number): number;
-        formula(id: string, next?: string): any;
-        formula_current(next?: string): any;
+        formula(id: string, next?: string): string;
+        formula_current(next?: string): string;
         sandbox(): $mol_func_sandbox;
-        results(range: [string, string]): string[];
+        results(range: [string, string]): unknown[];
         sub(): ($mol_view | $mol_grid)[];
         hint(): string;
-        cell_content(id: string): any;
+        cell_content(id: string): string;
         func(id: string): any;
-        result(id: string): any;
-        paste(event?: ClipboardEvent): void;
+        result(id: string): string | number;
+        paste(event: ClipboardEvent): void;
         snapshot_uri(): string;
         download_file(): string;
         download_uri(): string;
