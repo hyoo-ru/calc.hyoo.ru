@@ -47,7 +47,7 @@ namespace $.$$ {
 			return vars
 		}
 
-		id2coord( id : string ) : [ number , number ] {
+		id2coord( id : string ) : [ number , number ] | null {
 			
 			const parsed = /^([A-Z]+)(\d+)$/i.exec( id )
 			if( !parsed ) return null
@@ -68,7 +68,7 @@ namespace $.$$ {
 			}
 
 			for( let key of Object.keys( this.formulas() ) ) {
-				const coord = this.id2coord( key )
+				const coord = this.id2coord( key )!
 
 				const rows = coord[1] + 3
 				const cols = coord[0] + 3
@@ -151,7 +151,7 @@ namespace $.$$ {
 
 		@ $mol_mem
 		coord( next? : [ number , number ] ) {
-			return this.id2coord( this.pos( next && this.coord2id( next ) ) )
+			return this.id2coord( this.pos( next && this.coord2id( next ) ) )!
 		}
 
 		Edit_current() {
@@ -168,7 +168,7 @@ namespace $.$$ {
 
 		@ $mol_mem_key
 		formula( id : string , next? : string ) {
-			return this.formulas( next === undefined ? undefined : { [ id ] : next || null } )[ id ] || ''
+			return this.formulas( next === undefined ? undefined : { [ id ] : next || '' } )[ id ] || ''
 		}
 
 		formula_current( next? : string ) {
@@ -201,9 +201,9 @@ namespace $.$$ {
 				
 				'AVG' : ( values : number[] )=> values.reduce( ( accum , item ) => accum + item , 0 ) / values.length ,
 
-				'MAX' : ( values : number[] )=> values.reduce( ( max , item ) => item > max ? item : max , undefined ) ,
+				'MAX' : ( values : number[] )=> values.reduce( ( max , item ) => item > max ? item : max , Number.NEGATIVE_INFINITY ) ,
 
-				'MIN' : ( values : number[] )=> values.reduce( ( min , item ) => item < min ? item : min , undefined ) ,
+				'MIN' : ( values : number[] )=> values.reduce( ( min , item ) => item < min ? item : min , Number.POSITIVE_INFINITY ) ,
 
 			} )
 		}
@@ -211,18 +211,18 @@ namespace $.$$ {
 		@ $mol_mem_key
 		results( range : [ string , string ] ) {
 			
-			const start = this.id2coord( range[0] )
-			const end = this.id2coord( range[1] )
+			const start = this.id2coord( range[0] )!
+			const end = this.id2coord( range[1] )!
 
-			const ids = [] as string[]
+			const results = [] as unknown[]
 
 			for( let row = start[0] ; row <= end[0] ; ++row ) {
 				for( let col = start[1] ; col <= end[1] ; ++col ) {
-					ids.push( this.result( this.coord2id([ row , col ]) ) )
+					results.push( this.result( this.coord2id([ row , col ]) ) )
 				}
 			}
 
-			return ids
+			return results
 
 		}
 
@@ -241,14 +241,14 @@ namespace $.$$ {
 		}
 
 		@ $mol_mem_key
-		cell_content( id : string ) {
+		cell_content( id : string ) : string {
 			
 			const name = this.formula_name( id )
 			
 			let val = this.result( id )
 			if( typeof val === 'object' ) val = JSON.stringify( val )
 
-			return name ? `${name} = ${val}` : val
+			return name ? `${name} = ${val}` : String( val )
 		}
 
 		@ $mol_mem_key
@@ -257,7 +257,7 @@ namespace $.$$ {
 			if( !/^(\w*)?\s*=/u.test( formula ) ) return ()=> formula
 			
 			const code = 'return ' + formula
-			.replace( /([A-Z]+[0-9]+):([A-Z]+[0-9]+)/g , ( found , from , to )=> `RANGE('${ from.toLowerCase() }','${ to.toLowerCase() }')` )
+			.replace( /([A-Z]+[0-9]+):([A-Z]+[0-9]+)/g , ( found : string , from : string , to : string )=> `RANGE('${ from.toLowerCase() }','${ to.toLowerCase() }')` )
 			.replace( /@([A-Z]+[0-9]+)\b/g , '$$.$1' )
 			.replace( /([^.])([A-Z]+[0-9]+)\b/g , '$1$.$2' )
 			.replace( /^(\w*)?\s*=/u , '' )
@@ -266,7 +266,7 @@ namespace $.$$ {
 		}
 
 		@ $mol_mem_key
-		result( id : string ) {
+		result( id : string ) : string | number {
 			const res = this.func( id )()
 			if( res === undefined ) return ''
 			if( res === '' ) return ''
@@ -275,11 +275,11 @@ namespace $.$$ {
 			return Number( res )
 		}
 
-		paste( event? : ClipboardEvent ) {
-			const table = event.clipboardData.getData( 'text/plain' ).trim().split( '\n' ).map( row => row.split( '\t' ) ) as string[][]
+		paste( event : ClipboardEvent ) {
+			const table = event.clipboardData!.getData( 'text/plain' ).trim().split( '\n' ).map( row => row.split( '\t' ) ) as string[][]
 			if( table.length === 1 && table[0].length === 1 ) return
 
-			const [ col_start , row_start ] = this.id2coord( this.pos() )
+			const [ col_start , row_start ] = this.id2coord( this.pos() )!
 			const patch = {}
 
 			for( let row in table ) {
