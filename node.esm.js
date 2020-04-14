@@ -3065,7 +3065,7 @@ var $;
             boxSizing: 'border-box',
             background: "var(--mol_theme_back)",
             color: "var(--mol_theme_text)",
-            zIndex: '0',
+            zIndex: '1',
             overflow: 'hidden',
             boxShadow: `inset 0 0 0 .5px ${"var(--mol_theme_line)"}`,
             ':focus': {
@@ -3081,6 +3081,8 @@ var $;
                 minHeight: calc(`1.5em + 2rem`),
                 padding: rem(.5),
                 background: "var(--mol_theme_back)",
+                boxShadow: `0 0 .5rem hsla(0,0%,0%,.25)`,
+                zIndex: '0',
             },
             Title: {
                 flex: {
@@ -3119,6 +3121,8 @@ var $;
                 margin: 0,
                 overflow: 'hidden',
                 background: "var(--mol_theme_back)",
+                boxShadow: `0 0 .5rem hsla(0,0%,0%,.25)`,
+                zIndex: '1',
             },
         });
     })($$ = $.$$ || ($.$$ = {}));
@@ -5773,6 +5777,11 @@ var $;
     class $hyoo_calc extends $.$mol_page {
         formula(id, val, force) {
             return (val !== void 0) ? val : "";
+        }
+        attr() {
+            return ({
+                "mol_theme": "$mol_theme_auto",
+            });
         }
         head() {
             return [this.Title_edit(), this.Tools()];

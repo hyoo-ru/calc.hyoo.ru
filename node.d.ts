@@ -1759,6 +1759,9 @@ declare namespace $.$$ {
 declare namespace $ {
     class $hyoo_calc extends $mol_page {
         formula(id: any, val?: any, force?: $mol_mem_force): any;
+        attr(): {
+            mol_theme: string;
+        };
         head(): readonly any[];
         Title_edit(): $$.$mol_string;
         title(val?: any, force?: $mol_mem_force): any;
