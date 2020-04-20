@@ -418,40 +418,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    const enum $mol_theme {
-        back = "var(--mol_theme_back)",
-        hover = "var(--mol_theme_hover)",
-        current = "var(--mol_theme_current)",
-        text = "var(--mol_theme_text)",
-        control = "var(--mol_theme_control)",
-        shade = "var(--mol_theme_shade)",
-        line = "var(--mol_theme_line)",
-        focus = "var(--mol_theme_focus)",
-        field = "var(--mol_theme_field)"
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-    class $mol_state_session<Value> extends $mol_object {
-        static 'native()': Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>;
-        static native(): Storage | {
-            getItem(key: string): any;
-            setItem(key: string, value: string): void;
-            removeItem(key: string): void;
-        };
-        static value<Value>(key: string, next?: Value): Value;
-        prefix(): string;
-        value(key: string, next?: Value): Value;
-    }
-}
-
-declare namespace $ {
     class $mol_decor<Value> {
         readonly value: Value;
         constructor(value: Value);
@@ -503,14 +469,50 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    type $mol_style_func_name = 'calc' | 'fit-content';
+    type $mol_style_func_name = 'calc' | 'hsla' | 'rgba' | 'var' | 'url';
     class $mol_style_func<Name extends $mol_style_func_name, Value = unknown> extends $mol_decor<Value> {
         readonly name: Name;
-        constructor(value: Value, name: Name);
+        constructor(name: Name, value: Value);
         prefix(): string;
         postfix(): string;
         static calc<Value>(value: Value): $mol_style_func<"calc", Value>;
-        static fit_content(value: number | $mol_style_unit<$mol_style_unit_length> | $mol_style_func<'calc'>): $mol_style_func<"fit-content", number | $mol_style_unit<$mol_style_unit_length> | $mol_style_func<"calc", unknown>>;
+        static vary<Name extends string>(name: Name): $mol_style_func<"var", Name>;
+        static url<Href extends string>(href: Href): $mol_style_func<"url", string>;
+        static hsla(hue: number, saturation: number, lightness: number, alpha: number): $mol_style_func<"hsla", (number | $mol_style_unit<"%">)[]>;
+    }
+}
+
+declare namespace $ {
+    const $mol_theme: {
+        back: $mol_style_func<"var", "--mol_theme_back">;
+        hover: $mol_style_func<"var", "--mol_theme_hover">;
+        current: $mol_style_func<"var", "--mol_theme_current">;
+        text: $mol_style_func<"var", "--mol_theme_text">;
+        control: $mol_style_func<"var", "--mol_theme_control">;
+        shade: $mol_style_func<"var", "--mol_theme_shade">;
+        line: $mol_style_func<"var", "--mol_theme_line">;
+        focus: $mol_style_func<"var", "--mol_theme_focus">;
+        field: $mol_style_func<"var", "--mol_theme_field">;
+    };
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_state_session<Value> extends $mol_object {
+        static 'native()': Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>;
+        static native(): Storage | {
+            getItem(key: string): any;
+            setItem(key: string, value: string): void;
+            removeItem(key: string): void;
+        };
+        static value<Value>(key: string, next?: Value): Value;
+        prefix(): string;
+        value(key: string, next?: Value): Value;
     }
 }
 
@@ -652,8 +654,8 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    type $mol_type_error<Message> = '$mol_type_error' & {
-        $mol_type_error: Message;
+    type $mol_type_error<Message, Info = {}> = Message & {
+        $mol_type_error: Info;
     };
 }
 
@@ -662,8 +664,161 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    const $mol_colors: {
+        aliceblue: string;
+        antiquewhite: string;
+        aqua: string;
+        aquamarine: string;
+        azure: string;
+        beige: string;
+        bisque: string;
+        black: string;
+        blanchedalmond: string;
+        blue: string;
+        blueviolet: string;
+        brown: string;
+        burlywood: string;
+        cadetblue: string;
+        chartreuse: string;
+        chocolate: string;
+        coral: string;
+        cornflowerblue: string;
+        cornsilk: string;
+        crimson: string;
+        cyan: string;
+        darkblue: string;
+        darkcyan: string;
+        darkgoldenrod: string;
+        darkgray: string;
+        darkgreen: string;
+        darkgrey: string;
+        darkkhaki: string;
+        darkmagenta: string;
+        darkolivegreen: string;
+        darkorange: string;
+        darkorchid: string;
+        darkred: string;
+        darksalmon: string;
+        darkseagreen: string;
+        darkslateblue: string;
+        darkslategrey: string;
+        darkturquoise: string;
+        darkviolet: string;
+        deeppink: string;
+        deepskyblue: string;
+        dimgray: string;
+        dimgrey: string;
+        dodgerblue: string;
+        firebrick: string;
+        floralwhite: string;
+        forestgreen: string;
+        fuchsia: string;
+        gainsboro: string;
+        ghostwhite: string;
+        gold: string;
+        goldenrod: string;
+        gray: string;
+        green: string;
+        greenyellow: string;
+        grey: string;
+        honeydew: string;
+        hotpink: string;
+        indianred: string;
+        indigo: string;
+        ivory: string;
+        khaki: string;
+        lavender: string;
+        lavenderblush: string;
+        lawngreen: string;
+        lemonchiffon: string;
+        lightblue: string;
+        lightcoral: string;
+        lightcyan: string;
+        lightgoldenrodyellow: string;
+        lightgray: string;
+        lightgreen: string;
+        lightgrey: string;
+        lightpink: string;
+        lightsalmon: string;
+        lightseagreen: string;
+        lightskyblue: string;
+        lightslategray: string;
+        lightslategrey: string;
+        lightsteelblue: string;
+        lightyellow: string;
+        lime: string;
+        limegreen: string;
+        linen: string;
+        magenta: string;
+        maroon: string;
+        mediumaquamarine: string;
+        mediumblue: string;
+        mediumorchid: string;
+        mediumpurple: string;
+        mediumseagreen: string;
+        mediumslateblue: string;
+        mediumspringgreen: string;
+        mediumturquoise: string;
+        mediumvioletred: string;
+        midnightblue: string;
+        mintcream: string;
+        mistyrose: string;
+        moccasin: string;
+        navajowhite: string;
+        navy: string;
+        oldlace: string;
+        olive: string;
+        olivedrab: string;
+        orange: string;
+        orangered: string;
+        orchid: string;
+        palegoldenrod: string;
+        palegreen: string;
+        paleturquoise: string;
+        palevioletred: string;
+        papayawhip: string;
+        peachpuff: string;
+        peru: string;
+        pink: string;
+        plum: string;
+        powderblue: string;
+        purple: string;
+        rebeccapurple: string;
+        red: string;
+        rosybrown: string;
+        royalblue: string;
+        saddlebrown: string;
+        salmon: string;
+        sandybrown: string;
+        seagreen: string;
+        seashell: string;
+        sienna: string;
+        silver: string;
+        skyblue: string;
+        slateblue: string;
+        slategray: string;
+        slategrey: string;
+        snow: string;
+        springgreen: string;
+        steelblue: string;
+        tan: string;
+        teal: string;
+        thistle: string;
+        tomato: string;
+        turquoise: string;
+        violet: string;
+        wheat: string;
+        white: string;
+        whitesmoke: string;
+        yellow: string;
+        yellowgreen: string;
+    };
+}
+
+declare namespace $ {
     export type $mol_style_properties = Partial<$mol_type_override<CSSStyleDeclaration, Overrides>>;
     type Common = 'inherit' | 'initial' | 'unset';
+    type Color = keyof typeof $mol_colors | 'transparent' | 'currentcolor' | $mol_style_func<'hsla' | 'rgba' | 'var'>;
     type Length = 0 | $mol_style_unit<$mol_style_unit_length> | $mol_style_func<'calc'>;
     type Size = 'auto' | 'max-content' | 'min-content' | 'fit-content' | Length | Common;
     type Directions<Value> = Value | [Value, Value] | {
@@ -675,6 +830,21 @@ declare namespace $ {
     type Overflow = 'visible' | 'hidden' | 'clip' | 'scroll' | 'auto' | 'overlay' | Common;
     interface Overrides {
         alignContent?: 'baseline' | 'start' | 'end' | 'flex-start' | 'flex-end' | 'center' | 'normal' | 'space-between' | 'space-around' | 'space-evenly' | 'stretch' | ['first' | 'last', 'baseline'] | ['safe' | 'unsafe', 'start' | 'end' | 'flex-start' | 'flex-end'] | Common;
+        background?: {
+            color?: Color | Common;
+            image?: [$mol_style_func<'url'>][];
+        };
+        box?: {
+            shadow?: readonly {
+                inset: boolean;
+                x: Length;
+                y: Length;
+                blur: Length;
+                spread: Length;
+                color: Color;
+            }[];
+        };
+        color?: Color | Common;
         display?: 'block' | 'inline' | 'run-in' | 'list-item' | 'none' | 'flow' | 'flow-root' | 'table' | 'flex' | 'grid' | 'contents' | 'table-row-group' | 'table-header-group' | 'table-footer-group' | 'table-column-group' | 'table-row' | 'table-cell' | 'table-column' | 'table-caption' | 'inline-block' | 'inline-table' | 'inline-flex' | 'inline-grid' | 'ruby' | 'ruby-base' | 'ruby-text' | 'ruby-base-container' | 'ruby-text-container' | Common;
         overflow?: Overflow | {
             x?: Overflow | Common;
@@ -697,6 +867,7 @@ declare namespace $ {
             direction?: 'row' | 'row-reverse' | 'column' | 'column-reverse';
             wrap?: 'wrap' | 'nowrap' | 'wrap-reverse' | Common;
         };
+        zIndex: number;
     }
     export {};
 }
@@ -712,18 +883,20 @@ declare namespace $ {
 declare namespace $ {
     type Descendant<Name extends keyof $mol_view_all, Config> = $mol_style_guard<Extract<$mol_type_result<$mol_view_all[Name]>, $mol_view>, Config>;
     type Kids<Config> = {
-        [view in keyof Config]: view extends keyof $mol_view_all ? Descendant<view, Config[view]> : $mol_type_error<['Unknown View', view]>;
+        [view in keyof Config]: view extends keyof $mol_view_all ? Descendant<view, Config[view]> : $mol_type_error<'Unknown View'>;
     };
     type Attrs<View extends $mol_view, Config> = {
         [name in keyof Config]: name extends keyof ReturnType<View['attr']> ? {
             [val in keyof Config[name]]: $mol_style_guard<View, Config[name][val]>;
-        } : $mol_type_error<['Unknown Attribute', name]>;
+        } : $mol_type_error<'Unknown attribute'>;
     };
     type Medias<View extends $mol_view, Config> = {
         [query in keyof Config]: $mol_style_guard<View, Config[query]>;
     };
     export type $mol_style_guard<View extends $mol_view, Config> = $mol_style_properties & {
-        [key in keyof Config]: key extends keyof $mol_style_properties ? unknown : key extends $mol_style_pseudo_class | $mol_style_pseudo_element ? $mol_style_guard<View, Config[key]> : key extends '>' ? Kids<Config[key]> : key extends '@' ? Attrs<View, Config[key]> : key extends '@media' ? Medias<View, Config[key]> : key extends keyof $mol_view_all ? Descendant<key, Config[key]> : key extends keyof View ? View[key] extends (id?: any) => infer Sub ? Sub extends $mol_view ? $mol_style_guard<Sub, Config[key]> : $mol_type_error<['Wrong Property', key]> : $mol_type_error<['Property is not Element', key]> : $mol_type_error<['Unknown Property', key]>;
+        [key in keyof Config]: key extends keyof $mol_style_properties ? unknown : key extends $mol_style_pseudo_class | $mol_style_pseudo_element ? $mol_style_guard<View, Config[key]> : key extends '>' ? Kids<Config[key]> : key extends '@' ? Attrs<View, Config[key]> : key extends '@media' ? Medias<View, Config[key]> : key extends keyof $mol_view_all ? Descendant<key, Config[key]> : key extends keyof View ? View[key] extends (id?: any) => infer Sub ? Sub extends $mol_view ? $mol_style_guard<Sub, Config[key]> : $mol_type_error<'Property returns non $mol_view', {
+            Returns: Sub;
+        }> : $mol_type_error<'Field is not a Property'> : $mol_type_error<'Unknown Property or View'>;
     };
     export {};
 }
