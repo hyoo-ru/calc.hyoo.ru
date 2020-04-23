@@ -3272,7 +3272,7 @@ var $;
             color: $.$mol_theme.text,
             zIndex: 0,
             overflow: 'hidden',
-            boxShadow: `inset 0 0 0 .5px ${$.$mol_theme.line}`,
+            boxShadow: `0 0 .5rem hsla(0,0%,0%,.25)`,
             ':focus': {
                 outline: 'none',
             },
@@ -3300,7 +3300,7 @@ var $;
                 padding: rem(.5),
                 wordBreak: 'normal',
                 cursor: 'default',
-                fontWeight: 'bolder',
+                textShadow: '0 0',
                 ':empty': {
                     display: 'none',
                 },
@@ -4271,84 +4271,58 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $mol_syntax {
+    class $mol_syntax2 {
         constructor(lexems) {
-            this['lexems()'] = lexems;
-        }
-        lexems() {
-            return this['lexems()'];
-        }
-        rules() {
-            let rules = this['rules()'];
-            if (rules)
-                return rules;
-            rules = [];
-            let lexems = this.lexems();
+            this.lexems = lexems;
+            this.rules = [];
             for (let name in lexems) {
-                rules.push({
+                this.rules.push({
                     name: name,
                     regExp: lexems[name],
                     size: RegExp('^$|' + lexems[name].source).exec('').length - 1,
                 });
             }
-            return this['rules()'] = rules;
+            const parts = '(' + this.rules.map(rule => rule.regExp.source).join(')|(') + ')';
+            this.regexp = RegExp(`([\\s\\S]*?)(?:(${parts})|$(?![^]))`, 'gm');
         }
-        regExp() {
-            let regExp = this['regExp()'];
-            if (regExp)
-                return regExp;
-            const parts = '(' + this.rules().map(rule => rule.regExp.source).join(')|(') + ')';
-            regExp = RegExp(`([^]*?)(?:(${parts})|$(?![^]))`, 'gm');
-            return this['regExp()'] = regExp;
-        }
-        tokenize(text) {
-            const tokens = [];
-            const rules = this.rules();
-            const regExp = this.regExp();
-            const regExpSize = RegExp('^$|' + regExp.source).exec('').length - 1;
-            let position = 0;
-            parsing: while (position < text.length) {
-                regExp.lastIndex = position;
-                var found = regExp.exec(text);
-                if (position === regExp.lastIndex)
+        tokenize(text, handle) {
+            let end = 0;
+            lexing: while (end < text.length) {
+                const start = end;
+                this.regexp.lastIndex = start;
+                var found = this.regexp.exec(text);
+                end = this.regexp.lastIndex;
+                if (start === end)
                     throw new Error('Empty token');
-                position = regExp.lastIndex;
                 var prefix = found[1];
-                if (prefix) {
-                    tokens.push({
-                        name: '',
-                        found: prefix,
-                        chunks: [],
-                    });
-                }
+                if (prefix)
+                    handle('', prefix, [], start);
                 var suffix = found[2];
-                if (suffix) {
-                    let offset = 4;
-                    for (let rule of rules) {
-                        if (found[offset - 1]) {
-                            tokens.push({
-                                name: rule.name,
-                                found: suffix,
-                                chunks: found.slice(offset, offset + rule.size)
-                            });
-                            continue parsing;
-                        }
-                        offset += rule.size + 1;
+                if (!suffix)
+                    continue;
+                let offset = 4;
+                for (let rule of this.rules) {
+                    if (found[offset - 1]) {
+                        handle(rule.name, suffix, found.slice(offset, offset + rule.size), start + prefix.length);
+                        continue lexing;
                     }
-                    throw new Error('Something wrong');
+                    offset += rule.size + 1;
                 }
+                $.$mol_fail(new Error('$mol_syntax2 is broken'));
             }
-            return tokens;
+        }
+        parse(text, handlers) {
+            this.tokenize(text, (name, ...args) => handlers[name](...args));
         }
     }
-    $.$mol_syntax = $mol_syntax;
+    $.$mol_syntax2 = $mol_syntax2;
 })($ || ($ = {}));
-//syntax.js.map
+//syntax2.js.map
 ;
 "use strict";
 var $;
 (function ($) {
-    $.$mol_syntax_md_flow = new $.$mol_syntax({
+    $.$mol_syntax2_md_flow = new $.$mol_syntax2({
         'quote': /^((?:(?:> )(?:[^]*?)$(\r?\n?))+)([\n\r]*)/,
         'header': /^(#+)(\s*)(.*?)$([\n\r]*)/,
         'list': /^((?:(?:\s?[*+-]|\d+\.)\s+(?:[^]*?)$(?:\r?\n?))+)((?:\r?\n)*)/,
@@ -4357,7 +4331,7 @@ var $;
         'table': /((?:^\|.+?$\r?\n)+)([\n\r]*)/,
         'block': /^(.*?(?:\r?\n.+?)*)$((?:\r?\n)*)/,
     });
-    $.$mol_syntax_md_line = new $.$mol_syntax({
+    $.$mol_syntax2_md_line = new $.$mol_syntax2({
         'strong': /\*\*(.+?)\*\*/,
         'emphasis': /\*(?!\s)(.+?)\*/,
         'code3': /```(.+?)```/,
@@ -4366,7 +4340,7 @@ var $;
         'text-link': /\[(.*?(?:\[.*?\].*?)*)\]\((.*?)\)/,
         'image-link': /!\[([^\[\]]*?)\]\((.*?)\)/,
     });
-    $.$mol_syntax_md_code = new $.$mol_syntax({
+    $.$mol_syntax2_md_code = new $.$mol_syntax2({
         'code-docs': /\/\/\/.*?$/,
         'code-comment-block': /(?:\/\*[^]*?\*\/|\/\+[^]*?\+\/|<![^]*?>)/,
         'code-link': /\w+:\/\/\S*/,
@@ -4375,8 +4349,8 @@ var $;
         'code-number': /[+-]?(?:\d*\.)?\d+\w*/,
         'code-call': /\.?\w+(?=\()/,
         'code-field': /(?:\.\w+|[\w-]+\??\s*:(?!\/\/))/,
-        'code-keyword': /\b(class|interface|type|function|extends|implements|module|namespace|import|export|include|require|var|let|const|for|do|while|until|in|of|new|if|then|else|switch|case|this|return|async|await|try|catch|break|continue|get|set|public|private|protected|string|boolean|number|null|undefined|true|false|void)\b/,
-        'code-global': /[$]\w*/,
+        'code-keyword': /\b(readonly|unknown|keyof|typeof|never|from|class|interface|type|function|extends|implements|module|namespace|import|export|include|require|var|let|const|for|do|while|until|in|of|new|if|then|else|switch|case|this|return|async|await|try|catch|break|continue|get|set|public|private|protected|string|boolean|number|null|undefined|true|false|void)\b/,
+        'code-global': /[$]\w*|[A-Z]\w*/,
         'code-decorator': /@\s*\S+/,
         'code-tag': /<\/?[\w-]+\/?>?/,
         'code-punctuation': /[\-\[\]\{\}\(\)<=>`~!\?@#\$%&\*_\+\\\/\|'";:\.,\^]/,
@@ -5207,6 +5181,103 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_image extends $.$mol_view {
+        dom_name() {
+            return "img";
+        }
+        field() {
+            return (Object.assign(Object.assign({}, super.field()), { "src": this.uri(), "alt": this.title() }));
+        }
+        uri() {
+            return "";
+        }
+    }
+    $.$mol_image = $mol_image;
+})($ || ($ = {}));
+//image.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_style_attach("mol/image/image.view.css", "[mol_image] {\n\tbox-shadow: 0 0 0 1px var(--mol_theme_line);\n\tborder-radius: var(--mol_skin_round);\n\toverflow: hidden;\n\tflex: 0 1 auto;\n\tmax-width: 100%;\n}\n");
+})($ || ($ = {}));
+//image.view.css.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_link_iconed extends $.$mol_link {
+        sub() {
+            return [this.Icon()];
+        }
+        Icon() {
+            return ((obj) => {
+                obj.uri = () => this.icon();
+                obj.title = () => "";
+                return obj;
+            })(new this.$.$mol_image());
+        }
+        icon() {
+            return "";
+        }
+        content() {
+            return [this.title()];
+        }
+        title() {
+            return this.uri();
+        }
+        host() {
+            return "";
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_link_iconed.prototype, "Icon", null);
+    $.$mol_link_iconed = $mol_link_iconed;
+})($ || ($ = {}));
+//iconed.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_link_iconed extends $.$mol_link_iconed {
+            icon() {
+                return `https://favicon.yandex.net/favicon/${this.host()}?color=0,0,0,0&size=32&stub=1`;
+            }
+            host() {
+                const url = new URL(this.uri());
+                return url.hostname;
+            }
+            title() {
+                return decodeURIComponent(this.uri().split(this.host(), 2)[1]);
+            }
+            sub() {
+                return [this.Icon(), ...this.content()];
+            }
+        }
+        __decorate([
+            $.$mol_mem
+        ], $mol_link_iconed.prototype, "host", null);
+        __decorate([
+            $.$mol_mem
+        ], $mol_link_iconed.prototype, "title", null);
+        $$.$mol_link_iconed = $mol_link_iconed;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//iconed.view.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_style_attach("mol/link/iconed/iconed.view.css", "[mol_link_iconed] {\n\talign-items: center;\n\tcolor: var(--mol_theme_control);\n}\n\n[mol_link_iconed_icon] {\n\tbox-shadow: none;\n\tmargin-right: 2px;\n\theight: 1em;\n\twidth: 1em;\n\tvertical-align: -10%;\n}\n\n[mol_theme=\"$mol_theme_dark\"] [mol_link_iconed_icon] {\n\tfilter: invert(1);\n}\n");
+})($ || ($ = {}));
+//iconed.view.css.js.map
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_text extends $.$mol_list {
         uri_base() {
             return "";
@@ -5398,7 +5469,7 @@ var $;
     $.$mol_text_span = $mol_text_span;
 })($ || ($ = {}));
 (function ($) {
-    class $mol_text_link extends $.$mol_link {
+    class $mol_text_link extends $.$mol_link_iconed {
         attr() {
             return (Object.assign(Object.assign({}, super.attr()), { "mol_text_type": this.type() }));
         }
@@ -5410,9 +5481,6 @@ var $;
         }
         link(val, force) {
             return (val !== void 0) ? val : "";
-        }
-        sub() {
-            return this.content();
         }
         content(val, force) {
             return (val !== void 0) ? val : [];
@@ -5470,7 +5538,9 @@ var $;
     (function ($$) {
         class $mol_text extends $.$mol_text {
             tokens() {
-                return this.$.$mol_syntax_md_flow.tokenize(this.text());
+                const tokens = [];
+                this.$.$mol_syntax2_md_flow.tokenize(this.text(), (name, found, chunks) => tokens.push({ name, found, chunks }));
+                return tokens;
             }
             rows() {
                 return this.tokens().map((token, index) => {
@@ -5528,66 +5598,73 @@ var $;
                 return url.toString();
             }
             text2spans(prefix, text) {
-                return this.$.$mol_syntax_md_line.tokenize(text).map((token, index) => {
-                    const id = `${prefix}/${index}`;
-                    switch (token.name) {
+                let index = 0;
+                const spans = [];
+                this.$.$mol_syntax2_md_line.tokenize(text, (name, found, chunks) => {
+                    const id = `${prefix}/${index++}`;
+                    switch (name) {
                         case 'text-link': {
-                            if (/^(\w+script+:)+/.test(token.chunks[1])) {
+                            if (/^(\w+script+:)+/.test(chunks[1])) {
                                 const span = this.Span(id);
-                                span.content(this.text2spans(id, token.chunks[0]));
-                                return span;
+                                span.content(this.text2spans(id, chunks[0]));
+                                return spans.push(span);
                             }
                             else {
                                 const span = this.Link(id);
-                                span.type(token.name);
-                                span.link(this.uri_resolve(token.chunks[1]));
-                                span.content(this.text2spans(id, token.chunks[0]));
-                                return span;
+                                span.type(name);
+                                span.link(this.uri_resolve(chunks[1]));
+                                span.content(this.text2spans(id, chunks[0]));
+                                return spans.push(span);
                             }
                         }
                         case 'image-link': {
-                            const span = this.Image(token.chunks[1]);
-                            span.type(token.name);
-                            span.link(this.uri_resolve(token.chunks[1]));
-                            span.title(token.chunks[0]);
-                            return span;
+                            const span = this.Image(chunks[1]);
+                            span.type(name);
+                            span.link(this.uri_resolve(chunks[1]));
+                            span.title(chunks[0]);
+                            return spans.push(span);
                         }
                         case 'code3':
                         case 'code': {
                             const span = this.Span(id);
                             span.type('code');
-                            span.content(this.code2spans(id, token.chunks[0]));
-                            return span;
+                            span.content(this.code2spans(id, chunks[0]));
+                            return spans.push(span);
                         }
                     }
                     const span = this.Span(id);
-                    span.type(token.name);
-                    span.content(token.name
-                        ? [].concat.apply([], token.chunks.map((text, index) => this.text2spans(`${id}/${index}`, text)))
-                        : [token.found]);
-                    return span;
+                    span.type(name);
+                    span.content(name
+                        ? [].concat.apply([], chunks.map((text, index) => this.text2spans(`${id}/${index}`, text)))
+                        : [found]);
+                    spans.push(span);
                 });
+                return spans;
             }
             code2spans(prefix, text) {
-                return this.$.$mol_syntax_md_code.tokenize(text).map((token, index) => {
-                    const id = `${prefix}/${index}`;
+                let index = 0;
+                const spans = [];
+                this.$.$mol_syntax2_md_code.tokenize(text, (name, found, chunks) => {
+                    const id = `${prefix}/${index++}`;
                     const span = this.Span(id);
-                    span.type(token.name);
-                    switch (token.name) {
+                    span.type(name);
+                    spans.push(span);
+                    switch (name) {
                         case 'code-docs': {
-                            span.content(this.text2spans(`${id}/${index}`, token.found));
+                            span.content(this.text2spans(`${id}/${index}`, found));
                             return span;
                         }
                         case 'code-string': {
-                            span.content([token.found[0], ...this.code2spans(`${id}/${index}`, token.found.slice(1, token.found.length - 1)), token.found[token.found.length - 1]]);
+                            span.content([found[0], ...this.code2spans(`${id}/${index}`, found.slice(1, found.length - 1)), found[found.length - 1]]);
                             return span;
                         }
                         default: {
-                            span.content([token.found]);
+                            span.content([found]);
                             return span;
                         }
                     }
                 });
+                return spans;
             }
             block_content(indexBlock) {
                 const token = this.tokens()[indexBlock];
