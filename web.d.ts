@@ -352,6 +352,10 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    type $mol_type_result<Func> = Func extends (...params: any) => infer Result ? Result : Func extends new (...params: any) => infer Result ? Result : never;
+}
+
+declare namespace $ {
     class $mol_mem_force extends Object {
         constructor();
         $mol_mem_force: boolean;
@@ -369,7 +373,16 @@ declare namespace $ {
 declare namespace $ {
     let $mol_mem_cached: typeof $mol_atom2_value;
     function $mol_mem_persist(): void;
-    function $mol_mem<Host extends object, Field extends keyof Host, Value>(proto: Host, name: Field, descr?: TypedPropertyDescriptor<(next?: Value, force?: $mol_mem_force) => Value>): any;
+    function $mol_mem<Host extends object, Field extends keyof Host, Prop extends Extract<Host[Field], (next?: Value) => Value>, Value extends $mol_type_result<Prop>>(proto: Host, name: Field, descr?: TypedPropertyDescriptor<Prop>): {
+        value: ((this: Host, next?: Value | undefined, force?: $mol_mem_force | undefined) => any) & {
+            orig: NonNullable<Prop>;
+        };
+        enumerable?: boolean | undefined;
+        configurable?: boolean | undefined;
+        writable?: boolean | undefined;
+        get?: (() => Prop) | undefined;
+        set?: ((value: Prop) => void) | undefined;
+    };
 }
 
 declare namespace $ {
@@ -406,10 +419,6 @@ declare namespace $ {
 
 declare namespace $ {
     type $mol_type_param<Func, Index extends number> = Func extends (...params: infer Params) => any ? Params[Index] : Func extends new (...params: infer Params2) => any ? Params2[Index] : never;
-}
-
-declare namespace $ {
-    type $mol_type_result<Func> = Func extends (...params: any) => infer Result ? Result : Func extends new (...params: any) => infer Result ? Result : never;
 }
 
 declare namespace $ {
@@ -801,6 +810,9 @@ declare namespace $ {
             anchor?: 'auto' | 'none' | Common;
         };
         webkitOverflowScrolling?: 'auto' | 'touch';
+        scrollbar: {
+            color: [Color, Color] | 'dark' | 'light' | 'auto' | Common;
+        };
         width?: Size;
         minWidth?: Size;
         maxWidth?: Size;
@@ -1261,12 +1273,14 @@ declare namespace $ {
             target: string;
             download: string;
             mol_link_current: boolean;
+            mol_theme: any;
         };
         uri(): string;
         hint(): string;
         target(): string;
         file_name(): string;
         current(): boolean;
+        theme(): any;
         sub(): readonly $mol_view_content[];
         arg(): {};
         event(): {
@@ -1320,6 +1334,7 @@ declare namespace $.$$ {
         event_click(event?: Event): void;
         file_name(): string;
         minimal_height(): number;
+        theme(): "$mol_theme_base" | null;
     }
 }
 
@@ -1795,6 +1810,7 @@ declare namespace $ {
             target: string;
             download: string;
             mol_link_current: boolean;
+            mol_theme: any;
         };
         type(val?: any, force?: $mol_mem_force): any;
         uri(): any;
