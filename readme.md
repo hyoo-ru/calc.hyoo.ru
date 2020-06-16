@@ -1,4 +1,6 @@
-# [$hyoo_calc](http://mol.js.org/app/calc/) - simple spreedsheet app
+# $hyoo_calc
+
+Simple spreedsheet app.
 
 # Examples
 
