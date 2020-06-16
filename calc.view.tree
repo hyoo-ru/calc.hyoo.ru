@@ -16,11 +16,8 @@ $hyoo_calc $mol_page
 			uri_generated <= download_uri?val \
 			sub /
 				<= Download_icon $mol_icon_load
-		<= Source $mol_link
+		<= Source $mol_link_source
 			uri \https://github.com/hyoo-ru/calc.hyoo.ru
-			hint <= source_hint @ \Sources
-			sub /
-				<= Source_icon $mol_icon_github_circle
 	sub /
 		<= Head
 		<= Current $mol_bar
