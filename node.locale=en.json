@@ -2,6 +2,6 @@
 	"$hyoo_calc_download_hint": "Download CSV",
 	"$hyoo_calc_hint": "**$.A1** - result of A1, **$$.A1** - formula of A1, **a=** - define variable, **_.a** - value of variable, **__.a** - cell id of variable, **A1:C3** - range of cells, use [**JavaScript**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference) for other.\n**Available funcs**: {funcs}.",
 	"$hyoo_calc_snapshot_hint": "Save snapshot",
-	"$hyoo_calc_source_hint": "Sources",
-	"$hyoo_calc_title": "Spreedsheet"
+	"$hyoo_calc_title": "Spreedsheet",
+	"$mol_link_source_hint": "Source code"
 }

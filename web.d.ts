@@ -1582,6 +1582,14 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $mol_link_source extends $mol_link {
+        hint(): string;
+        sub(): readonly any[];
+        Icon(): $mol_icon_github_circle;
+    }
+}
+
+declare namespace $ {
     class $mol_bar extends $mol_view {
     }
 }
@@ -2197,9 +2205,7 @@ declare namespace $ {
         download_file(): string;
         download_uri(val?: any, force?: $mol_mem_force): any;
         Download_icon(): $mol_icon_load;
-        Source(): $$.$mol_link;
-        source_hint(): string;
-        Source_icon(): $mol_icon_github_circle;
+        Source(): $mol_link_source;
         sub(): readonly any[];
         Current(): $mol_bar;
         Pos(): $$.$mol_string;

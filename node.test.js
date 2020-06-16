@@ -4214,6 +4214,7 @@ var $;
                     background: {
                         color: $.$mol_theme.back,
                     },
+                    color: $.$mol_theme.text,
                 }
             }
         },
@@ -4558,6 +4559,29 @@ var $;
     $.$mol_icon_github_circle = $mol_icon_github_circle;
 })($ || ($ = {}));
 //circle.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_link_source extends $.$mol_link {
+        hint() {
+            return this.$.$mol_locale.text("$mol_link_source_hint");
+        }
+        sub() {
+            return [this.Icon()];
+        }
+        Icon() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mol_icon_github_circle());
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_link_source.prototype, "Icon", null);
+    $.$mol_link_source = $mol_link_source;
+})($ || ($ = {}));
+//source.view.tree.js.map
 ;
 "use strict";
 var $;
@@ -6551,18 +6575,8 @@ var $;
         Source() {
             return ((obj) => {
                 obj.uri = () => "https://github.com/hyoo-ru/calc.hyoo.ru";
-                obj.hint = () => this.source_hint();
-                obj.sub = () => [this.Source_icon()];
                 return obj;
-            })(new this.$.$mol_link());
-        }
-        source_hint() {
-            return this.$.$mol_locale.text("$hyoo_calc_source_hint");
-        }
-        Source_icon() {
-            return ((obj) => {
-                return obj;
-            })(new this.$.$mol_icon_github_circle());
+            })(new this.$.$mol_link_source());
         }
         sub() {
             return [this.Head(), this.Current(), this.Hint(), this.Body()];
@@ -6733,9 +6747,6 @@ var $;
     __decorate([
         $.$mol_mem
     ], $hyoo_calc.prototype, "Source", null);
-    __decorate([
-        $.$mol_mem
-    ], $hyoo_calc.prototype, "Source_icon", null);
     __decorate([
         $.$mol_mem
     ], $hyoo_calc.prototype, "Current", null);
