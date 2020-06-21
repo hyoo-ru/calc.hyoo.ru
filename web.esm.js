@@ -6754,9 +6754,15 @@ var $;
 
 			`);
             let context_default = {};
-            for (let name of Object.getOwnPropertyNames(win)) {
-                context_default[name] = undefined;
+            function clean(obj) {
+                for (let name of Object.getOwnPropertyNames(obj)) {
+                    context_default[name] = undefined;
+                }
+                const proto = Object.getPrototypeOf(obj);
+                if (proto)
+                    clean(proto);
             }
+            clean(win);
             return this._make = ((...contexts) => {
                 const context_merged = {};
                 for (let context of contexts) {
