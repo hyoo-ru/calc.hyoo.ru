@@ -13,8 +13,7 @@
 
 [hyoo_calc_pos] {
 	flex: none;
-	width: 2ch;
-	box-sizing: content-box;
+	width: 2.5rem;
 	font-family: var(--mol_skin_font_monospace);
 }	
 
