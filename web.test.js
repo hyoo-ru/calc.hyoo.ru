@@ -2171,6 +2171,105 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    $.$mol_test({
+        'all cases of using maybe'() {
+            $.$mol_assert_equal($.$mol_maybe(0)[0], 0);
+            $.$mol_assert_equal($.$mol_maybe(false)[0], false);
+            $.$mol_assert_equal($.$mol_maybe(null)[0], void 0);
+            $.$mol_assert_equal($.$mol_maybe(void 0)[0], void 0);
+            $.$mol_assert_equal($.$mol_maybe(void 0).map(v => v.toString())[0], void 0);
+            $.$mol_assert_equal($.$mol_maybe(0).map(v => v.toString())[0], '0');
+        },
+    });
+})($ || ($ = {}));
+//maybe.test.js.map
+;
+"use strict";
+var $;
+(function ($_1) {
+    $_1.$mol_test_mocks.push(context => {
+        class $mol_state_arg_mock extends $_1.$mol_state_arg {
+            static href(next) { return next || ''; }
+        }
+        $mol_state_arg_mock.$ = context;
+        __decorate([
+            $_1.$mol_mem
+        ], $mol_state_arg_mock, "href", null);
+        context.$mol_state_arg = $mol_state_arg_mock;
+    });
+    $_1.$mol_test({
+        'args as dictionary'($) {
+            $.$mol_state_arg.href('#foo=bar/xxx');
+            $_1.$mol_assert_like($.$mol_state_arg.dict(), { foo: 'bar', xxx: '' });
+            $.$mol_state_arg.dict({ foo: null, yyy: '', lol: '123' });
+            $_1.$mol_assert_equal($.$mol_state_arg.href().replace(/.*#/, '#'), '#yyy/lol=123');
+        },
+        'one value from args'($) {
+            $.$mol_state_arg.href('#foo=bar/xxx');
+            $_1.$mol_assert_equal($.$mol_state_arg.value('foo'), 'bar');
+            $_1.$mol_assert_equal($.$mol_state_arg.value('xxx'), '');
+            $.$mol_state_arg.value('foo', 'lol');
+            $_1.$mol_assert_equal($.$mol_state_arg.href().replace(/.*#/, '#'), '#foo=lol/xxx');
+            $.$mol_state_arg.value('foo', '');
+            $_1.$mol_assert_equal($.$mol_state_arg.href().replace(/.*#/, '#'), '#foo/xxx');
+            $.$mol_state_arg.value('foo', null);
+            $_1.$mol_assert_equal($.$mol_state_arg.href().replace(/.*#/, '#'), '#xxx');
+        },
+        'nested args'($) {
+            const base = new $.$mol_state_arg('nested.');
+            class Nested extends $_1.$mol_state_arg {
+                constructor(prefix) {
+                    super(base.prefix + prefix);
+                }
+            }
+            Nested.value = (key, next) => base.value(key, next);
+            $.$mol_state_arg.href('#foo=bar/nested.xxx=123');
+            $_1.$mol_assert_equal(Nested.value('foo'), null);
+            $_1.$mol_assert_equal(Nested.value('xxx'), '123');
+            Nested.value('foo', 'lol');
+            $_1.$mol_assert_equal($.$mol_state_arg.href().replace(/.*#/, '#'), '#foo=bar/nested.xxx=123/nested.foo=lol');
+        },
+    });
+})($ || ($ = {}));
+//arg.web.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_test({
+        '$mol_syntax2_md_flow'() {
+            const check = (input, right) => {
+                const tokens = [];
+                $.$mol_syntax2_md_flow.tokenize(input, (...token) => tokens.push(token));
+                $.$mol_assert_like(JSON.stringify(tokens), JSON.stringify(right));
+            };
+            check('Hello,\nWorld..\r\n\r\n\nof Love!', [
+                ['block', 'Hello,\nWorld..\r\n\r\n\n', ['Hello,\nWorld..', '\r\n\r\n\n'], 0],
+                ['block', 'of Love!', ['of Love!', ''], 19],
+            ]);
+            check('# Header1\n\nHello!\n\n## Header2', [
+                ['header', '# Header1\n\n', ['#', ' ', 'Header1', '\n\n'], 0],
+                ['block', 'Hello!\n\n', ['Hello!', '\n\n'], 11],
+                ['header', '## Header2', ['##', ' ', 'Header2', ''], 19],
+            ]);
+            check('```\nstart()\n```\n\n```js\nrestart()\n```\n\nHello!\n\n```\nstop()\n```', [
+                ['code', '```\nstart()\n```\n\n', ['```', '', 'start()\n', '```', '\n\n'], 0],
+                ['code', '```js\nrestart()\n```\n\n', ['```', 'js', 'restart()\n', '```', '\n\n'], 17],
+                ['block', 'Hello!\n\n', ['Hello!', '\n\n'], 38],
+                ['code', '```\nstop()\n```', ['```', '', 'stop()\n', '```', ''], 46],
+            ]);
+            check('| header1 | header2\n|----|----\n| Cell11 | Cell12\n| Cell21 | Cell22\n\n| Cell11 | Cell12\n| Cell21 | Cell22\n', [
+                ['table', '| header1 | header2\n|----|----\n| Cell11 | Cell12\n| Cell21 | Cell22\n\n', ['| header1 | header2\n|----|----\n| Cell11 | Cell12\n| Cell21 | Cell22\n', '\n'], 0],
+                ['table', '| Cell11 | Cell12\n| Cell21 | Cell22\n', ['| Cell11 | Cell12\n| Cell21 | Cell22\n', ''], 68],
+            ]);
+        },
+    });
+})($ || ($ = {}));
+//md.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
     $.$mol_test_mocks.push(context => {
         class $mol_state_local_mock extends $.$mol_state_local {
             static value(key, next = this.state[key], force) {
@@ -2232,105 +2331,6 @@ var $;
     });
 })($ || ($ = {}));
 //encode.test.js.map
-;
-"use strict";
-var $;
-(function ($_1) {
-    $_1.$mol_test_mocks.push(context => {
-        class $mol_state_arg_mock extends $_1.$mol_state_arg {
-            static href(next) { return next || ''; }
-        }
-        $mol_state_arg_mock.$ = context;
-        __decorate([
-            $_1.$mol_mem
-        ], $mol_state_arg_mock, "href", null);
-        context.$mol_state_arg = $mol_state_arg_mock;
-    });
-    $_1.$mol_test({
-        'args as dictionary'($) {
-            $.$mol_state_arg.href('#foo=bar/xxx');
-            $_1.$mol_assert_like($.$mol_state_arg.dict(), { foo: 'bar', xxx: '' });
-            $.$mol_state_arg.dict({ foo: null, yyy: '', lol: '123' });
-            $_1.$mol_assert_equal($.$mol_state_arg.href().replace(/.*#/, '#'), '#yyy/lol=123');
-        },
-        'one value from args'($) {
-            $.$mol_state_arg.href('#foo=bar/xxx');
-            $_1.$mol_assert_equal($.$mol_state_arg.value('foo'), 'bar');
-            $_1.$mol_assert_equal($.$mol_state_arg.value('xxx'), '');
-            $.$mol_state_arg.value('foo', 'lol');
-            $_1.$mol_assert_equal($.$mol_state_arg.href().replace(/.*#/, '#'), '#foo=lol/xxx');
-            $.$mol_state_arg.value('foo', '');
-            $_1.$mol_assert_equal($.$mol_state_arg.href().replace(/.*#/, '#'), '#foo/xxx');
-            $.$mol_state_arg.value('foo', null);
-            $_1.$mol_assert_equal($.$mol_state_arg.href().replace(/.*#/, '#'), '#xxx');
-        },
-        'nested args'($) {
-            const base = new $.$mol_state_arg('nested.');
-            class Nested extends $_1.$mol_state_arg {
-                constructor(prefix) {
-                    super(base.prefix + prefix);
-                }
-            }
-            Nested.value = (key, next) => base.value(key, next);
-            $.$mol_state_arg.href('#foo=bar/nested.xxx=123');
-            $_1.$mol_assert_equal(Nested.value('foo'), null);
-            $_1.$mol_assert_equal(Nested.value('xxx'), '123');
-            Nested.value('foo', 'lol');
-            $_1.$mol_assert_equal($.$mol_state_arg.href().replace(/.*#/, '#'), '#foo=bar/nested.xxx=123/nested.foo=lol');
-        },
-    });
-})($ || ($ = {}));
-//arg.web.test.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    $.$mol_test({
-        'all cases of using maybe'() {
-            $.$mol_assert_equal($.$mol_maybe(0)[0], 0);
-            $.$mol_assert_equal($.$mol_maybe(false)[0], false);
-            $.$mol_assert_equal($.$mol_maybe(null)[0], void 0);
-            $.$mol_assert_equal($.$mol_maybe(void 0)[0], void 0);
-            $.$mol_assert_equal($.$mol_maybe(void 0).map(v => v.toString())[0], void 0);
-            $.$mol_assert_equal($.$mol_maybe(0).map(v => v.toString())[0], '0');
-        },
-    });
-})($ || ($ = {}));
-//maybe.test.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    $.$mol_test({
-        '$mol_syntax2_md_flow'() {
-            const check = (input, right) => {
-                const tokens = [];
-                $.$mol_syntax2_md_flow.tokenize(input, (...token) => tokens.push(token));
-                $.$mol_assert_like(JSON.stringify(tokens), JSON.stringify(right));
-            };
-            check('Hello,\nWorld..\r\n\r\n\nof Love!', [
-                ['block', 'Hello,\nWorld..\r\n\r\n\n', ['Hello,\nWorld..', '\r\n\r\n\n'], 0],
-                ['block', 'of Love!', ['of Love!', ''], 19],
-            ]);
-            check('# Header1\n\nHello!\n\n## Header2', [
-                ['header', '# Header1\n\n', ['#', ' ', 'Header1', '\n\n'], 0],
-                ['block', 'Hello!\n\n', ['Hello!', '\n\n'], 11],
-                ['header', '## Header2', ['##', ' ', 'Header2', ''], 19],
-            ]);
-            check('```\nstart()\n```\n\n```js\nrestart()\n```\n\nHello!\n\n```\nstop()\n```', [
-                ['code', '```\nstart()\n```\n\n', ['```', '', 'start()\n', '```', '\n\n'], 0],
-                ['code', '```js\nrestart()\n```\n\n', ['```', 'js', 'restart()\n', '```', '\n\n'], 17],
-                ['block', 'Hello!\n\n', ['Hello!', '\n\n'], 38],
-                ['code', '```\nstop()\n```', ['```', '', 'stop()\n', '```', ''], 46],
-            ]);
-            check('| header1 | header2\n|----|----\n| Cell11 | Cell12\n| Cell21 | Cell22\n\n| Cell11 | Cell12\n| Cell21 | Cell22\n', [
-                ['table', '| header1 | header2\n|----|----\n| Cell11 | Cell12\n| Cell21 | Cell22\n\n', ['| header1 | header2\n|----|----\n| Cell11 | Cell12\n| Cell21 | Cell22\n', '\n'], 0],
-                ['table', '| Cell11 | Cell12\n| Cell21 | Cell22\n', ['| Cell11 | Cell12\n| Cell21 | Cell22\n', ''], 68],
-            ]);
-        },
-    });
-})($ || ($ = {}));
-//md.test.js.map
 ;
 "use strict";
 //equals.test.js.map
