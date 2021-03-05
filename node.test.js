@@ -3293,7 +3293,6 @@ var $;
     var $$;
     (function ($$) {
         const { per, rem } = $.$mol_style_unit;
-        const { calc } = $.$mol_style_func;
         $.$mol_style_define($$.$mol_page, {
             display: 'flex',
             margin: 0,
@@ -3310,7 +3309,6 @@ var $;
                 color: $.$mol_theme.back,
             },
             color: $.$mol_theme.text,
-            zIndex: 0,
             ':focus': {
                 outline: 'none',
             },
@@ -3327,7 +3325,6 @@ var $;
                     color: $.$mol_theme.back,
                 },
                 boxShadow: `0 0.5rem 0.5rem -0.5rem hsla(0,0%,0%,.25)`,
-                zIndex: 1,
             },
             Title: {
                 minHeight: rem(2),
