@@ -2042,11 +2042,10 @@ declare namespace $.$$ {
 
 declare namespace $ {
     class $mol_text_code_row extends $mol_paragraph {
-        attr(): {
-            mol_text_code_row_numb: number;
-        };
         text(): string;
         minimal_height(): number;
+        numb_showed(): boolean;
+        Numb(): $mol_view;
         Token(id: any): $mol_text_code_token;
         Token_link(id: any): $mol_text_code_token_link;
         numb(): number;
@@ -2067,7 +2066,7 @@ declare namespace $.$$ {
             found: string;
             chunks: string[];
         }[];
-        sub(): $mol_text_code_token[];
+        sub(): $mol_view[];
         row_content(path: number[]): $mol_text_code_token[];
         Token(path: number[]): $mol_text_code_token;
         token_type(path: number[]): string;
@@ -2082,6 +2081,7 @@ declare namespace $ {
         text(): string;
         text_lines(): readonly string[];
         Row(id: any): $$.$mol_text_code_row;
+        sidebar_showed(): boolean;
         row_numb(id: any): number;
         row_text(id: any): string;
         highlight(): string;
@@ -2104,6 +2104,7 @@ declare namespace $ {
     class $mol_textarea extends $mol_view {
         attr(): {
             mol_textarea_clickable: any;
+            mol_textarea_sidebar_showed: boolean;
         };
         event(): {
             keydown: (event?: any) => any;
@@ -2111,6 +2112,7 @@ declare namespace $ {
         };
         sub(): readonly any[];
         clickable(val?: any): any;
+        sidebar_showed(): boolean;
         press(event?: any): any;
         hover(event?: any): any;
         value(val?: any): any;
@@ -2118,6 +2120,7 @@ declare namespace $ {
         enabled(): boolean;
         length_max(): number;
         Edit(): $$.$mol_string;
+        row_numb(index: any): number;
         View(): $$.$mol_text_code;
     }
 }
@@ -2131,6 +2134,7 @@ declare namespace $.$$ {
         indent_dec(): void;
         hover(event: PointerEvent): void;
         press(event: KeyboardEvent): void;
+        row_numb(index: number): number;
     }
 }
 
