@@ -2095,6 +2095,9 @@ declare namespace $.$$ {
 
 declare namespace $ {
     class $mol_text_code extends $mol_list {
+        attr(): {
+            mol_text_code_sidebar_showed: boolean;
+        };
         text(): string;
         text_lines(): readonly string[];
         Row(id: any): $$.$mol_text_code_row;
