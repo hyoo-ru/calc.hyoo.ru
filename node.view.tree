@@ -41,6 +41,9 @@ $mol_string $mol_view
 	enabled true
 	minimal_height 40
 	autocomplete false
+	selection?val /number
+	auto /
+		<= selection_watcher null
 	field *
 		^
 		disabled <= disabled false
@@ -48,6 +51,8 @@ $mol_string $mol_view
 		placeholder <= hint \
 		spellcheck <= spellcheck false
 		autocomplete <= autocomplete_native \
+		selectionEnd <= selection_end 0
+		selectionStart <= selection_start 0
 	attr *
 		^
 		maxlength <= length_max Infinity
@@ -115,7 +120,7 @@ $mol_check $mol_button_minor
 		mol_check_checked <= checked?val false
 		aria-checked <= checked?val false
 		role \checkbox
-	sub /
+	sub /$mol_view_content
 		<= Icon null
 		<= label /
 			<= Title $mol_view
@@ -379,6 +384,7 @@ $mol_textarea $mol_view
 			hint <= hint \
 			enabled <= enabled true
 			length_max <= length_max Infinity
+			selection?val <=> selection?val /number
 		<= View $mol_text_code
 			text <= value
 			render_visible_only false
