@@ -22,7 +22,7 @@ namespace $.$$ {
 		@ $mol_mem_key
 		formula_name( id : string ) {
 			
-			const found = /^(\w*)\s*=/u.exec( this.formulas()[ id ] )
+			const found = /^([\p{Letter}_]*)\s*=/u.exec( this.formulas()[ id ] )
 			if( !found ) return null
 
 			return found[1]
@@ -254,13 +254,13 @@ namespace $.$$ {
 		@ $mol_mem_key
 		func( id : string ) {
 			const formula = this.formula( id )
-			if( !/^(\w*)?\s*=/u.test( formula ) ) return ()=> formula
+			if( !/^([\p{Letter}_]*)?\s*=/u.test( formula ) ) return ()=> formula
 			
 			const code = 'return ' + formula
 			.replace( /([A-Z]+[0-9]+):([A-Z]+[0-9]+)/g , ( found : string , from : string , to : string )=> `RANGE('${ from.toLowerCase() }','${ to.toLowerCase() }')` )
 			.replace( /@([A-Z]+[0-9]+)\b/g , '$$.$1' )
 			.replace( /([^.])([A-Z]+[0-9]+)\b/g , '$1$.$2' )
-			.replace( /^(\w*)?\s*=/u , '' )
+			.replace( /^([\p{Letter}_]*)?\s*=/u , '' )
 			
 			return this.sandbox().eval( code )
 		}
