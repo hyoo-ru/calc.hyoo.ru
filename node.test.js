@@ -8192,7 +8192,7 @@ var $;
                 return formulas;
             }
             formula_name(id) {
-                const found = /^(\w*)\s*=/u.exec(this.formulas()[id]);
+                const found = /^([\p{Letter}_]*)\s*=/u.exec(this.formulas()[id]);
                 if (!found)
                     return null;
                 return found[1];
@@ -8354,13 +8354,13 @@ var $;
             }
             func(id) {
                 const formula = this.formula(id);
-                if (!/^(\w*)?\s*=/u.test(formula))
+                if (!/^([\p{Letter}_]*)?\s*=/u.test(formula))
                     return () => formula;
                 const code = 'return ' + formula
                     .replace(/([A-Z]+[0-9]+):([A-Z]+[0-9]+)/g, (found, from, to) => `RANGE('${from.toLowerCase()}','${to.toLowerCase()}')`)
                     .replace(/@([A-Z]+[0-9]+)\b/g, '$$.$1')
                     .replace(/([^.])([A-Z]+[0-9]+)\b/g, '$1$.$2')
-                    .replace(/^(\w*)?\s*=/u, '');
+                    .replace(/^([\p{Letter}_]*)?\s*=/u, '');
                 return this.sandbox().eval(code);
             }
             result(id) {
