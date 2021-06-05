@@ -28,6 +28,7 @@
 [hyoo_calc_body] {
 	align-self: stretch;
 	flex: auto;
+	padding: 0;
 }
 
 [hyoo_calc_col_head] ,
