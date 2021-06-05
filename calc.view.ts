@@ -1,12 +1,16 @@
 namespace $.$$ {
 
 	export class $hyoo_calc extends $.$hyoo_calc {
+		
+		formulas_default() {
+			return this.$.$mol_state_arg.dict()
+		}
 
 		@ $mol_mem
 		formulas( next? : { [ key : string ] : string } ) :  { [ key : string ] : string } {
 			const formulas : typeof next = {}
 			
-			let args = this.$.$mol_state_arg.dict()
+			let args = this.formulas_default()
 			if( next ) return {
 				... $mol_mem_cached( ()=> this.formulas() ) ?? {} ,
 				... next

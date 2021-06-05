@@ -1,4 +1,5 @@
 $hyoo_calc $mol_page
+	formulas_default *
 	formula!id?val \
 	head /
 		<= Title_edit $mol_string
