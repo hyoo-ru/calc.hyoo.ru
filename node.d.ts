@@ -2441,6 +2441,7 @@ declare namespace $.$$ {
 
 declare namespace $ {
     class $hyoo_calc extends $mol_page {
+        formulas_default(): {};
         formula(id: any, val?: any): any;
         head(): readonly any[];
         tools(): readonly any[];
@@ -2524,6 +2525,9 @@ declare namespace $ {
 
 declare namespace $.$$ {
     class $hyoo_calc extends $.$hyoo_calc {
+        formulas_default(): {
+            [key: string]: string;
+        };
         formulas(next?: {
             [key: string]: string;
         }): {

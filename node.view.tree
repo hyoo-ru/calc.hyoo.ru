@@ -442,6 +442,7 @@ $mol_nav $mol_plugin
 		keydown?event <=> event_key?event null
 
 $hyoo_calc $mol_page
+	formulas_default *
 	formula!id?val \
 	head /
 		<= Title_edit $mol_string

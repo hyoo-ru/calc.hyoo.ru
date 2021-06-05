@@ -7680,6 +7680,9 @@ var $;
 var $;
 (function ($) {
     class $hyoo_calc extends $.$mol_page {
+        formulas_default() {
+            return {};
+        }
         formula(id, val) {
             if (val !== undefined)
                 return val;
@@ -8186,9 +8189,12 @@ var $;
     var $$;
     (function ($$) {
         class $hyoo_calc extends $.$hyoo_calc {
+            formulas_default() {
+                return this.$.$mol_state_arg.dict();
+            }
             formulas(next) {
                 const formulas = {};
-                let args = this.$.$mol_state_arg.dict();
+                let args = this.formulas_default();
                 if (next)
                     return {
                         ...$.$mol_mem_cached(() => this.formulas()) ?? {},
