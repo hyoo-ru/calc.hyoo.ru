@@ -57,7 +57,7 @@ $hyoo_calc $mol_page
 			mod_alt true
 			keys_x <= col_ids /
 			keys_y <= row_ids /
-			current_x?val <=> current_col?val \A
+			current_x?val <=> current_col?val 1
 			current_y?val <=> current_row?val 1
 	event *
 		paste?event <=> paste?event null
