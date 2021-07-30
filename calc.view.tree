@@ -23,9 +23,9 @@ $hyoo_calc $mol_page
 		<= Head
 		<= Current $mol_bar
 			sub /
-				<= Pos $mol_string
+				<= Pos $mol_button_minor
 					enabled false
-					value <= pos?val \A1
+					title <= pos?val \A1
 				<= Edit_current $mol_textarea
 				<= Hint_trigger $mol_check_icon
 					checked?val <=> hint_showed?val false
@@ -34,6 +34,7 @@ $hyoo_calc $mol_page
 			text <= hint @ \
 				\**$.A1** - result of A1, **$$.A1** - formula of A1, **a=** - define variable, **_.a** - value of variable, **__.a** - cell id of variable, **A1:C3** - range of cells, use [**JavaScript**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference) for other.
 				\**Available funcs**: {funcs}.
+				\Use Alt + Arrows to switch between cells.
 		<= Body $mol_grid
 			col_ids <= col_ids /
 			row_ids <= row_ids /

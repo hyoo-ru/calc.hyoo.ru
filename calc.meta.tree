@@ -1,0 +1,3 @@
+include \/mol/offline/install
+
+deploy \/hyoo/calc/calc_logo.svg
