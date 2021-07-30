@@ -48,7 +48,7 @@ $mol_string $mol_view
 		^
 		disabled <= disabled false
 		value <= value_changed?val <=> value?val \
-		placeholder <= hint \
+		placeholder <= hint \ 
 		spellcheck <= spellcheck false
 		autocomplete <= autocomplete_native \
 		selectionEnd <= selection_end 0
@@ -169,7 +169,7 @@ $mol_check_expand $mol_check
 
 $mol_paragraph $mol_view
 	line_height 24
-	letter_width 8
+	letter_width 7
 	width_limit Infinity
 	sub / <= title
 
@@ -431,8 +431,8 @@ $mol_nav $mol_plugin
 	keys_x?val /
 	keys_y?val /
 	-
-	current_x?val \
-	current_y?val \
+	current_x?val null
+	current_y?val null
 	-
 	event_up?event null
 	event_down?event null
@@ -501,7 +501,7 @@ $hyoo_calc $mol_page
 			mod_alt true
 			keys_x <= col_ids /
 			keys_y <= row_ids /
-			current_x?val <=> current_col?val \A
+			current_x?val <=> current_col?val 1
 			current_y?val <=> current_row?val 1
 	event *
 		paste?event <=> paste?event null
