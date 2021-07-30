@@ -14,6 +14,13 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    function $mol_offline(uri?: string): void;
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
     const $mol_ambient_ref: unique symbol;
     type $mol_ambient_context = $;
     function $mol_ambient(this: $ | void, overrides: Partial<$>): $;
@@ -2297,7 +2304,7 @@ declare namespace $ {
         Download(): $$.$mol_link_lazy;
         Source(): $mol_link_source;
         pos(val?: any): string;
-        Pos(): $$.$mol_string;
+        Pos(): $mol_button_minor;
         Edit_current(): $$.$mol_textarea;
         hint_showed(val?: any): boolean;
         Hint_trigger_icon(): $mol_icon_hint;

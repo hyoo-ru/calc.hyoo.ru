@@ -27,6 +27,21 @@ var $node = $node || {} ; $node[ "/mol/mol_logo.svg" ] = "data:image/svg+xml;bas
 "use strict";
 var $;
 (function ($) {
+    function $mol_offline(uri = 'web.js') { }
+    $.$mol_offline = $mol_offline;
+})($ || ($ = {}));
+//offline.node.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_offline();
+})($ || ($ = {}));
+//install.js.map
+;
+"use strict";
+var $;
+(function ($) {
     $.$mol_ambient_ref = Symbol('$mol_ambient_ref');
     function $mol_ambient(overrides) {
         return Object.setPrototypeOf(overrides, this || $);
@@ -7623,9 +7638,9 @@ var $;
             return "A1";
         }
         Pos() {
-            const obj = new this.$.$mol_string();
+            const obj = new this.$.$mol_button_minor();
             obj.enabled = () => false;
-            obj.value = () => this.pos();
+            obj.title = () => this.pos();
             return obj;
         }
         Edit_current() {
@@ -8041,7 +8056,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $.$mol_style_attach("hyoo/calc/calc.view.css", "[hyoo_calc_title_edit]:enabled {\n\tcolor: inherit;\n\tbackground: transparent;\n\twidth: auto;\n\tflex: 1000 1 auto;\n\tbox-shadow: none;\n\tpadding: .5rem;\n}\n\n[hyoo_calc_current] {\n\tflex: none;\n}\n\n[hyoo_calc_pos] {\n\tflex: none;\n\twidth: 2.5rem;\n\tfont-family: var(--mol_skin_font_monospace);\n}\t\n\n[hyoo_calc_hint] {\n\tmax-width: none;\n}\n\n[hyoo_calc_hint_trigger] {\n\talign-items: center;\n}\n\n[hyoo_calc_body] {\n\talign-self: stretch;\n\tflex: auto;\n\tpadding: 0;\n}\n\n[hyoo_calc_col_head] ,\n[hyoo_calc_row_head] {\n\tfont-family: var(--mol_skin_font_monospace);\n\tbackground: var(--mol_theme_back);\n\tcolor: var(--mol_theme_shade);\n\tuser-select: none;\n\tfont-weight: inherit;\n}\n\n[hyoo_calc_col_head] {\n\ttext-align: left;\n}\n\n[hyoo_calc_row_head] {\n\tmin-width: 2ch;\n\ttext-align: right;\n}\n\n[hyoo_calc_cell] {\n\tuser-select: text;\n\tbackground: var(--mol_theme_back);\n}\n\n[hyoo_calc_cell_selected] {\n\tbox-shadow: 0 0 0 1px var(--mol_theme_focus);\n\tz-index: 1;\n}\n\n[hyoo_calc_cell_type=\"number\"] {\n\ttext-align: right;\n}\n");
+    $.$mol_style_attach("hyoo/calc/calc.view.css", "[hyoo_calc_title_edit]:enabled {\n\tcolor: inherit;\n\tbackground: transparent;\n\twidth: auto;\n\tflex: 1000 1 auto;\n\tbox-shadow: none;\n\tpadding: .5rem;\n}\n\n[hyoo_calc_current] {\n\tflex: none;\n}\n\n[hyoo_calc_pos] {\n\tflex: none;\n\twidth: 2.5rem;\n\tfont-family: var(--mol_skin_font_monospace);\n}\t\n\n[hyoo_calc_hint] {\n\tmax-width: none;\n\tpadding: 0;\n}\n\n[hyoo_calc_hint_trigger] {\n\talign-items: center;\n}\n\n[hyoo_calc_body] {\n\talign-self: stretch;\n\tflex: auto;\n\tpadding: 0;\n}\n\n[hyoo_calc_col_head] ,\n[hyoo_calc_row_head] {\n\tfont-family: var(--mol_skin_font_monospace);\n\tbackground: var(--mol_theme_back);\n\tcolor: var(--mol_theme_shade);\n\tuser-select: none;\n\tfont-weight: inherit;\n}\n\n[hyoo_calc_col_head] {\n\ttext-align: left;\n}\n\n[hyoo_calc_row_head] {\n\tmin-width: 2ch;\n\ttext-align: right;\n}\n\n[hyoo_calc_cell] {\n\tuser-select: text;\n\tbackground: var(--mol_theme_back);\n}\n\n[hyoo_calc_cell_selected] {\n\tbox-shadow: 0 0 0 1px var(--mol_theme_focus);\n\tz-index: 1;\n}\n\n[hyoo_calc_cell_type=\"number\"] {\n\ttext-align: right;\n}\n");
 })($ || ($ = {}));
 //calc.view.css.js.map
 ;
@@ -8358,6 +8373,9 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //calc.view.js.map
+;
+var $node = $node || {} ; $node[ "/hyoo/calc/calc_logo.svg" ] = "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIHdpZHRoPSIzMzdweCIgaGVpZ2h0PSIzMzZweCIgdmlld0JveD0iLTAuNSAtMC41IDMzNyAzMzYiPjxkZWZzLz48Zz48cmVjdCB4PSIyNDgiIHk9IjI0OCIgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiByeD0iMTIiIHJ5PSIxMiIgZmlsbD0iI2ZmZjJjYyIgc3Ryb2tlPSIjZDZiNjU2IiBzdHJva2Utd2lkdGg9IjE2IiBwb2ludGVyLWV2ZW50cz0iYWxsIi8+PHJlY3QgeD0iMjQ4IiB5PSI4IiB3aWR0aD0iODAiIGhlaWdodD0iODAiIHJ4PSIxMiIgcnk9IjEyIiBmaWxsPSIjZmZmMmNjIiBzdHJva2U9IiNkNmI2NTYiIHN0cm9rZS13aWR0aD0iMTYiIHBvaW50ZXItZXZlbnRzPSJhbGwiLz48cmVjdCB4PSI4IiB5PSI4IiB3aWR0aD0iODAiIGhlaWdodD0iODAiIHJ4PSIxMiIgcnk9IjEyIiBmaWxsPSIjZmZmMmNjIiBzdHJva2U9IiNkNmI2NTYiIHN0cm9rZS13aWR0aD0iMTYiIHBvaW50ZXItZXZlbnRzPSJhbGwiLz48cmVjdCB4PSI4IiB5PSIyNDgiIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgcng9IjEyIiByeT0iMTIiIGZpbGw9IiNmZmYyY2MiIHN0cm9rZT0iI2Q2YjY1NiIgc3Ryb2tlLXdpZHRoPSIxNiIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxyZWN0IHg9IjgiIHk9IjEyOCIgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiByeD0iMTIiIHJ5PSIxMiIgZmlsbD0iI2RhZThmYyIgc3Ryb2tlPSIjNmM4ZWJmIiBzdHJva2Utd2lkdGg9IjE2IiBwb2ludGVyLWV2ZW50cz0iYWxsIi8+PHJlY3QgeD0iMTI4IiB5PSIxMjgiIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgcng9IjEyIiByeT0iMTIiIGZpbGw9IiNkYWU4ZmMiIHN0cm9rZT0iIzZjOGViZiIgc3Ryb2tlLXdpZHRoPSIxNiIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxyZWN0IHg9IjI0OCIgeT0iMTI4IiB3aWR0aD0iODAiIGhlaWdodD0iODAiIHJ4PSIxMiIgcnk9IjEyIiBmaWxsPSIjZGFlOGZjIiBzdHJva2U9IiM2YzhlYmYiIHN0cm9rZS13aWR0aD0iMTYiIHBvaW50ZXItZXZlbnRzPSJhbGwiLz48cmVjdCB4PSIxMjgiIHk9IjI0OCIgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiByeD0iMTIiIHJ5PSIxMiIgZmlsbD0iI2RhZThmYyIgc3Ryb2tlPSIjNmM4ZWJmIiBzdHJva2Utd2lkdGg9IjE2IiBwb2ludGVyLWV2ZW50cz0iYWxsIi8+PHJlY3QgeD0iMTI4IiB5PSI4IiB3aWR0aD0iODAiIGhlaWdodD0iODAiIHJ4PSIxMiIgcnk9IjEyIiBmaWxsPSIjZGFlOGZjIiBzdHJva2U9IiM2YzhlYmYiIHN0cm9rZS13aWR0aD0iMTYiIHBvaW50ZXItZXZlbnRzPSJhbGwiLz48L2c+PC9zdmc+"
+
 ;
 "use strict";
 var $;
