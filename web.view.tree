@@ -289,7 +289,7 @@ $mol_check_expand $mol_check
 	checked?val <=> expanded?val false
 	enabled <= expandable false
 
-$mol_grid $mol_scroll
+$mol_grid $mol_view
 	row_height 32
 	row_ids /string[]
 	row_id!index null
@@ -346,6 +346,7 @@ $mol_image $mol_view
 		^
 		src <= uri \
 		alt <= title
+		loading <= loading \lazy
 
 $mol_link_iconed $mol_link
 	sub /
@@ -488,7 +489,9 @@ $hyoo_calc $mol_page
 				\**$.A1** - result of A1, **$$.A1** - formula of A1, **a=** - define variable, **_.a** - value of variable, **__.a** - cell id of variable, **A1:C3** - range of cells, use [**JavaScript**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference) for other.
 				\**Available funcs**: {funcs}.
 				\Use Alt + Arrows to switch between cells.
-		<= Body $mol_grid
+		<= Body
+	body /
+		<= Cells $mol_grid
 			col_ids <= col_ids /
 			row_ids <= row_ids /
 			head_cells <= head_cells /

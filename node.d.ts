@@ -532,7 +532,7 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    function $mol_dom_render_children(el: Element, childNodes: NodeList | Array<Node | string | null>): void;
+    function $mol_dom_render_children(el: Element | DocumentFragment, childNodes: NodeList | Array<Node | string | null>): void;
 }
 
 declare namespace $ {
@@ -843,6 +843,7 @@ declare namespace $.$$ {
         _event_scroll_timer(next?: $mol_after_timeout | null): $mol_after_timeout | null | undefined;
         event_scroll(next?: Event): void;
         minimal_height(): number;
+        minimal_width(): number;
     }
 }
 
@@ -1219,6 +1220,7 @@ declare namespace $.$$ {
         maximal_width(): number;
         width_limit(): number;
         minimal_width(): number;
+        row_width(): number;
         minimal_height(): number;
     }
 }
@@ -1325,8 +1327,8 @@ declare namespace $ {
         static end: $mol_regexp<{}>;
         static or: $mol_regexp<{}>;
         static line_end: $mol_regexp<{
-            readonly mac_end: string;
             readonly win_end: string;
+            readonly mac_end: string;
         }>;
     }
     export {};
@@ -1973,7 +1975,7 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $mol_grid extends $mol_scroll {
+    class $mol_grid extends $mol_view {
         row_height(): number;
         row_ids(): readonly string[][];
         row_id(index: any): any;
@@ -2045,6 +2047,10 @@ declare namespace $.$$ {
             row: string[];
             col: string;
         }): any[];
+        cell_content_text(id: {
+            row: string[];
+            col: string;
+        }): any[];
         records(): any;
         record(id: string): any;
         record_ids(): string[];
@@ -2073,8 +2079,10 @@ declare namespace $ {
         field(): {
             src: string;
             alt: string;
+            loading: string;
         };
         uri(): string;
+        loading(): string;
     }
 }
 
@@ -2291,6 +2299,7 @@ declare namespace $ {
         head(): readonly any[];
         tools(): readonly any[];
         sub(): readonly any[];
+        body(): readonly any[];
         Edit(id: any): $$.$mol_textarea;
         Col_head(id: any): $mol_float;
         Row_head(id: any): $mol_float;
@@ -2324,7 +2333,7 @@ declare namespace $ {
         row_ids(): readonly any[];
         head_cells(): readonly any[];
         cells(row: any): readonly any[];
-        Body(): $$.$mol_grid;
+        Cells(): $$.$mol_grid;
         col_title(id: any): string;
         row_title(id: any): string;
         cell_content(id: any): string;
@@ -2421,7 +2430,7 @@ declare namespace $.$$ {
         formula_current(next?: string): string;
         sandbox(): $mol_func_sandbox;
         results(range: [string, string]): unknown[];
-        sub(): ($mol_view | $mol_grid)[];
+        sub(): $mol_view[];
         hint(): string;
         cell_content(id: string): string;
         func(id: string): () => any;
