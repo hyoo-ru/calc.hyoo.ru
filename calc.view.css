@@ -26,10 +26,8 @@
 	align-items: center;
 }
 
-[hyoo_calc_body] {
-	align-self: stretch;
-	flex: auto;
-	padding: 0;
+[hyoo_calc_cells][hyoo_calc_cells] {
+	margin: 0;
 }
 
 [hyoo_calc_col_head] ,
@@ -53,6 +51,7 @@
 [hyoo_calc_cell] {
 	user-select: text;
 	background: var(--mol_theme_back);
+	border-radius: 0;
 }
 
 [hyoo_calc_cell_selected] {
