@@ -326,9 +326,6 @@ var $;
             return this.name;
         }
         destructor() { }
-        [Symbol.toPrimitive](hint) {
-            return hint === 'number' ? this.valueOf() : this.toString();
-        }
         toString() {
             return this[Symbol.toStringTag] || this.constructor.name + '()';
         }
@@ -3376,403 +3373,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $mol_plugin extends $.$mol_view {
-        dom_node(next) {
-            const node = next || $.$mol_owning_get(this, $.$mol_view).dom_node();
-            $.$mol_dom_render_attributes(node, this.attr_static());
-            const events = this.event();
-            for (let event_name in events) {
-                node.addEventListener(event_name, $.$mol_fiber_root(events[event_name]), { passive: false });
-            }
-            return node;
-        }
-        attr_static() {
-            return {};
-        }
-        event() {
-            return {};
-        }
-        render() {
-            this.dom_node_actual();
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_plugin.prototype, "dom_node", null);
-    $.$mol_plugin = $mol_plugin;
-})($ || ($ = {}));
-//plugin.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_hotkey extends $.$mol_plugin {
-        event() {
-            return {
-                ...super.event(),
-                keydown: (event) => this.keydown(event)
-            };
-        }
-        key() {
-            return {};
-        }
-        mod_ctrl() {
-            return false;
-        }
-        mod_alt() {
-            return false;
-        }
-        mod_shift() {
-            return false;
-        }
-        keydown(event) {
-            if (event !== undefined)
-                return event;
-            return null;
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_hotkey.prototype, "keydown", null);
-    $.$mol_hotkey = $mol_hotkey;
-})($ || ($ = {}));
-//hotkey.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    let $mol_keyboard_code;
-    (function ($mol_keyboard_code) {
-        $mol_keyboard_code[$mol_keyboard_code["backspace"] = 8] = "backspace";
-        $mol_keyboard_code[$mol_keyboard_code["tab"] = 9] = "tab";
-        $mol_keyboard_code[$mol_keyboard_code["enter"] = 13] = "enter";
-        $mol_keyboard_code[$mol_keyboard_code["shift"] = 16] = "shift";
-        $mol_keyboard_code[$mol_keyboard_code["ctrl"] = 17] = "ctrl";
-        $mol_keyboard_code[$mol_keyboard_code["alt"] = 18] = "alt";
-        $mol_keyboard_code[$mol_keyboard_code["pause"] = 19] = "pause";
-        $mol_keyboard_code[$mol_keyboard_code["capsLock"] = 20] = "capsLock";
-        $mol_keyboard_code[$mol_keyboard_code["escape"] = 27] = "escape";
-        $mol_keyboard_code[$mol_keyboard_code["space"] = 32] = "space";
-        $mol_keyboard_code[$mol_keyboard_code["pageUp"] = 33] = "pageUp";
-        $mol_keyboard_code[$mol_keyboard_code["pageDown"] = 34] = "pageDown";
-        $mol_keyboard_code[$mol_keyboard_code["end"] = 35] = "end";
-        $mol_keyboard_code[$mol_keyboard_code["home"] = 36] = "home";
-        $mol_keyboard_code[$mol_keyboard_code["left"] = 37] = "left";
-        $mol_keyboard_code[$mol_keyboard_code["up"] = 38] = "up";
-        $mol_keyboard_code[$mol_keyboard_code["right"] = 39] = "right";
-        $mol_keyboard_code[$mol_keyboard_code["down"] = 40] = "down";
-        $mol_keyboard_code[$mol_keyboard_code["insert"] = 45] = "insert";
-        $mol_keyboard_code[$mol_keyboard_code["delete"] = 46] = "delete";
-        $mol_keyboard_code[$mol_keyboard_code["key0"] = 48] = "key0";
-        $mol_keyboard_code[$mol_keyboard_code["key1"] = 49] = "key1";
-        $mol_keyboard_code[$mol_keyboard_code["key2"] = 50] = "key2";
-        $mol_keyboard_code[$mol_keyboard_code["key3"] = 51] = "key3";
-        $mol_keyboard_code[$mol_keyboard_code["key4"] = 52] = "key4";
-        $mol_keyboard_code[$mol_keyboard_code["key5"] = 53] = "key5";
-        $mol_keyboard_code[$mol_keyboard_code["key6"] = 54] = "key6";
-        $mol_keyboard_code[$mol_keyboard_code["key7"] = 55] = "key7";
-        $mol_keyboard_code[$mol_keyboard_code["key8"] = 56] = "key8";
-        $mol_keyboard_code[$mol_keyboard_code["key9"] = 57] = "key9";
-        $mol_keyboard_code[$mol_keyboard_code["A"] = 65] = "A";
-        $mol_keyboard_code[$mol_keyboard_code["B"] = 66] = "B";
-        $mol_keyboard_code[$mol_keyboard_code["C"] = 67] = "C";
-        $mol_keyboard_code[$mol_keyboard_code["D"] = 68] = "D";
-        $mol_keyboard_code[$mol_keyboard_code["E"] = 69] = "E";
-        $mol_keyboard_code[$mol_keyboard_code["F"] = 70] = "F";
-        $mol_keyboard_code[$mol_keyboard_code["G"] = 71] = "G";
-        $mol_keyboard_code[$mol_keyboard_code["H"] = 72] = "H";
-        $mol_keyboard_code[$mol_keyboard_code["I"] = 73] = "I";
-        $mol_keyboard_code[$mol_keyboard_code["J"] = 74] = "J";
-        $mol_keyboard_code[$mol_keyboard_code["K"] = 75] = "K";
-        $mol_keyboard_code[$mol_keyboard_code["L"] = 76] = "L";
-        $mol_keyboard_code[$mol_keyboard_code["M"] = 77] = "M";
-        $mol_keyboard_code[$mol_keyboard_code["N"] = 78] = "N";
-        $mol_keyboard_code[$mol_keyboard_code["O"] = 79] = "O";
-        $mol_keyboard_code[$mol_keyboard_code["P"] = 80] = "P";
-        $mol_keyboard_code[$mol_keyboard_code["Q"] = 81] = "Q";
-        $mol_keyboard_code[$mol_keyboard_code["R"] = 82] = "R";
-        $mol_keyboard_code[$mol_keyboard_code["S"] = 83] = "S";
-        $mol_keyboard_code[$mol_keyboard_code["T"] = 84] = "T";
-        $mol_keyboard_code[$mol_keyboard_code["U"] = 85] = "U";
-        $mol_keyboard_code[$mol_keyboard_code["V"] = 86] = "V";
-        $mol_keyboard_code[$mol_keyboard_code["W"] = 87] = "W";
-        $mol_keyboard_code[$mol_keyboard_code["X"] = 88] = "X";
-        $mol_keyboard_code[$mol_keyboard_code["Y"] = 89] = "Y";
-        $mol_keyboard_code[$mol_keyboard_code["Z"] = 90] = "Z";
-        $mol_keyboard_code[$mol_keyboard_code["metaLeft"] = 91] = "metaLeft";
-        $mol_keyboard_code[$mol_keyboard_code["metaRight"] = 92] = "metaRight";
-        $mol_keyboard_code[$mol_keyboard_code["select"] = 93] = "select";
-        $mol_keyboard_code[$mol_keyboard_code["numpad0"] = 96] = "numpad0";
-        $mol_keyboard_code[$mol_keyboard_code["numpad1"] = 97] = "numpad1";
-        $mol_keyboard_code[$mol_keyboard_code["numpad2"] = 98] = "numpad2";
-        $mol_keyboard_code[$mol_keyboard_code["numpad3"] = 99] = "numpad3";
-        $mol_keyboard_code[$mol_keyboard_code["numpad4"] = 100] = "numpad4";
-        $mol_keyboard_code[$mol_keyboard_code["numpad5"] = 101] = "numpad5";
-        $mol_keyboard_code[$mol_keyboard_code["numpad6"] = 102] = "numpad6";
-        $mol_keyboard_code[$mol_keyboard_code["numpad7"] = 103] = "numpad7";
-        $mol_keyboard_code[$mol_keyboard_code["numpad8"] = 104] = "numpad8";
-        $mol_keyboard_code[$mol_keyboard_code["numpad9"] = 105] = "numpad9";
-        $mol_keyboard_code[$mol_keyboard_code["multiply"] = 106] = "multiply";
-        $mol_keyboard_code[$mol_keyboard_code["add"] = 107] = "add";
-        $mol_keyboard_code[$mol_keyboard_code["subtract"] = 109] = "subtract";
-        $mol_keyboard_code[$mol_keyboard_code["decimal"] = 110] = "decimal";
-        $mol_keyboard_code[$mol_keyboard_code["divide"] = 111] = "divide";
-        $mol_keyboard_code[$mol_keyboard_code["F1"] = 112] = "F1";
-        $mol_keyboard_code[$mol_keyboard_code["F2"] = 113] = "F2";
-        $mol_keyboard_code[$mol_keyboard_code["F3"] = 114] = "F3";
-        $mol_keyboard_code[$mol_keyboard_code["F4"] = 115] = "F4";
-        $mol_keyboard_code[$mol_keyboard_code["F5"] = 116] = "F5";
-        $mol_keyboard_code[$mol_keyboard_code["F6"] = 117] = "F6";
-        $mol_keyboard_code[$mol_keyboard_code["F7"] = 118] = "F7";
-        $mol_keyboard_code[$mol_keyboard_code["F8"] = 119] = "F8";
-        $mol_keyboard_code[$mol_keyboard_code["F9"] = 120] = "F9";
-        $mol_keyboard_code[$mol_keyboard_code["F10"] = 121] = "F10";
-        $mol_keyboard_code[$mol_keyboard_code["F11"] = 122] = "F11";
-        $mol_keyboard_code[$mol_keyboard_code["F12"] = 123] = "F12";
-        $mol_keyboard_code[$mol_keyboard_code["numLock"] = 144] = "numLock";
-        $mol_keyboard_code[$mol_keyboard_code["scrollLock"] = 145] = "scrollLock";
-        $mol_keyboard_code[$mol_keyboard_code["semicolon"] = 186] = "semicolon";
-        $mol_keyboard_code[$mol_keyboard_code["equals"] = 187] = "equals";
-        $mol_keyboard_code[$mol_keyboard_code["comma"] = 188] = "comma";
-        $mol_keyboard_code[$mol_keyboard_code["dash"] = 189] = "dash";
-        $mol_keyboard_code[$mol_keyboard_code["period"] = 190] = "period";
-        $mol_keyboard_code[$mol_keyboard_code["forwardSlash"] = 191] = "forwardSlash";
-        $mol_keyboard_code[$mol_keyboard_code["graveAccent"] = 192] = "graveAccent";
-        $mol_keyboard_code[$mol_keyboard_code["bracketOpen"] = 219] = "bracketOpen";
-        $mol_keyboard_code[$mol_keyboard_code["slashBack"] = 220] = "slashBack";
-        $mol_keyboard_code[$mol_keyboard_code["slashBackLeft"] = 226] = "slashBackLeft";
-        $mol_keyboard_code[$mol_keyboard_code["bracketClose"] = 221] = "bracketClose";
-        $mol_keyboard_code[$mol_keyboard_code["quoteSingle"] = 222] = "quoteSingle";
-    })($mol_keyboard_code = $.$mol_keyboard_code || ($.$mol_keyboard_code = {}));
-})($ || ($ = {}));
-//code.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_hotkey extends $.$mol_hotkey {
-            key() {
-                return super.key();
-            }
-            keydown(event) {
-                if (!event)
-                    return;
-                if (event.defaultPrevented)
-                    return;
-                let name = $.$mol_keyboard_code[event.keyCode];
-                if (this.mod_ctrl() !== event.ctrlKey)
-                    return;
-                if (this.mod_alt() !== event.altKey)
-                    return;
-                if (this.mod_shift() !== event.shiftKey)
-                    return;
-                const handle = this.key()[name];
-                if (handle)
-                    handle(event);
-            }
-        }
-        $$.$mol_hotkey = $mol_hotkey;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//hotkey.view.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_string extends $.$mol_view {
-        dom_name() {
-            return "input";
-        }
-        enabled() {
-            return true;
-        }
-        minimal_height() {
-            return 40;
-        }
-        autocomplete() {
-            return false;
-        }
-        selection(val) {
-            if (val !== undefined)
-                return val;
-            return [];
-        }
-        auto() {
-            return [
-                this.selection_watcher()
-            ];
-        }
-        field() {
-            return {
-                ...super.field(),
-                disabled: this.disabled(),
-                value: this.value_changed(),
-                placeholder: this.hint(),
-                spellcheck: this.spellcheck(),
-                autocomplete: this.autocomplete_native(),
-                selectionEnd: this.selection_end(),
-                selectionStart: this.selection_start()
-            };
-        }
-        attr() {
-            return {
-                ...super.attr(),
-                maxlength: this.length_max(),
-                type: this.type()
-            };
-        }
-        event() {
-            return {
-                ...super.event(),
-                input: (event) => this.event_change(event),
-                keydown: (event) => this.event_key_press(event)
-            };
-        }
-        plugins() {
-            return [
-                this.Submit()
-            ];
-        }
-        selection_watcher() {
-            return null;
-        }
-        disabled() {
-            return false;
-        }
-        value(val) {
-            if (val !== undefined)
-                return val;
-            return "";
-        }
-        value_changed(val) {
-            return this.value(val);
-        }
-        hint() {
-            return " ";
-        }
-        spellcheck() {
-            return false;
-        }
-        autocomplete_native() {
-            return "";
-        }
-        selection_end() {
-            return 0;
-        }
-        selection_start() {
-            return 0;
-        }
-        length_max() {
-            return Infinity;
-        }
-        type(val) {
-            if (val !== undefined)
-                return val;
-            return "text";
-        }
-        event_change(event) {
-            if (event !== undefined)
-                return event;
-            return null;
-        }
-        event_key_press(event) {
-            if (event !== undefined)
-                return event;
-            return null;
-        }
-        submit(event) {
-            if (event !== undefined)
-                return event;
-            return null;
-        }
-        Submit() {
-            const obj = new this.$.$mol_hotkey();
-            obj.key = () => ({
-                enter: (event) => this.submit(event)
-            });
-            return obj;
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_string.prototype, "selection", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_string.prototype, "value", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_string.prototype, "type", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_string.prototype, "event_change", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_string.prototype, "event_key_press", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_string.prototype, "submit", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_string.prototype, "Submit", null);
-    $.$mol_string = $mol_string;
-})($ || ($ = {}));
-//string.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    $.$mol_style_attach("mol/string/string.view.css", "[mol_string] {\n\tbox-sizing: border-box;\n\toutline-offset: 0;\n\tborder: none;\n\tborder-radius: var(--mol_gap_round);\n\twhite-space: nowrap;\n\toverflow: hidden;\n\ttext-overflow: ellipsis;\n\tpadding: var(--mol_gap_text);\n\ttext-align: left;\n\tposition: relative;\n\tz-index: 0;\n\tfont: inherit;\n\tflex: 1 1 auto;\n\tbackground: var(--mol_theme_hover);\n\tmin-width: 0;\n\tcolor: var(--mol_theme_control);\n}\n\n[mol_string]:disabled {\n\tbackground-color: transparent;\n\tcolor: var(--mol_theme_text);\n}\n\n[mol_string]:placeholder-shown {\n\tbackground: var(--mol_theme_field);\n\tbox-shadow: inset 0 0 0 1px var(--mol_theme_line);\n}\n\n[mol_string]:focus {\n\toutline: none;\n\tz-index: 1;\n\tcolor: var(--mol_theme_text);\n\tbackground: var(--mol_theme_field);\n\tbox-shadow: inset 0 0 0 1px var(--mol_theme_focus);\n}\n\n[mol_string]:not(:placeholder-shown):not(:focus):enabled:hover {\n\tbackground: var(--mol_theme_hover);\n}\n\n[mol_string]::-ms-clear {\n\tdisplay: none;\n}\n");
-})($ || ($ = {}));
-//string.view.css.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_string extends $.$mol_string {
-            event_change(next) {
-                if (!next)
-                    return;
-                this.value(next.target.value);
-                this.selection_change(next);
-            }
-            disabled() {
-                return !this.enabled();
-            }
-            autocomplete_native() {
-                return this.autocomplete() ? 'on' : 'off';
-            }
-            selection_watcher() {
-                return new $.$mol_dom_listener(this.$.$mol_dom_context.document, 'selectionchange', event => this.selection_change(event));
-            }
-            selection_change(event) {
-                const el = this.dom_node();
-                this.selection([
-                    el.selectionStart,
-                    el.selectionEnd,
-                ]);
-            }
-            selection_start() {
-                return this.selection()[0];
-            }
-            selection_end() {
-                return this.selection()[1];
-            }
-        }
-        __decorate([
-            $.$mol_mem
-        ], $mol_string.prototype, "selection_watcher", null);
-        $$.$mol_string = $mol_string;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//string.view.js.map
-;
-"use strict";
-var $;
-(function ($) {
     class $mol_list extends $.$mol_view {
         render_visible_only() {
             return true;
@@ -4653,7 +4253,7 @@ var $;
     $.$mol_syntax2_md_code = new $.$mol_syntax2({
         'code-docs': /\/\/\/.*?$/,
         'code-comment-block': /(?:\/\*[^]*?\*\/|\/\+[^]*?\+\/|<![^]*?>)/,
-        'code-link': /(?:\w+:|#|\?|\/)\S+?(?=\s|\\\\|""|$)/,
+        'code-link': /(?:\w+:\/\/|#|\?)\S+?(?=\s|\\\\|""|$)/,
         'code-comment-inline': /\/\/.*?$/,
         'code-string': /(?:".*?"|'.*?'|`.*?`|\/.+?\/[gmi]*\b|(?:^|[ \t])\\[^\n]*\n)/,
         'code-number': /[+-]?(?:\d*\.)?\d+\w*/,
@@ -4663,7 +4263,7 @@ var $;
         'code-global': /[$]+\w*|\b[A-Z][a-z0-9]+[A-Z]\w*/,
         'code-decorator': /@\s*\S+/,
         'code-tag': /<\/?[\w-]+\/?>?|&\w+;/,
-        'code-punctuation': /[\-\[\]\{\}\(\)<=>`~!\?@#%&\*_\+\\\/\|'";:\.,\^]+/,
+        'code-punctuation': /[\-\[\]\{\}\(\)<=>~!\?@#%&\*_\+\\\/\|;:\.,\^]+/,
     });
 })($ || ($ = {}));
 //md.js.map
@@ -4876,6 +4476,403 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_plugin extends $.$mol_view {
+        dom_node(next) {
+            const node = next || $.$mol_owning_get(this, $.$mol_view).dom_node();
+            $.$mol_dom_render_attributes(node, this.attr_static());
+            const events = this.event();
+            for (let event_name in events) {
+                node.addEventListener(event_name, $.$mol_fiber_root(events[event_name]), { passive: false });
+            }
+            return node;
+        }
+        attr_static() {
+            return {};
+        }
+        event() {
+            return {};
+        }
+        render() {
+            this.dom_node_actual();
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_plugin.prototype, "dom_node", null);
+    $.$mol_plugin = $mol_plugin;
+})($ || ($ = {}));
+//plugin.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_hotkey extends $.$mol_plugin {
+        event() {
+            return {
+                ...super.event(),
+                keydown: (event) => this.keydown(event)
+            };
+        }
+        key() {
+            return {};
+        }
+        mod_ctrl() {
+            return false;
+        }
+        mod_alt() {
+            return false;
+        }
+        mod_shift() {
+            return false;
+        }
+        keydown(event) {
+            if (event !== undefined)
+                return event;
+            return null;
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_hotkey.prototype, "keydown", null);
+    $.$mol_hotkey = $mol_hotkey;
+})($ || ($ = {}));
+//hotkey.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    let $mol_keyboard_code;
+    (function ($mol_keyboard_code) {
+        $mol_keyboard_code[$mol_keyboard_code["backspace"] = 8] = "backspace";
+        $mol_keyboard_code[$mol_keyboard_code["tab"] = 9] = "tab";
+        $mol_keyboard_code[$mol_keyboard_code["enter"] = 13] = "enter";
+        $mol_keyboard_code[$mol_keyboard_code["shift"] = 16] = "shift";
+        $mol_keyboard_code[$mol_keyboard_code["ctrl"] = 17] = "ctrl";
+        $mol_keyboard_code[$mol_keyboard_code["alt"] = 18] = "alt";
+        $mol_keyboard_code[$mol_keyboard_code["pause"] = 19] = "pause";
+        $mol_keyboard_code[$mol_keyboard_code["capsLock"] = 20] = "capsLock";
+        $mol_keyboard_code[$mol_keyboard_code["escape"] = 27] = "escape";
+        $mol_keyboard_code[$mol_keyboard_code["space"] = 32] = "space";
+        $mol_keyboard_code[$mol_keyboard_code["pageUp"] = 33] = "pageUp";
+        $mol_keyboard_code[$mol_keyboard_code["pageDown"] = 34] = "pageDown";
+        $mol_keyboard_code[$mol_keyboard_code["end"] = 35] = "end";
+        $mol_keyboard_code[$mol_keyboard_code["home"] = 36] = "home";
+        $mol_keyboard_code[$mol_keyboard_code["left"] = 37] = "left";
+        $mol_keyboard_code[$mol_keyboard_code["up"] = 38] = "up";
+        $mol_keyboard_code[$mol_keyboard_code["right"] = 39] = "right";
+        $mol_keyboard_code[$mol_keyboard_code["down"] = 40] = "down";
+        $mol_keyboard_code[$mol_keyboard_code["insert"] = 45] = "insert";
+        $mol_keyboard_code[$mol_keyboard_code["delete"] = 46] = "delete";
+        $mol_keyboard_code[$mol_keyboard_code["key0"] = 48] = "key0";
+        $mol_keyboard_code[$mol_keyboard_code["key1"] = 49] = "key1";
+        $mol_keyboard_code[$mol_keyboard_code["key2"] = 50] = "key2";
+        $mol_keyboard_code[$mol_keyboard_code["key3"] = 51] = "key3";
+        $mol_keyboard_code[$mol_keyboard_code["key4"] = 52] = "key4";
+        $mol_keyboard_code[$mol_keyboard_code["key5"] = 53] = "key5";
+        $mol_keyboard_code[$mol_keyboard_code["key6"] = 54] = "key6";
+        $mol_keyboard_code[$mol_keyboard_code["key7"] = 55] = "key7";
+        $mol_keyboard_code[$mol_keyboard_code["key8"] = 56] = "key8";
+        $mol_keyboard_code[$mol_keyboard_code["key9"] = 57] = "key9";
+        $mol_keyboard_code[$mol_keyboard_code["A"] = 65] = "A";
+        $mol_keyboard_code[$mol_keyboard_code["B"] = 66] = "B";
+        $mol_keyboard_code[$mol_keyboard_code["C"] = 67] = "C";
+        $mol_keyboard_code[$mol_keyboard_code["D"] = 68] = "D";
+        $mol_keyboard_code[$mol_keyboard_code["E"] = 69] = "E";
+        $mol_keyboard_code[$mol_keyboard_code["F"] = 70] = "F";
+        $mol_keyboard_code[$mol_keyboard_code["G"] = 71] = "G";
+        $mol_keyboard_code[$mol_keyboard_code["H"] = 72] = "H";
+        $mol_keyboard_code[$mol_keyboard_code["I"] = 73] = "I";
+        $mol_keyboard_code[$mol_keyboard_code["J"] = 74] = "J";
+        $mol_keyboard_code[$mol_keyboard_code["K"] = 75] = "K";
+        $mol_keyboard_code[$mol_keyboard_code["L"] = 76] = "L";
+        $mol_keyboard_code[$mol_keyboard_code["M"] = 77] = "M";
+        $mol_keyboard_code[$mol_keyboard_code["N"] = 78] = "N";
+        $mol_keyboard_code[$mol_keyboard_code["O"] = 79] = "O";
+        $mol_keyboard_code[$mol_keyboard_code["P"] = 80] = "P";
+        $mol_keyboard_code[$mol_keyboard_code["Q"] = 81] = "Q";
+        $mol_keyboard_code[$mol_keyboard_code["R"] = 82] = "R";
+        $mol_keyboard_code[$mol_keyboard_code["S"] = 83] = "S";
+        $mol_keyboard_code[$mol_keyboard_code["T"] = 84] = "T";
+        $mol_keyboard_code[$mol_keyboard_code["U"] = 85] = "U";
+        $mol_keyboard_code[$mol_keyboard_code["V"] = 86] = "V";
+        $mol_keyboard_code[$mol_keyboard_code["W"] = 87] = "W";
+        $mol_keyboard_code[$mol_keyboard_code["X"] = 88] = "X";
+        $mol_keyboard_code[$mol_keyboard_code["Y"] = 89] = "Y";
+        $mol_keyboard_code[$mol_keyboard_code["Z"] = 90] = "Z";
+        $mol_keyboard_code[$mol_keyboard_code["metaLeft"] = 91] = "metaLeft";
+        $mol_keyboard_code[$mol_keyboard_code["metaRight"] = 92] = "metaRight";
+        $mol_keyboard_code[$mol_keyboard_code["select"] = 93] = "select";
+        $mol_keyboard_code[$mol_keyboard_code["numpad0"] = 96] = "numpad0";
+        $mol_keyboard_code[$mol_keyboard_code["numpad1"] = 97] = "numpad1";
+        $mol_keyboard_code[$mol_keyboard_code["numpad2"] = 98] = "numpad2";
+        $mol_keyboard_code[$mol_keyboard_code["numpad3"] = 99] = "numpad3";
+        $mol_keyboard_code[$mol_keyboard_code["numpad4"] = 100] = "numpad4";
+        $mol_keyboard_code[$mol_keyboard_code["numpad5"] = 101] = "numpad5";
+        $mol_keyboard_code[$mol_keyboard_code["numpad6"] = 102] = "numpad6";
+        $mol_keyboard_code[$mol_keyboard_code["numpad7"] = 103] = "numpad7";
+        $mol_keyboard_code[$mol_keyboard_code["numpad8"] = 104] = "numpad8";
+        $mol_keyboard_code[$mol_keyboard_code["numpad9"] = 105] = "numpad9";
+        $mol_keyboard_code[$mol_keyboard_code["multiply"] = 106] = "multiply";
+        $mol_keyboard_code[$mol_keyboard_code["add"] = 107] = "add";
+        $mol_keyboard_code[$mol_keyboard_code["subtract"] = 109] = "subtract";
+        $mol_keyboard_code[$mol_keyboard_code["decimal"] = 110] = "decimal";
+        $mol_keyboard_code[$mol_keyboard_code["divide"] = 111] = "divide";
+        $mol_keyboard_code[$mol_keyboard_code["F1"] = 112] = "F1";
+        $mol_keyboard_code[$mol_keyboard_code["F2"] = 113] = "F2";
+        $mol_keyboard_code[$mol_keyboard_code["F3"] = 114] = "F3";
+        $mol_keyboard_code[$mol_keyboard_code["F4"] = 115] = "F4";
+        $mol_keyboard_code[$mol_keyboard_code["F5"] = 116] = "F5";
+        $mol_keyboard_code[$mol_keyboard_code["F6"] = 117] = "F6";
+        $mol_keyboard_code[$mol_keyboard_code["F7"] = 118] = "F7";
+        $mol_keyboard_code[$mol_keyboard_code["F8"] = 119] = "F8";
+        $mol_keyboard_code[$mol_keyboard_code["F9"] = 120] = "F9";
+        $mol_keyboard_code[$mol_keyboard_code["F10"] = 121] = "F10";
+        $mol_keyboard_code[$mol_keyboard_code["F11"] = 122] = "F11";
+        $mol_keyboard_code[$mol_keyboard_code["F12"] = 123] = "F12";
+        $mol_keyboard_code[$mol_keyboard_code["numLock"] = 144] = "numLock";
+        $mol_keyboard_code[$mol_keyboard_code["scrollLock"] = 145] = "scrollLock";
+        $mol_keyboard_code[$mol_keyboard_code["semicolon"] = 186] = "semicolon";
+        $mol_keyboard_code[$mol_keyboard_code["equals"] = 187] = "equals";
+        $mol_keyboard_code[$mol_keyboard_code["comma"] = 188] = "comma";
+        $mol_keyboard_code[$mol_keyboard_code["dash"] = 189] = "dash";
+        $mol_keyboard_code[$mol_keyboard_code["period"] = 190] = "period";
+        $mol_keyboard_code[$mol_keyboard_code["forwardSlash"] = 191] = "forwardSlash";
+        $mol_keyboard_code[$mol_keyboard_code["graveAccent"] = 192] = "graveAccent";
+        $mol_keyboard_code[$mol_keyboard_code["bracketOpen"] = 219] = "bracketOpen";
+        $mol_keyboard_code[$mol_keyboard_code["slashBack"] = 220] = "slashBack";
+        $mol_keyboard_code[$mol_keyboard_code["slashBackLeft"] = 226] = "slashBackLeft";
+        $mol_keyboard_code[$mol_keyboard_code["bracketClose"] = 221] = "bracketClose";
+        $mol_keyboard_code[$mol_keyboard_code["quoteSingle"] = 222] = "quoteSingle";
+    })($mol_keyboard_code = $.$mol_keyboard_code || ($.$mol_keyboard_code = {}));
+})($ || ($ = {}));
+//code.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_hotkey extends $.$mol_hotkey {
+            key() {
+                return super.key();
+            }
+            keydown(event) {
+                if (!event)
+                    return;
+                if (event.defaultPrevented)
+                    return;
+                let name = $.$mol_keyboard_code[event.keyCode];
+                if (this.mod_ctrl() !== event.ctrlKey)
+                    return;
+                if (this.mod_alt() !== event.altKey)
+                    return;
+                if (this.mod_shift() !== event.shiftKey)
+                    return;
+                const handle = this.key()[name];
+                if (handle)
+                    handle(event);
+            }
+        }
+        $$.$mol_hotkey = $mol_hotkey;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//hotkey.view.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_string extends $.$mol_view {
+        dom_name() {
+            return "input";
+        }
+        enabled() {
+            return true;
+        }
+        minimal_height() {
+            return 40;
+        }
+        autocomplete() {
+            return false;
+        }
+        selection(val) {
+            if (val !== undefined)
+                return val;
+            return [];
+        }
+        auto() {
+            return [
+                this.selection_watcher()
+            ];
+        }
+        field() {
+            return {
+                ...super.field(),
+                disabled: this.disabled(),
+                value: this.value_changed(),
+                placeholder: this.hint(),
+                spellcheck: this.spellcheck(),
+                autocomplete: this.autocomplete_native(),
+                selectionEnd: this.selection_end(),
+                selectionStart: this.selection_start()
+            };
+        }
+        attr() {
+            return {
+                ...super.attr(),
+                maxlength: this.length_max(),
+                type: this.type()
+            };
+        }
+        event() {
+            return {
+                ...super.event(),
+                input: (event) => this.event_change(event),
+                keydown: (event) => this.event_key_press(event)
+            };
+        }
+        plugins() {
+            return [
+                this.Submit()
+            ];
+        }
+        selection_watcher() {
+            return null;
+        }
+        disabled() {
+            return false;
+        }
+        value(val) {
+            if (val !== undefined)
+                return val;
+            return "";
+        }
+        value_changed(val) {
+            return this.value(val);
+        }
+        hint() {
+            return " ";
+        }
+        spellcheck() {
+            return false;
+        }
+        autocomplete_native() {
+            return "";
+        }
+        selection_end() {
+            return 0;
+        }
+        selection_start() {
+            return 0;
+        }
+        length_max() {
+            return Infinity;
+        }
+        type(val) {
+            if (val !== undefined)
+                return val;
+            return "text";
+        }
+        event_change(event) {
+            if (event !== undefined)
+                return event;
+            return null;
+        }
+        event_key_press(event) {
+            if (event !== undefined)
+                return event;
+            return null;
+        }
+        submit(event) {
+            if (event !== undefined)
+                return event;
+            return null;
+        }
+        Submit() {
+            const obj = new this.$.$mol_hotkey();
+            obj.key = () => ({
+                enter: (event) => this.submit(event)
+            });
+            return obj;
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_string.prototype, "selection", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_string.prototype, "value", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_string.prototype, "type", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_string.prototype, "event_change", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_string.prototype, "event_key_press", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_string.prototype, "submit", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_string.prototype, "Submit", null);
+    $.$mol_string = $mol_string;
+})($ || ($ = {}));
+//string.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_style_attach("mol/string/string.view.css", "[mol_string] {\n\tbox-sizing: border-box;\n\toutline-offset: 0;\n\tborder: none;\n\tborder-radius: var(--mol_gap_round);\n\twhite-space: nowrap;\n\toverflow: hidden;\n\ttext-overflow: ellipsis;\n\tpadding: var(--mol_gap_text);\n\ttext-align: left;\n\tposition: relative;\n\tz-index: 0;\n\tfont: inherit;\n\tflex: 1 1 auto;\n\tbackground: var(--mol_theme_hover);\n\tmin-width: 0;\n\tcolor: var(--mol_theme_control);\n}\n\n[mol_string]:disabled {\n\tbackground-color: transparent;\n\tcolor: var(--mol_theme_text);\n}\n\n[mol_string]:placeholder-shown {\n\tbackground: var(--mol_theme_field);\n\tbox-shadow: inset 0 0 0 1px var(--mol_theme_line);\n}\n\n[mol_string]:focus {\n\toutline: none;\n\tz-index: 1;\n\tcolor: var(--mol_theme_text);\n\tbackground: var(--mol_theme_field);\n\tbox-shadow: inset 0 0 0 1px var(--mol_theme_focus);\n}\n\n[mol_string]:not(:placeholder-shown):not(:focus):enabled:hover {\n\tbackground: var(--mol_theme_hover);\n}\n\n[mol_string]::-ms-clear {\n\tdisplay: none;\n}\n");
+})($ || ($ = {}));
+//string.view.css.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_string extends $.$mol_string {
+            event_change(next) {
+                if (!next)
+                    return;
+                this.value(next.target.value);
+                this.selection_change(next);
+            }
+            disabled() {
+                return !this.enabled();
+            }
+            autocomplete_native() {
+                return this.autocomplete() ? 'on' : 'off';
+            }
+            selection_watcher() {
+                return new $.$mol_dom_listener(this.$.$mol_dom_context.document, 'selectionchange', event => this.selection_change(event));
+            }
+            selection_change(event) {
+                const el = this.dom_node();
+                this.selection([
+                    el.selectionStart,
+                    el.selectionEnd,
+                ]);
+            }
+            selection_start() {
+                return this.selection()[0];
+            }
+            selection_end() {
+                return this.selection()[1];
+            }
+        }
+        __decorate([
+            $.$mol_mem
+        ], $mol_string.prototype, "selection_watcher", null);
+        $$.$mol_string = $mol_string;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//string.view.js.map
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_textarea extends $.$mol_view {
         attr() {
             return {
@@ -4934,8 +4931,7 @@ var $;
             return [];
         }
         Edit() {
-            const obj = new this.$.$mol_string();
-            obj.dom_name = () => "textarea";
+            const obj = new this.$.$mol_textarea_edit();
             obj.value = (val) => this.value(val);
             obj.hint = () => this.hint();
             obj.enabled = () => this.enabled();
@@ -4981,13 +4977,25 @@ var $;
         $.$mol_mem
     ], $mol_textarea.prototype, "View", null);
     $.$mol_textarea = $mol_textarea;
+    class $mol_textarea_edit extends $.$mol_string {
+        dom_name() {
+            return "textarea";
+        }
+        field() {
+            return {
+                ...super.field(),
+                scrollTop: 0
+            };
+        }
+    }
+    $.$mol_textarea_edit = $mol_textarea_edit;
 })($ || ($ = {}));
 //textarea.view.tree.js.map
 ;
 "use strict";
 var $;
 (function ($) {
-    $.$mol_style_attach("mol/textarea/textarea.view.css", "[mol_textarea] {\n\tflex: 1 0 auto;\n\tdisplay: flex;\n\tflex-direction: column;\n\tposition: relative;\n\tz-index: 0;\n\tvertical-align: top;\n\tmin-height: max-content;\n\twhite-space: pre-wrap;\n}\n\n[mol_textarea_view] {\n\tpointer-events: none;\n\tz-index: 1;\n\twhite-space: inherit;\n}\n[mol_textarea_clickable] > [mol_textarea_view] {\n\tpointer-events: all;\n}\n\n[mol_textarea_edit] {\n\tfont-family: monospace;\n\tz-index: -1 !important;\n\tpadding: var(--mol_gap_text);\n\tposition: absolute;\n\tleft: 0;\n\ttop: 0;\n\twidth: 100%;\n\theight: 100%;\n\tcolor: transparent;\n\tcaret-color: var(--mol_theme_text);\n\tresize: none;\n\ttext-align: inherit;\n\twhite-space: inherit;\n\tborder-radius: inherit;\n\ttab-size: 4;\n\toverflow-anchor: none;\n}\n\n[mol_textarea_sidebar_showed] [mol_textarea_edit] {\n\tleft: 3rem;\n\twidth: calc( 100% - 3rem );\n}\n");
+    $.$mol_style_attach("mol/textarea/textarea.view.css", "[mol_textarea] {\n\tflex: 1 0 auto;\n\tdisplay: flex;\n\tflex-direction: column;\n\tposition: relative;\n\tz-index: 0;\n\tvertical-align: top;\n\tmin-height: max-content;\n\twhite-space: pre-wrap;\n}\n\n[mol_textarea_view] {\n\tpointer-events: none;\n\tz-index: 1;\n\twhite-space: inherit;\n}\n[mol_textarea_clickable] > [mol_textarea_view] {\n\tpointer-events: all;\n}\n\n[mol_textarea_edit] {\n\tfont-family: monospace;\n\tz-index: -1 !important;\n\tpadding: var(--mol_gap_text);\n\tposition: absolute;\n\tleft: 0;\n\ttop: 0;\n\twidth: 100%;\n\theight: 100%;\n\tcolor: transparent;\n\tcaret-color: var(--mol_theme_text);\n\tresize: none;\n\ttext-align: inherit;\n\twhite-space: inherit;\n\tborder-radius: inherit;\n\ttab-size: 4;\n\toverflow-anchor: none;\n}\n\n[mol_textarea_edit]:focus {\n\tcolor: transparent;\n}\n\n[mol_textarea_sidebar_showed] [mol_textarea_edit] {\n\tleft: 3rem;\n\twidth: calc( 100% - 3rem );\n}\n");
 })($ || ($ = {}));
 //textarea.view.css.js.map
 ;
