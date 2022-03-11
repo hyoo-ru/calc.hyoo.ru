@@ -2,7 +2,12 @@ namespace $.$$ {
 
 	export class $hyoo_calc extends $.$hyoo_calc {
 		
+		@ $mol_mem
 		formulas_default() {
+			const source = this.$.$mol_state_arg.value( 'source' )
+			if( source ) {
+				return this.$.$mol_fetch.json( source ) as Record< string, string >
+			}
 			return this.$.$mol_state_arg.dict()
 		}
 
@@ -51,6 +56,7 @@ namespace $.$$ {
 			return vars
 		}
 
+		@ $mol_mem_key
 		id2coord( id : string ) : [ number , number ] | null {
 			
 			const parsed = /^([A-Z]+)(\d+)$/i.exec( id )
@@ -271,6 +277,7 @@ namespace $.$$ {
 
 		@ $mol_mem_key
 		result( id : string ) : string | number {
+			$mol_wire_solid()
 			const res = this.func( id )()
 			if( res === undefined ) return ''
 			if( res === '' ) return ''
