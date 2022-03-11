@@ -1,3 +1,4 @@
 include \/mol/offline/install
 
+deploy \/hyoo/calc/demo/input.json
 deploy \/hyoo/calc/calc_logo.svg
