@@ -237,8 +237,8 @@
     "$mol_wire_solid"
   ],
   "dependencies": {
-    "jsdom": "*",
     "colorette": "*",
+    "jsdom": "*",
     "chokidar": "*",
     "node-fetch": "*"
   }
