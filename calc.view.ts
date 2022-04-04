@@ -256,6 +256,7 @@ namespace $.$$ {
 			
 			let val = this.result( id )
 			if( typeof val === 'object' ) val = JSON.stringify( val )
+			if( typeof val === 'number' ) val = val.toLocaleString()
 
 			return name ? `${name} = ${val}` : String( val )
 		}
