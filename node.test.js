@@ -7731,7 +7731,7 @@ var $;
         }
         Cell(id) {
             const obj = new this.$.$hyoo_calc_cell();
-            obj.value = () => this.cell_content(id);
+            obj.text = () => this.cell_content(id);
             obj.selected = (val) => this.selected(id, val);
             return obj;
         }
@@ -8000,14 +8000,15 @@ var $;
         $mol_mem
     ], $hyoo_calc.prototype, "paste", null);
     $.$hyoo_calc = $hyoo_calc;
-    class $hyoo_calc_cell extends $mol_button {
+    class $hyoo_calc_cell extends $mol_text_code {
         dom_name() {
             return "td";
         }
-        sub() {
-            return [
-                this.value()
-            ];
+        event() {
+            return {
+                ...super.event(),
+                click: (event) => this.click(event)
+            };
         }
         attr() {
             return {
@@ -8016,8 +8017,10 @@ var $;
                 hyoo_calc_cell_type: this.type()
             };
         }
-        value() {
-            return "";
+        click(event) {
+            if (event !== undefined)
+                return event;
+            return null;
         }
         selected(val) {
             if (val !== undefined)
@@ -8030,6 +8033,9 @@ var $;
             return "";
         }
     }
+    __decorate([
+        $mol_mem
+    ], $hyoo_calc_cell.prototype, "click", null);
     __decorate([
         $mol_mem
     ], $hyoo_calc_cell.prototype, "selected", null);
@@ -8371,7 +8377,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("hyoo/calc/calc.view.css", "[hyoo_calc_title_edit]:enabled {\n\tcolor: inherit;\n\tbackground: transparent;\n\twidth: auto;\n\tflex: 1000 1 auto;\n\tbox-shadow: none;\n\tpadding: .5rem;\n}\n\n[hyoo_calc_current] {\n\tflex: none;\n}\n\n[hyoo_calc_pos] {\n\tflex: none;\n\twidth: 2.5rem;\n\tfont-family: var(--mol_skin_font_monospace);\n}\t\n\n[hyoo_calc_hint] {\n\tmax-width: none;\n\tpadding: 0;\n}\n\n[hyoo_calc_hint_trigger] {\n\talign-items: center;\n}\n\n[hyoo_calc_cells][hyoo_calc_cells] {\n\tmargin: 0;\n}\n\n[hyoo_calc_col_head] ,\n[hyoo_calc_row_head] {\n\tfont-family: var(--mol_skin_font_monospace);\n\tbackground: var(--mol_theme_back);\n\tcolor: var(--mol_theme_shade);\n\tuser-select: none;\n\tfont-weight: inherit;\n}\n\n[hyoo_calc_col_head] {\n\ttext-align: left;\n}\n\n[hyoo_calc_row_head] {\n\tmin-width: 2ch;\n\ttext-align: right;\n}\n\n[hyoo_calc_cell] {\n\tuser-select: text;\n\tbackground: var(--mol_theme_back);\n\tborder-radius: 0;\n}\n\n[hyoo_calc_cell_selected] {\n\tbox-shadow: 0 0 0 1px var(--mol_theme_focus);\n\tz-index: 1;\n}\n\n[hyoo_calc_cell_type=\"number\"] {\n\ttext-align: right;\n}\n");
+    $mol_style_attach("hyoo/calc/calc.view.css", "[hyoo_calc_title_edit]:enabled {\n\tcolor: inherit;\n\tbackground: transparent;\n\twidth: auto;\n\tflex: 1000 1 auto;\n\tbox-shadow: none;\n\tpadding: .5rem;\n}\n\n[hyoo_calc_current] {\n\tflex: none;\n}\n\n[hyoo_calc_pos] {\n\tflex: none;\n\twidth: 2.5rem;\n\tfont-family: var(--mol_skin_font_monospace);\n}\t\n\n[hyoo_calc_hint] {\n\tmax-width: none;\n\tpadding: 0;\n}\n\n[hyoo_calc_hint_trigger] {\n\talign-items: center;\n}\n\n[hyoo_calc_cells][hyoo_calc_cells] {\n\tmargin: 0;\n}\n\n[hyoo_calc_col_head] ,\n[hyoo_calc_row_head] {\n\tfont-family: var(--mol_skin_font_monospace);\n\tbackground: var(--mol_theme_back);\n\tcolor: var(--mol_theme_shade);\n\tuser-select: none;\n\tfont-weight: inherit;\n}\n\n[hyoo_calc_col_head] {\n\ttext-align: left;\n}\n\n[hyoo_calc_row_head] {\n\tmin-width: 2ch;\n\ttext-align: right;\n}\n\n[hyoo_calc_cell] {\n\tuser-select: text;\n\tbackground: var(--mol_theme_back);\n\tborder-radius: 0;\n}\n\n[hyoo_calc_cell_selected] {\n\tbox-shadow: 0 0 0 1px var(--mol_theme_focus);\n\tz-index: 1;\n\tposition: relative;\n}\n\n[hyoo_calc_cell_type=\"number\"] {\n\ttext-align: right;\n}\n");
 })($ || ($ = {}));
 //hyoo/calc/-css/calc.view.css.ts
 ;
@@ -8490,7 +8496,9 @@ var $;
                 return this.Cell(this.pos(next ? id : undefined)) === this.Cell(id);
             }
             pos(next) {
-                new $mol_after_frame(() => this.Edit_current().Edit().focused(true));
+                if (next !== $mol_mem_cached(() => this.pos())) {
+                    new $mol_after_frame(() => this.Edit_current().Edit().focused(true));
+                }
                 return next || super.pos();
             }
             coord(next) {
@@ -8690,7 +8698,7 @@ var $;
                     this.selected(true);
             }
             type() {
-                const value = this.value();
+                const value = this.text();
                 return isNaN(Number(value)) ? 'string' : 'number';
             }
         }

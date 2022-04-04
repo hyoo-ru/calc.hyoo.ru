@@ -2404,18 +2404,17 @@ declare namespace $ {
         Nav(): $$.$mol_nav;
         paste(event?: any): any;
     }
-    class $hyoo_calc_cell extends $mol_button {
+    class $hyoo_calc_cell extends $mol_text_code {
         dom_name(): string;
-        sub(): readonly any[];
+        event(): {
+            click: (event?: any) => any;
+        };
         attr(): {
             hyoo_calc_cell_selected: boolean;
             hyoo_calc_cell_type: string;
-            disabled: boolean;
-            role: string;
-            tabindex: number;
-            title: string;
+            mol_text_code_sidebar_showed: boolean;
         };
-        value(): string;
+        click(event?: any): any;
         selected(val?: any): boolean;
         type(val?: any): string;
     }
