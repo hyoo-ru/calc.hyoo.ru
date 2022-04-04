@@ -154,7 +154,7 @@ namespace $.$$ {
 
 		@ $mol_mem
 		pos( next? : string ) : string {
-			if( next !== $mol_mem_cached( ()=> this.pos() ) {
+			if( next !== $mol_mem_cached( ()=> this.pos() ) ) {
 				new $mol_after_frame( ()=> this.Edit_current().Edit().focused( true ) )
 			}
 			return next || super.pos()
