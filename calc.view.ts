@@ -127,8 +127,7 @@ namespace $.$$ {
 
 		@ $mol_mem
 		title( next? : string ) {
-			const title = this.$.$mol_state_arg.value( `title` , next )
-			return title == undefined ? super.title() : title
+			return next ?? this.$.$mol_state_arg.value( `title` ) ?? super.title()
 		}
 
 		col_title( id : number ) {
