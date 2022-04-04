@@ -154,7 +154,9 @@ namespace $.$$ {
 
 		@ $mol_mem
 		pos( next? : string ) : string {
-			new $mol_after_frame( ()=> this.Edit_current().Edit().focused( true ) )
+			if( next !== $mol_mem_cached( ()=> this.pos() ) {
+				new $mol_after_frame( ()=> this.Edit_current().Edit().focused( true ) )
+			}
 			return next || super.pos()
 		}
 
@@ -346,7 +348,7 @@ namespace $.$$ {
 		}
 
 		type() {
-			const value = this.value()
+			const value = this.text()
 			return isNaN( Number( value ) ) ? 'string' : 'number'
 		}
 

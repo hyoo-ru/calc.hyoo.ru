@@ -57,6 +57,7 @@
 [hyoo_calc_cell_selected] {
 	box-shadow: 0 0 0 1px var(--mol_theme_focus);
 	z-index: 1;
+	position: relative;
 }
 
 [hyoo_calc_cell_type="number"] {

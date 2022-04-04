@@ -52,7 +52,7 @@ $hyoo_calc $mol_page
 		dom_name \th
 		sub / <= row_title!id \
 	Cell!id $hyoo_calc_cell
-		value <= cell_content!id \
+		text <= cell_content!id \
 		selected?val <=> selected!id?val false
 	plugins /
 		<= Theme $mol_theme_auto
@@ -65,10 +65,11 @@ $hyoo_calc $mol_page
 	event *
 		paste?event <=> paste?event null
 
-$hyoo_calc_cell $mol_button
+$hyoo_calc_cell $mol_text_code
 	dom_name \td
-	sub /
-		<= value \
+	event *
+		^
+		click?event <=> click?event null
 	attr *
 		^
 		hyoo_calc_cell_selected <= selected?val false
