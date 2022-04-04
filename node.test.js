@@ -8467,8 +8467,7 @@ var $;
                 return numb + 1;
             }
             title(next) {
-                const title = this.$.$mol_state_arg.value(`title`, next);
-                return title == undefined ? super.title() : title;
+                return next ?? this.$.$mol_state_arg.value(`title`) ?? super.title();
             }
             col_title(id) {
                 return this.number2string(id);
