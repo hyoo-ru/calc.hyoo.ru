@@ -14,7 +14,7 @@
 [hyoo_calc_pos] {
 	flex: none;
 	width: 2.5rem;
-	font-family: var(--mol_skin_font_monospace);
+	font-family: monospace;
 }	
 
 [hyoo_calc_hint] {
@@ -32,7 +32,7 @@
 
 [hyoo_calc_col_head] ,
 [hyoo_calc_row_head] {
-	font-family: var(--mol_skin_font_monospace);
+	font-family: monospace;
 	background: var(--mol_theme_back);
 	color: var(--mol_theme_shade);
 	user-select: none;
