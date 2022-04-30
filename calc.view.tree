@@ -17,6 +17,7 @@ $hyoo_calc $mol_page
 			uri_generated <= download_uri?val \
 			sub /
 				<= Download_icon $mol_icon_load
+		<= Lights $mol_lights_toggle
 		<= Source $mol_link_source
 			uri \https://github.com/hyoo-ru/calc.hyoo.ru
 	sub /
