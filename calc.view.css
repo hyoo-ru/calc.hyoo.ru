@@ -50,7 +50,6 @@
 
 [hyoo_calc_cell] {
 	user-select: text;
-	background: var(--mol_theme_back);
 	border-radius: 0;
 }
 
