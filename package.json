@@ -91,6 +91,7 @@
     "$mol_print",
     "$mol_dom_listener",
     "$mol_textarea",
+    "$mol_stack",
     "$mol_text_code",
     "$mol_text",
     "$mol_list",
