@@ -53,6 +53,10 @@
 	border-radius: 0;
 }
 
+[hyoo_calc_cell_rows] {
+	padding: 0;
+}
+
 [hyoo_calc_cell_selected] {
 	box-shadow: 0 0 0 1px var(--mol_theme_focus);
 	z-index: 1;
