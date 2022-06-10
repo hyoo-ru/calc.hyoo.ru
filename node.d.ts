@@ -1179,6 +1179,7 @@ declare namespace $ {
         'code-string': RegExp;
         'code-number': RegExp;
         'code-call': RegExp;
+        'code-sexpr': RegExp;
         'code-field': RegExp;
         'code-keyword': RegExp;
         'code-global': RegExp;
