@@ -8968,7 +8968,7 @@ var $;
                 ];
             }
             hint() {
-                return super.hint().replace('{funcs}', Object.getOwnPropertyNames(Math).join(', '));
+                return super.hint().replace('{funcs}', Object.getOwnPropertyNames(Math).map(name => "`" + name + "`").join(', '));
             }
             cell_content(id) {
                 const name = this.formula_name(id);
