@@ -248,7 +248,7 @@ namespace $.$$ {
 
 		@ $mol_mem
 		hint() {
-			return super.hint().replace( '{funcs}' , Object.getOwnPropertyNames( Math ).join( ', ' ) )
+			return super.hint().replace( '{funcs}' , Object.getOwnPropertyNames( Math ).map( name => "`" + name + "`" ).join( ', ' ) )
 		}
 
 		@ $mol_mem_key
