@@ -2346,6 +2346,39 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $mol_frame extends $mol_embed_native {
+        dom_name(): string;
+        attr(): {
+            data: any;
+            type: any;
+            src: string;
+            srcdoc: any;
+            allow: string;
+            allowFullscreen: boolean;
+        };
+        accelerometer(): boolean;
+        autoplay(): boolean;
+        encription(): boolean;
+        gyroscope(): boolean;
+        pip(): boolean;
+        uri(val?: any): string;
+        html(): any;
+        allow(): string;
+        fullscreen(): boolean;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $mol_frame extends $.$mol_frame {
+        window(): any;
+        allow(): string;
+    }
+}
+
+declare namespace $ {
     class $mol_embed_youtube extends $mol_check {
         uri(): string;
         video_preview(): string;
@@ -2356,7 +2389,7 @@ declare namespace $ {
         title(): string;
         Image(): $mol_image;
         video_embed(): string;
-        Frame(): $$.$mol_embed_native;
+        Frame(): $$.$mol_frame;
     }
 }
 
@@ -2409,7 +2442,7 @@ declare namespace $.$$ {
         video_embed(): string;
         video_id(): string;
         video_preview(): string;
-        sub(): ($mol_image | $mol_embed_native)[];
+        sub(): ($mol_image | $mol_frame)[];
     }
 }
 
