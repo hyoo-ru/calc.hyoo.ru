@@ -170,6 +170,7 @@
     "$mol_ghost",
     "$mol_dom_render_events",
     "$mol_embed_native",
+    "$mol_wire_solid",
     "$mol_wire_sync",
     "$mol_wait_timeout",
     "$mol_wait",
@@ -184,8 +185,7 @@
     "$mol_fetch",
     "$mol_action",
     "$mol_dom_parse",
-    "$mol_func_sandbox",
-    "$mol_wire_solid"
+    "$mol_func_sandbox"
   ],
   "dependencies": {
     "jsdom": "*",

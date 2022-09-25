@@ -1810,6 +1810,7 @@ declare namespace $ {
         value(val?: any): string;
         hint(): string;
         enabled(): boolean;
+        spellcheck(): boolean;
         length_max(): number;
         selection(val?: any): readonly number[];
         Edit(): $mol_textarea_edit;
@@ -2286,10 +2287,18 @@ declare namespace $ {
             type: string;
         };
         sub(): readonly any[];
+        message(): {
+            hashchange: (next?: any) => any;
+        };
         mime(): string;
         title(): string;
         Fallback(): $$.$mol_link;
+        uri_change(next?: any): any;
     }
+}
+
+declare namespace $ {
+    function $mol_wire_solid(): void;
 }
 
 declare namespace $ {
@@ -2317,8 +2326,9 @@ declare namespace $.$$ {
         window(): Window;
         load(frame: HTMLIFrameElement): Promise<Window>;
         uri_resource(): string;
-        uri_listener(): $mol_dom_listener;
-        uri_change(event?: MessageEvent<[string, string]>): void;
+        message_listener(): $mol_dom_listener;
+        message_receive(event?: MessageEvent<[string, string]>): void;
+        uri_change(event: MessageEvent<[string, string]>): void;
         auto(): (Window | $mol_dom_listener)[];
     }
 }
@@ -2679,10 +2689,6 @@ declare namespace $ {
         _eval: ((code: string) => () => any) | undefined;
         get eval(): (code: string) => () => any;
     }
-}
-
-declare namespace $ {
-    function $mol_wire_solid(): void;
 }
 
 declare namespace $ {
