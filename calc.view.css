@@ -7,6 +7,10 @@
 	padding: .5rem;
 }
 
+[hyoo_calc_tools] {
+	flex-grow: 0;
+}
+
 [hyoo_calc_current] {
 	flex: none;
 }
