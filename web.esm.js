@@ -9467,6 +9467,8 @@ var $;
                     next[id] = prev[pair] || '';
                 }
                 this.formulas(next);
+                const coord = this.coord();
+                this.coord([coord[0], coord[1] + 1]);
             }
         }
         __decorate([
