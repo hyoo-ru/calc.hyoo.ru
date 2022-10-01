@@ -80,8 +80,8 @@ namespace $.$$ {
 			for( let key of Object.keys( this.formulas() ) ) {
 				const coord = this.id2coord( key )!
 
-				const rows = coord[1] + 3
-				const cols = coord[0] + 3
+				const rows = coord[1] + 2
+				const cols = coord[0] + 2
 				
 				if( rows > dims.rows ) dims.rows = rows
 				if( cols > dims.cols ) dims.cols = cols
@@ -134,8 +134,32 @@ namespace $.$$ {
 			return this.number2string( id )
 		}
 
+		col_head_content( id: number ) {
+			
+			const coord = this.coord()
+			if( coord[0] !== id ) return [ this.Col_title(id) ]
+			
+			return [
+				this.Col_title(id),
+				this.Col_tools(id),
+			]
+			
+		}
+
 		row_title( id : number ) {
 			return String( id )
+		}
+
+		row_head_content( id: number ) {
+			
+			const coord = this.coord()
+			if( coord[1] !== id ) return [ this.Row_title(id) ]
+			
+			return [
+				this.Row_title(id),
+				this.Row_tools(id),
+			]
+			
 		}
 
 		@ $mol_mem
@@ -155,7 +179,10 @@ namespace $.$$ {
 		@ $mol_mem
 		pos( next? : string ) : string {
 			if( next !== $mol_mem_cached( ()=> this.pos() ) ) {
-				new $mol_after_frame( ()=> this.Edit_current().Edit().focused( true ) )
+				new $mol_after_frame( ()=> {
+					this.Edit_current().Edit().focused( true )
+					this.ensure_visible( this.Cell( next ), 'nearest' )
+				} )
 			}
 			return next || super.pos()
 		}
@@ -336,6 +363,107 @@ namespace $.$$ {
 			const content = table.map( row => row.map( val => `"${ val.replace( /"/g , '""' ) }"` ).join( ';' ) ).join( '\n' )
 
 			return `data:text/csv;charset=utf-8,${ encodeURIComponent( content ) }`
+			
+		}
+		
+		col_ins( col: number ) {
+			
+			const prev = this.formulas()
+			const next = {} as Record< string, string >
+			
+			for( const id in prev ) {
+				
+				const coord = this.id2coord( id )!
+				
+				if( coord[0] < col ) {
+					next[ id ] = prev[ id ]
+				} else {
+					if( coord[0] === col ) next[ id ] = ''
+					next[ this.coord2id([ coord[0] + 1, coord[1] ]) ] = prev[ id ]
+				}
+				
+			}
+			
+			this.formulas( next )
+			
+		}
+
+		row_ins( row: number ) {
+			
+			const prev = this.formulas()
+			const next = {} as Record< string, string >
+			
+			for( const id in prev ) {
+				
+				const coord = this.id2coord( id )!
+				
+				if( coord[1] < row ) {
+					next[ id ] = prev[ id ]
+				} else {
+					if( coord[1] === row ) next[ id ] = ''
+					next[ this.coord2id([ coord[0], coord[1] + 1 ]) ] = prev[ id ]
+				}
+				
+			}
+			
+			this.formulas( next )
+			
+		}
+
+		col_right( col: number ) {
+			
+			const prev = this.formulas()
+			const next = {} as Record< string, string >
+			
+			for( const id in prev ) {
+				
+				const coord = this.id2coord( id )!
+				
+				if( coord[0] === col ) {
+					var pair = this.coord2id([ coord[0] + 1, coord[1] ])
+				} else if( coord[0] === col + 1 ) {
+					var pair = this.coord2id([ coord[0] - 1, coord[1] ])
+				} else {
+					next[ id ] = prev[ id ]
+					continue
+				}
+				
+				next[ pair ] = prev[ id ] || ''
+				next[ id ] = prev[ pair ] || ''
+				
+			}
+			
+			this.formulas( next )
+			
+			const coord = this.coord()
+			this.coord([ coord[0] + 1, coord[1] ])
+			
+		}
+
+		row_down( row: number ) {
+			
+			const prev = this.formulas()
+			const next = {} as Record< string, string >
+			
+			for( const id in prev ) {
+				
+				const coord = this.id2coord( id )!
+				
+				if( coord[1] === row ) {
+					var pair = this.coord2id([ coord[0], coord[1] + 1 ])
+				} else if( coord[1] === row + 1 ) {
+					var pair = this.coord2id([ coord[0], coord[1] - 1 ])
+				} else {
+					next[ id ] = prev[ id ]
+					continue
+				}
+				
+				next[ pair ] = prev[ id ] || ''
+				next[ id ] = prev[ pair ] || ''
+				
+			}
+			
+			this.formulas( next )
 			
 		}
 
