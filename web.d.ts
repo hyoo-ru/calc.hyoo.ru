@@ -2491,6 +2491,7 @@ declare namespace $ {
         line_type(id: any): string;
         line_content(id: any): readonly any[];
         link_uri(id: any): string;
+        link_host(id: any): string;
     }
     class $mol_text_header extends $mol_paragraph {
         sub(): readonly any[];
@@ -2557,7 +2558,20 @@ declare namespace $.$$ {
         line_text(path: readonly number[]): string;
         line_content(path: readonly number[]): ($mol_dimmer | $mol_text_code_row | $mol_link_iconed | $mol_embed_any | $mol_text_span)[];
         link_uri(path: readonly number[]): string;
+        link_host(path: readonly number[]): string;
         auto_scroll(): void;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_chevron_down extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_chevron_right extends $mol_icon {
+        path(): string;
     }
 }
 
@@ -2653,7 +2667,27 @@ declare namespace $ {
         cells(id: any): readonly any[];
         Cells(): $$.$mol_grid;
         col_title(id: any): string;
+        Col_title(id: any): $mol_view;
+        col_ins(id: any, next?: any): any;
+        Col_ins_icon(id: any): $mol_icon_chevron_down;
+        Col_ins(id: any): $mol_button_minor;
+        col_right(id: any, next?: any): any;
+        Col_right_icon(id: any): $mol_icon_chevron_right;
+        Col_right(id: any): $mol_button_minor;
+        col_tools(id: any): readonly any[];
+        Col_tools(id: any): $mol_bar;
+        col_head_content(id: any): readonly any[];
         row_title(id: any): string;
+        Row_title(id: any): $mol_view;
+        row_ins(id: any, next?: any): any;
+        Row_ins_icon(id: any): $mol_icon_chevron_right;
+        Row_ins(id: any): $mol_button_minor;
+        row_down(id: any, next?: any): any;
+        Row_down_icon(id: any): $mol_icon_chevron_down;
+        Row_down(id: any): $mol_button_minor;
+        row_tools(id: any): readonly any[];
+        Row_tools(id: any): $mol_view;
+        row_head_content(id: any): readonly any[];
         cell_content(id: any): string;
         selected(id: any, val?: any): boolean;
         Theme(): $$.$mol_theme_auto;
@@ -2662,7 +2696,7 @@ declare namespace $ {
         Nav(): $$.$mol_nav;
         paste(event?: any): any;
     }
-    class $hyoo_calc_cell extends $mol_text_code {
+    class $hyoo_calc_cell extends $mol_text {
         dom_name(): string;
         event(): {
             click: (event?: any) => any;
@@ -2670,7 +2704,6 @@ declare namespace $ {
         attr(): {
             hyoo_calc_cell_selected: boolean;
             hyoo_calc_cell_type: string;
-            mol_text_code_sidebar_showed: boolean;
         };
         click(event?: any): any;
         selected(val?: any): boolean;
@@ -2718,7 +2751,9 @@ declare namespace $.$$ {
         string2number(str: string): number;
         title(next?: string): string;
         col_title(id: number): string;
+        col_head_content(id: number): $mol_view[];
         row_title(id: number): string;
+        row_head_content(id: number): $mol_view[];
         head_cells(): $mol_float[];
         cells(row_id: number): ($mol_float | $hyoo_calc_cell)[];
         selected(id: string, next?: boolean): boolean;
@@ -2740,6 +2775,10 @@ declare namespace $.$$ {
         snapshot_uri(): string;
         download_file(): string;
         download_uri(): string;
+        col_ins(col: number): void;
+        row_ins(row: number): void;
+        col_right(col: number): void;
+        row_down(row: number): void;
     }
     class $hyoo_calc_cell extends $.$hyoo_calc_cell {
         click(event?: Event): void;

@@ -7783,7 +7783,7 @@ var $;
             const obj = new this.$.$mol_link_iconed();
             obj.uri = () => this.link_uri(id);
             obj.content = () => [
-                this.String(id)
+                this.link_host(id)
             ];
             return obj;
         }
@@ -7848,6 +7848,9 @@ var $;
             return [];
         }
         link_uri(id) {
+            return "";
+        }
+        link_host(id) {
             return "";
         }
     }
@@ -7939,7 +7942,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("mol/text/text/text.view.css", "[mol_text] {\n\tline-height: 1.5em;\n\tbox-sizing: border-box;\n\tmax-width: 60rem;\n\tborder-radius: var(--mol_gap_round);\n\twhite-space: pre-line;\n\tdisplay: flex;\n\tflex-direction: column;\n\tflex: 0 0 auto;\n\ttab-size: 4;\n}\n\n[mol_text_paragraph] {\n\tpadding: var(--mol_gap_text);\n\toverflow: auto;\n\tmax-width: 100%;\n\tdisplay: block;\n}\n\n[mol_text_span] {\n\tdisplay: inline;\n}\n\n[mol_text_string] {\n\tdisplay: inline;\n\tflex: 0 1 auto;\n\twhite-space: normal;\n}\n\n[mol_text_quote] {\n\tmargin: var(--mol_gap_block);\n\tpadding: var(--mol_gap_block);\n\tbackground: var(--mol_theme_card);\n}\n\n[mol_text_header] {\n\tdisplay: block;\n\ttext-shadow: 0 0;\n\tfont-weight: normal;\n}\n\n* + [mol_text_header] {\n\tmargin-top: 0.75rem;\n}\n\nh1[mol_text_header] {\n\tfont-size: 1.5rem;\n}\n\nh2[mol_text_header] {\n\tfont-size: 1.5rem;\n\tfont-style: italic;\n}\n\nh3[mol_text_header] {\n\tfont-size: 1.25rem;\n}\n\nh4[mol_text_header] {\n\tfont-size: 1.25em;\n\tfont-style: italic;\n}\n\nh5[mol_text_header] {\n\tfont-size: 1rem;\n}\n\nh6[mol_text_header] {\n\tfont-size: 1rem;\n\tfont-style: italic;\n}\n\n[mol_text_header_link] {\n\tcolor: inherit;\n}\n\n[mol_text_list] {\n\tpadding-left: 1.5rem;\n}\n\n[mol_text_list_paragraph] {\n\tdisplay: list-item;\n}\n\n[mol_text_list_paragraph]::before {\n\tcontent: '•';\n\twidth: 1.5rem;\n\tdisplay: inline-block;\n\tposition: absolute;\n\tmargin-left: -1rem;\n}\n\n[mol_text_table_cell] {\n\twidth: auto;\n\tdisplay: table-cell;\n\tvertical-align: baseline;\n\tpadding: 0;\n\tborder-radius: 0;\n}\n\n[mol_text_link_http],\n[mol_text_link] {\n\tpadding: 0;\n\tdisplay: inline;\n\twhite-space: nowrap;\n}\n\n[mol_text_link_http_icon],\n[mol_text_link_icon] {\n\tmargin: .25rem;\n}\n\n[mol_text_embed_youtube_image],\n[mol_text_embed_youtube_frame],\n[mol_text_embed_object] {\n\tobject-fit: contain;\n\tobject-position: center;\n\tdisplay: inline;\n\twidth: 100vw;\n\tmax-height: calc( 100vh - 6rem );\n}\n[mol_text_embed_object_fallback] {\n\tpadding: 0;\n}\n[mol_text_embed_image] {\n\tobject-fit: contain;\n\tobject-position: center;\n\tdisplay: inline;\n\tmax-height: calc( 100vh - 6rem );\n\tvertical-align: top;\n}\n\n[mol_text_pre] {\n\twhite-space: pre;\n\toverflow-x: auto;\n\ttab-size: 2;\n}\n\n[mol_text_code_line] {\n\tdisplay: inline-block;\n}\n\n[mol_text_type=\"strong\"] {\n\ttext-shadow: 0 0;\n\tcolor: var(--mol_theme_special);\n}\n\n[mol_text_type=\"emphasis\"] {\n\tfont-style: italic;\n}\n\n[mol_text_type=\"strike\"] {\n\tcolor: var(--mol_theme_shade);\n}\n\n[mol_text_type=\"remark\"] {\n\tcolor: var(--mol_theme_shade);\n}\n\n[mol_text_type=\"quote\"] {\n\tfont-style: italic;\n}\n");
+    $mol_style_attach("mol/text/text/text.view.css", "[mol_text] {\n\tline-height: 1.5em;\n\tbox-sizing: border-box;\n\tmax-width: 60rem;\n\tborder-radius: var(--mol_gap_round);\n\twhite-space: pre-line;\n\tdisplay: flex;\n\tflex-direction: column;\n\tflex: 0 0 auto;\n\ttab-size: 4;\n}\n\n[mol_text_paragraph] {\n\tpadding: var(--mol_gap_text);\n\toverflow: auto;\n\tmax-width: 100%;\n\tdisplay: block;\n}\n\n[mol_text_span] {\n\tdisplay: inline;\n}\n\n[mol_text_string] {\n\tdisplay: inline;\n\tflex: 0 1 auto;\n\twhite-space: normal;\n}\n\n[mol_text_quote] {\n\tmargin: var(--mol_gap_block);\n\tpadding: var(--mol_gap_block);\n\tbackground: var(--mol_theme_card);\n}\n\n[mol_text_header] {\n\tdisplay: block;\n\ttext-shadow: 0 0;\n\tfont-weight: normal;\n}\n\n* + [mol_text_header] {\n\tmargin-top: 0.75rem;\n}\n\nh1[mol_text_header] {\n\tfont-size: 1.5rem;\n}\n\nh2[mol_text_header] {\n\tfont-size: 1.5rem;\n\tfont-style: italic;\n}\n\nh3[mol_text_header] {\n\tfont-size: 1.25rem;\n}\n\nh4[mol_text_header] {\n\tfont-size: 1.25em;\n\tfont-style: italic;\n}\n\nh5[mol_text_header] {\n\tfont-size: 1rem;\n}\n\nh6[mol_text_header] {\n\tfont-size: 1rem;\n\tfont-style: italic;\n}\n\n[mol_text_header_link] {\n\tcolor: inherit;\n}\n\n[mol_text_list] {\n\tpadding-left: 1.5rem;\n}\n\n[mol_text_list_paragraph] {\n\tdisplay: list-item;\n}\n\n[mol_text_list_paragraph]::before {\n\tcontent: '•';\n\twidth: 1.5rem;\n\tdisplay: inline-block;\n\tposition: absolute;\n\tmargin-left: -1rem;\n}\n\n[mol_text_table_cell] {\n\twidth: auto;\n\tdisplay: table-cell;\n\tvertical-align: baseline;\n\tpadding: 0;\n\tborder-radius: 0;\n}\n\n[mol_text_link_http],\n[mol_text_link] {\n\tpadding: 0;\n\tdisplay: inline;\n\twhite-space: nowrap;\n}\n\n[mol_text_link_http_icon],\n[mol_text_link_icon] {\n\tmargin: .25rem;\n}\n\n[mol_text_embed_youtube_image],\n[mol_text_embed_youtube_frame],\n[mol_text_embed_object] {\n\tobject-fit: contain;\n\tobject-position: center;\n\tdisplay: inline;\n\twidth: 100vw;\n\tmax-height: calc( 100vh - 6rem );\n}\n[mol_text_embed_object_fallback] {\n\tpadding: 0;\n}\n[mol_text_embed_image] {\n\tobject-fit: contain;\n\tobject-position: center;\n\tdisplay: inline;\n\tmax-height: calc( 100vh - 6rem );\n\tvertical-align: top;\n}\n\n[mol_text_pre] {\n\twhite-space: pre;\n\toverflow-x: auto;\n\ttab-size: 2;\n}\n\n[mol_text_code_line] {\n\tdisplay: inline-block;\n\twhite-space: nowrap;\n}\n\n[mol_text_type=\"strong\"] {\n\ttext-shadow: 0 0;\n\tcolor: var(--mol_theme_special);\n}\n\n[mol_text_type=\"emphasis\"] {\n\tfont-style: italic;\n}\n\n[mol_text_type=\"strike\"] {\n\tcolor: var(--mol_theme_shade);\n}\n\n[mol_text_type=\"remark\"] {\n\tcolor: var(--mol_theme_shade);\n}\n\n[mol_text_type=\"quote\"] {\n\tfont-style: italic;\n}\n");
 })($ || ($ = {}));
 //mol/text/text/-css/text.view.css.ts
 ;
@@ -8077,6 +8080,9 @@ var $;
                     throw new Error('Bad link');
                 return uri;
             }
+            link_host(path) {
+                return this.link_uri(path).replace(/^.*?\/\/|\/.*$/g, '');
+            }
             auto_scroll() {
                 for (const [index, token] of this.flow_tokens().entries()) {
                     if (token.name !== 'header')
@@ -8155,12 +8161,39 @@ var $;
             $mol_mem_key
         ], $mol_text.prototype, "link_uri", null);
         __decorate([
+            $mol_mem_key
+        ], $mol_text.prototype, "link_host", null);
+        __decorate([
             $mol_mem
         ], $mol_text.prototype, "auto_scroll", null);
         $$.$mol_text = $mol_text;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //mol/text/text/text.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_chevron_down extends $mol_icon {
+        path() {
+            return "M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z";
+        }
+    }
+    $.$mol_icon_chevron_down = $mol_icon_chevron_down;
+})($ || ($ = {}));
+//mol/icon/chevron/down/-view.tree/down.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_chevron_right extends $mol_icon {
+        path() {
+            return "M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z";
+        }
+    }
+    $.$mol_icon_chevron_right = $mol_icon_chevron_right;
+})($ || ($ = {}));
+//mol/icon/chevron/right/-view.tree/right.view.tree.ts
 ;
 "use strict";
 var $;
@@ -8446,17 +8479,13 @@ var $;
         Col_head(id) {
             const obj = new this.$.$mol_float();
             obj.dom_name = () => "th";
-            obj.sub = () => [
-                this.col_title(id)
-            ];
+            obj.sub = () => this.col_head_content(id);
             return obj;
         }
         Row_head(id) {
             const obj = new this.$.$mol_float();
             obj.dom_name = () => "th";
-            obj.sub = () => [
-                this.row_title(id)
-            ];
+            obj.sub = () => this.row_head_content(id);
             return obj;
         }
         Cell(id) {
@@ -8609,8 +8638,130 @@ var $;
         col_title(id) {
             return "";
         }
+        Col_title(id) {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => [
+                this.col_title(id)
+            ];
+            return obj;
+        }
+        col_ins(id, next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        Col_ins_icon(id) {
+            const obj = new this.$.$mol_icon_chevron_down();
+            return obj;
+        }
+        Col_ins(id) {
+            const obj = new this.$.$mol_button_minor();
+            obj.hint = () => this.$.$mol_locale.text('$hyoo_calc_Col_ins_hint');
+            obj.click = (next) => this.col_ins(id, next);
+            obj.sub = () => [
+                this.col_title(id),
+                this.Col_ins_icon(id)
+            ];
+            return obj;
+        }
+        col_right(id, next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        Col_right_icon(id) {
+            const obj = new this.$.$mol_icon_chevron_right();
+            return obj;
+        }
+        Col_right(id) {
+            const obj = new this.$.$mol_button_minor();
+            obj.hint = () => this.$.$mol_locale.text('$hyoo_calc_Col_right_hint');
+            obj.click = (next) => this.col_right(id, next);
+            obj.sub = () => [
+                this.Col_right_icon(id)
+            ];
+            return obj;
+        }
+        col_tools(id) {
+            return [
+                this.Col_ins(id),
+                this.Col_right(id)
+            ];
+        }
+        Col_tools(id) {
+            const obj = new this.$.$mol_bar();
+            obj.sub = () => this.col_tools(id);
+            return obj;
+        }
+        col_head_content(id) {
+            return [
+                this.Col_title(id),
+                this.Col_tools(id)
+            ];
+        }
         row_title(id) {
             return "";
+        }
+        Row_title(id) {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => [
+                this.row_title(id)
+            ];
+            return obj;
+        }
+        row_ins(id, next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        Row_ins_icon(id) {
+            const obj = new this.$.$mol_icon_chevron_right();
+            return obj;
+        }
+        Row_ins(id) {
+            const obj = new this.$.$mol_button_minor();
+            obj.hint = () => this.$.$mol_locale.text('$hyoo_calc_Row_ins_hint');
+            obj.click = (next) => this.row_ins(id, next);
+            obj.sub = () => [
+                this.row_title(id),
+                this.Row_ins_icon(id)
+            ];
+            return obj;
+        }
+        row_down(id, next) {
+            if (next !== undefined)
+                return next;
+            return null;
+        }
+        Row_down_icon(id) {
+            const obj = new this.$.$mol_icon_chevron_down();
+            return obj;
+        }
+        Row_down(id) {
+            const obj = new this.$.$mol_button_minor();
+            obj.hint = () => this.$.$mol_locale.text('$hyoo_calc_Row_down_hint');
+            obj.click = (next) => this.row_down(id, next);
+            obj.sub = () => [
+                this.Row_down_icon(id)
+            ];
+            return obj;
+        }
+        row_tools(id) {
+            return [
+                this.Row_ins(id),
+                this.Row_down(id)
+            ];
+        }
+        Row_tools(id) {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => this.row_tools(id);
+            return obj;
+        }
+        row_head_content(id) {
+            return [
+                this.Row_title(id),
+                this.Row_tools(id)
+            ];
         }
         cell_content(id) {
             return "";
@@ -8720,6 +8871,54 @@ var $;
     ], $hyoo_calc.prototype, "Cells", null);
     __decorate([
         $mol_mem_key
+    ], $hyoo_calc.prototype, "Col_title", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_calc.prototype, "col_ins", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_calc.prototype, "Col_ins_icon", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_calc.prototype, "Col_ins", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_calc.prototype, "col_right", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_calc.prototype, "Col_right_icon", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_calc.prototype, "Col_right", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_calc.prototype, "Col_tools", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_calc.prototype, "Row_title", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_calc.prototype, "row_ins", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_calc.prototype, "Row_ins_icon", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_calc.prototype, "Row_ins", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_calc.prototype, "row_down", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_calc.prototype, "Row_down_icon", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_calc.prototype, "Row_down", null);
+    __decorate([
+        $mol_mem_key
+    ], $hyoo_calc.prototype, "Row_tools", null);
+    __decorate([
+        $mol_mem_key
     ], $hyoo_calc.prototype, "selected", null);
     __decorate([
         $mol_mem
@@ -8737,7 +8936,7 @@ var $;
         $mol_mem
     ], $hyoo_calc.prototype, "paste", null);
     $.$hyoo_calc = $hyoo_calc;
-    class $hyoo_calc_cell extends $mol_text_code {
+    class $hyoo_calc_cell extends $mol_text {
         dom_name() {
             return "td";
         }
@@ -8923,7 +9122,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("hyoo/calc/calc.view.css", "[hyoo_calc_title_edit]:enabled {\n\tcolor: inherit;\n\tbackground: transparent;\n\twidth: auto;\n\tflex: 1000 1 auto;\n\tbox-shadow: none;\n\tpadding: .5rem;\n}\n\n[hyoo_calc_current] {\n\tflex: none;\n}\n\n[hyoo_calc_pos] {\n\tflex: none;\n\twidth: 2.5rem;\n\tfont-family: monospace;\n}\t\n\n[hyoo_calc_hint] {\n\tmax-width: none;\n\tpadding: 0;\n}\n\n[hyoo_calc_hint_trigger] {\n\talign-items: center;\n}\n\n[hyoo_calc_cells][hyoo_calc_cells] {\n\tmargin: .5rem;\n}\n\n[hyoo_calc_col_head] ,\n[hyoo_calc_row_head] {\n\tfont-family: monospace;\n\tbackground: var(--mol_theme_back);\n\tcolor: var(--mol_theme_shade);\n\tuser-select: none;\n\tfont-weight: inherit;\n}\n\n[hyoo_calc_col_head] {\n\ttext-align: left;\n}\n\n[hyoo_calc_row_head] {\n\tmin-width: 2ch;\n\ttext-align: right;\n}\n\n[hyoo_calc_cell] {\n\tuser-select: text;\n\tborder-radius: 0;\n}\n\n[hyoo_calc_cell_rows] {\n\tpadding: 0;\n}\n\n[hyoo_calc_cell_selected] {\n\tbox-shadow: 0 0 0 1px var(--mol_theme_focus);\n\tz-index: 1;\n\tposition: relative;\n}\n\n[hyoo_calc_cell_type=\"number\"] {\n\ttext-align: right;\n}\n");
+    $mol_style_attach("hyoo/calc/calc.view.css", "[hyoo_calc_title_edit]:enabled {\n\tcolor: inherit;\n\tbackground: transparent;\n\twidth: auto;\n\tflex: 1000 1 auto;\n\tbox-shadow: none;\n\tpadding: .5rem;\n}\n\n[hyoo_calc_current] {\n\tflex: none;\n}\n\n[hyoo_calc_pos] {\n\tflex: none;\n\twidth: 2.5rem;\n\tfont-family: monospace;\n\talign-items: flex-start;\n}\n\n[hyoo_calc_edit] {\n\tflex-shrink: 1;\n}\n\n[hyoo_calc_hint] {\n\tmax-width: none;\n\tpadding: 0;\n}\n\n[hyoo_calc_hint_trigger] {\n\talign-items: center;\n}\n\n[hyoo_calc_body] {\n\tscroll-padding: 2.5rem;\n}\n\n[hyoo_calc_cells][hyoo_calc_cells] {\n\tflex-shrink: 0;\n\talign-self: flex-start;\n}\n\n[hyoo_calc_col_head] ,\n[hyoo_calc_row_head] {\n\tfont-family: monospace;\n\tbackground: var(--mol_theme_back);\n\tcolor: var(--mol_theme_shade);\n\tuser-select: none;\n\tfont-weight: inherit;\n}\n\n[hyoo_calc_col_head]:has( [hyoo_calc_col_tools] ) {\n\tz-index: 2;\n}\n\n[hyoo_calc_col_head] {\n\ttext-align: left;\n\tpadding: 0;\n\twhite-space: nowrap;\n\tmin-width: 5rem;\n}\n\n[hyoo_calc_col_title] {\n\tpadding: var(--mol_gap_text);\n\tdisplay: inline-flex;\n\tvertical-align: top;\n}\n\n[hyoo_calc_col_tools] {\n\tdisplay: inline-flex;\n\tposition: absolute;\n\tbackground: var(--mol_theme_back);\n\tz-index: 1;\n\tleft: 0;\n\tbox-shadow: 0 0 0.5rem hsl(0deg 0% 0% / 25%);\n}\n\n[hyoo_calc_col_tools] > [mol_button_minor] {\n\tbackground: var(--mol_theme_card);\n\tjustify-content: center;\n}\n\n[hyoo_calc_col_ins_icon] {\n    position: absolute;\n\tbottom: -0.25rem;\n}\n\n[hyoo_calc_cells_row]:has( [hyoo_calc_cell_selected=\"true\"] ) > [hyoo_calc_row_head] {\n\tz-index: 2;\n}\n\n[hyoo_calc_row_head] {\n\tvertical-align: top;\n\tpadding: 0;\n\twhite-space: nowrap;\n}\n\n[hyoo_calc_row_title] {\n\tpadding: var(--mol_gap_text);\n\tdisplay: inline-flex;\n\tvertical-align: top;\n}\n\n[hyoo_calc_row_tools] {\n\tposition: absolute;\n\tbackground: var(--mol_theme_back);\n\tflex-direction: column;\n\tz-index: 1;\n\ttop: 0;\n\tleft: 1px;\n\tbox-shadow: 0 0 0.5rem hsl(0deg 0% 0% / 25%);\n}\n\n[hyoo_calc_row_tools] > [mol_button_minor] {\n\tbackground: var(--mol_theme_card);\n}\n\n[hyoo_calc_row_ins_icon] {\n    position: absolute;\n    right: 0px;\n}\n\n[hyoo_calc_cell] {\n\tuser-select: text;\n\tborder-radius: 0;\n\tdisplay: table-cell;\n\twhite-space: normal;\n\tword-break: normal;\n\tvertical-align: top;\n\tpadding: 0;\n}\n\n[hyoo_calc_cell_rows] {\n\tpadding: 0;\n}\n\n[hyoo_calc_cell_selected] {\n\tbox-shadow: 0 0 0 1px var(--mol_theme_current);\n\tz-index: 2;\n\tposition: relative;\n\tborder-radius: var(--mol_gap_round);\n}\n\n[hyoo_calc_cell_type=\"number\"] {\n\ttext-align: right;\n}\n");
 })($ || ($ = {}));
 //hyoo/calc/-css/calc.view.css.ts
 ;
@@ -8988,8 +9187,8 @@ var $;
                 };
                 for (let key of Object.keys(this.formulas())) {
                     const coord = this.id2coord(key);
-                    const rows = coord[1] + 3;
-                    const cols = coord[0] + 3;
+                    const rows = coord[1] + 2;
+                    const cols = coord[0] + 2;
                     if (rows > dims.rows)
                         dims.rows = rows;
                     if (cols > dims.cols)
@@ -9029,8 +9228,26 @@ var $;
             col_title(id) {
                 return this.number2string(id);
             }
+            col_head_content(id) {
+                const coord = this.coord();
+                if (coord[0] !== id)
+                    return [this.Col_title(id)];
+                return [
+                    this.Col_title(id),
+                    this.Col_tools(id),
+                ];
+            }
             row_title(id) {
                 return String(id);
+            }
+            row_head_content(id) {
+                const coord = this.coord();
+                if (coord[1] !== id)
+                    return [this.Row_title(id)];
+                return [
+                    this.Row_title(id),
+                    this.Row_tools(id),
+                ];
             }
             head_cells() {
                 return [this.Col_head(0), ...this.col_ids().map(colId => this.Col_head(colId))];
@@ -9043,7 +9260,10 @@ var $;
             }
             pos(next) {
                 if (next !== $mol_mem_cached(() => this.pos())) {
-                    new $mol_after_frame(() => this.Edit_current().Edit().focused(true));
+                    new $mol_after_frame(() => {
+                        this.Edit_current().Edit().focused(true);
+                        this.ensure_visible(this.Cell(next), 'nearest');
+                    });
                 }
                 return next || super.pos();
             }
@@ -9175,6 +9395,80 @@ var $;
                 }
                 const content = table.map(row => row.map(val => `"${val.replace(/"/g, '""')}"`).join(';')).join('\n');
                 return `data:text/csv;charset=utf-8,${encodeURIComponent(content)}`;
+            }
+            col_ins(col) {
+                const prev = this.formulas();
+                const next = {};
+                for (const id in prev) {
+                    const coord = this.id2coord(id);
+                    if (coord[0] < col) {
+                        next[id] = prev[id];
+                    }
+                    else {
+                        if (coord[0] === col)
+                            next[id] = '';
+                        next[this.coord2id([coord[0] + 1, coord[1]])] = prev[id];
+                    }
+                }
+                this.formulas(next);
+            }
+            row_ins(row) {
+                const prev = this.formulas();
+                const next = {};
+                for (const id in prev) {
+                    const coord = this.id2coord(id);
+                    if (coord[1] < row) {
+                        next[id] = prev[id];
+                    }
+                    else {
+                        if (coord[1] === row)
+                            next[id] = '';
+                        next[this.coord2id([coord[0], coord[1] + 1])] = prev[id];
+                    }
+                }
+                this.formulas(next);
+            }
+            col_right(col) {
+                const prev = this.formulas();
+                const next = {};
+                for (const id in prev) {
+                    const coord = this.id2coord(id);
+                    if (coord[0] === col) {
+                        var pair = this.coord2id([coord[0] + 1, coord[1]]);
+                    }
+                    else if (coord[0] === col + 1) {
+                        var pair = this.coord2id([coord[0] - 1, coord[1]]);
+                    }
+                    else {
+                        next[id] = prev[id];
+                        continue;
+                    }
+                    next[pair] = prev[id] || '';
+                    next[id] = prev[pair] || '';
+                }
+                this.formulas(next);
+                const coord = this.coord();
+                this.coord([coord[0] + 1, coord[1]]);
+            }
+            row_down(row) {
+                const prev = this.formulas();
+                const next = {};
+                for (const id in prev) {
+                    const coord = this.id2coord(id);
+                    if (coord[1] === row) {
+                        var pair = this.coord2id([coord[0], coord[1] + 1]);
+                    }
+                    else if (coord[1] === row + 1) {
+                        var pair = this.coord2id([coord[0], coord[1] - 1]);
+                    }
+                    else {
+                        next[id] = prev[id];
+                        continue;
+                    }
+                    next[pair] = prev[id] || '';
+                    next[id] = prev[pair] || '';
+                }
+                this.formulas(next);
             }
         }
         __decorate([

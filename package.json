@@ -180,6 +180,8 @@
     "$mol_jsx",
     "$mol_type_partial_deep",
     "$mol_type_partial",
+    "$mol_icon_chevron_down",
+    "$mol_icon_chevron_right",
     "$mol_theme_auto",
     "$mol_nav",
     "$mol_fetch",
