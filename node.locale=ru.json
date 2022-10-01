@@ -2,7 +2,7 @@
 	"$hyoo_calc_download_hint": "Скачать CSV",
 	"$hyoo_calc_hint": "`$.A1` - результат из A1, `$$.A1` - формула из A1, `a=` - задать переменную, `_.a` - значение переменной, `__.a` - ячейка объявления переменной, `A1:C3` - диапазон ячеек, используйте [**JavaScript**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference) для остального.\n**Доступные функции**: {funcs}.\nИспользуйте Alt + Стрелки для переключения между ячейками.",
 	"$hyoo_calc_snapshot_hint": "Сохранить версию",
-	"$hyoo_calc_title": "Электронная таблица",
+	"$hyoo_calc_title_default": "Электронная таблица",
 	"$mol_lights_toggle_hint": "Переключить освещение",
 	"$mol_link_source_hint": "Исходные коды",
 	"$mol_text_code_Copy_hint": "Скопировать весь код",

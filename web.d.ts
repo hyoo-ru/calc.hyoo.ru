@@ -2639,6 +2639,7 @@ declare namespace $ {
         event(): {
             paste: (event?: any) => any;
         };
+        title_default(): string;
         title(val?: any): string;
         Title_edit(): $$.$mol_string;
         snapshot_hint(): string;
