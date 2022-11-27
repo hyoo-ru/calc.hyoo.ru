@@ -147,6 +147,7 @@
     "$mol_link_lazy",
     "$mol_link",
     "$mol_state_arg",
+    "$mol_action",
     "$mol_icon_load",
     "$mol_lights_toggle",
     "$mol_lights",
@@ -186,7 +187,6 @@
     "$mol_theme_auto",
     "$mol_nav",
     "$mol_fetch",
-    "$mol_action",
     "$mol_dom_parse",
     "$mol_func_sandbox"
   ],

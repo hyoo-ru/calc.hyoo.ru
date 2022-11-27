@@ -5933,6 +5933,9 @@ var $;
             }
             return new URL('#' + this.prolog + chunks.join(this.separator), this.href_absolute()).toString();
         }
+        static go(next) {
+            $mol_dom_context.location.href = this.make_link(next);
+        }
         static encode(str) {
             return encodeURIComponent(str).replace(/\(/g, '%28').replace(/\)/g, '%29');
         }
@@ -5976,6 +5979,9 @@ var $;
     __decorate([
         $mol_mem_key
     ], $mol_state_arg, "make_link", null);
+    __decorate([
+        $mol_action
+    ], $mol_state_arg, "go", null);
     $.$mol_state_arg = $mol_state_arg;
     const $mol_state_arg_change = (event) => {
         $mol_state_arg.href($mol_dom_context.location.href);
@@ -6962,7 +6968,7 @@ var $;
             return "async";
         }
         cors() {
-            return "anonymous";
+            return null;
         }
     }
     $.$mol_image = $mol_image;

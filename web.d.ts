@@ -1938,6 +1938,9 @@ declare namespace $ {
         static make_link(next: {
             [key: string]: string | null;
         }): string;
+        static go(next: {
+            [key: string]: string | null;
+        }): void;
         static encode(str: string): string;
         constructor(prefix?: string);
         value(key: string, next?: string): string | null;
@@ -2242,14 +2245,14 @@ declare namespace $ {
             alt: string;
             loading: string;
             decoding: string;
-            crossOrigin: string;
+            crossOrigin: any;
         };
         minimal_width(): number;
         minimal_height(): number;
         uri(): string;
         loading(): string;
         decoding(): string;
-        cors(): string;
+        cors(): any;
     }
 }
 
