@@ -3,6 +3,62 @@ namespace $.$$ {
 	export class $hyoo_calc extends $.$hyoo_calc {
 		
 		@ $mol_mem
+		sheet_fund() {
+			return this.yard().world().Fund( $hyoo_calc_sheet )
+		}
+		
+		@ $mol_mem
+		sheet() {
+			
+			const id = $mol_int62_string_ensure( this.$.$mol_state_arg.value( 'sheet' ) )
+			if( !id ) return null
+			
+			return this.sheet_fund().Item( id )
+			
+		}
+		
+		@ $mol_action
+		sheet_new() {
+			const sheet = this.sheet_fund().make()
+			this.$.$mol_state_arg.go({ sheet: sheet.land.id() })
+			return sheet
+		}
+		
+		@ $mol_action
+		sheet_fork() {
+			
+			const prev = this.sheet()
+			
+			const title = this.title()
+			const formulas = this.formulas()
+			
+			const next = this.sheet_new()
+			
+			if( prev ) {
+				
+				next.steal( prev )
+				
+			} else {
+				
+				next.title( title )
+				
+				for( let cell in formulas ) {
+					next.formula( cell, formulas[ cell ] )
+				}
+				
+			}
+			
+			return next
+		}
+
+		@ $mol_action
+		sheet_changable() {
+			const sheet = this.sheet()
+			if( sheet?.changable() ) return sheet
+			return this.sheet_fork()
+		}
+		
+		@ $mol_mem
 		formulas_default() {
 			const source = this.$.$mol_state_arg.value( 'source' )
 			if( source ) {
@@ -12,18 +68,24 @@ namespace $.$$ {
 		}
 
 		@ $mol_mem
-		formulas( next? : { [ key : string ] : string } ) :  { [ key : string ] : string } {
-			const formulas : typeof next = {}
+		formulas() {
 			
-			let args = this.formulas_default()
-			if( next ) return {
-				... $mol_mem_cached( ()=> this.formulas() ) ?? {} ,
-				... next
+			const formulas = {} as { [ key : string ] : string }
+			
+			const sheet = this.sheet()
+			if( sheet ) {
+				
+				for( const cell of sheet.cells() ) {
+					formulas[ cell ] = sheet.formula( cell )
+				}
+				
+			} else {
+				
+				let args = this.formulas_default()
+				const ids = Object.keys( args ).filter( param => this.id2coord( param ) )
+				for( let id of ids ) formulas[ id ] = args[ id ]
+				
 			}
-			
-			const ids = Object.keys( args ).filter( param => this.id2coord( param ) )
-			
-			for( let id of ids ) formulas[ id ] = args[ id ]
 			
 			return formulas
 		}
@@ -127,7 +189,11 @@ namespace $.$$ {
 
 		@ $mol_mem
 		title( next? : string ) {
-			return next ?? this.$.$mol_state_arg.value( `title` ) ?? super.title()
+			if( next === undefined ) {
+				return this.sheet()?.title() ?? this.$.$mol_state_arg.value( `title` ) ?? super.title()
+			} else {
+				return this.sheet_changable().title( next )
+			}
 		}
 
 		col_title( id : number ) {
@@ -206,7 +272,11 @@ namespace $.$$ {
 
 		@ $mol_mem_key
 		formula( id : string , next? : string ) {
-			return this.formulas( next === undefined ? undefined : { [ id ] : next || '' } )[ id ] || ''
+			if( next === undefined ) {
+				return this.sheet()?.formula( id, next ) || this.formulas_default()[ id ] || ''
+			} else {
+				return this.sheet_changable().formula( id, next )
+			}
 		}
 
 		formula_current( next? : string ) {
@@ -315,29 +385,22 @@ namespace $.$$ {
 		}
 
 		paste( event : ClipboardEvent ) {
+			
 			const table = event.clipboardData!.getData( 'text/plain' ).trim().split( '\n' ).map( row => row.split( '\t' ) ) as string[][]
 			if( table.length === 1 && table[0].length === 1 ) return
+			
+			const sheet = this.sheet_changable()
 
 			const [ col_start , row_start ] = this.id2coord( this.pos() )!
-			const patch = {}
 
 			for( let row in table ) {
 				for( let col in table[ row ] ) {
 					const id = this.coord2id([ col_start + Number( col ) , row_start + Number( row ) ])
-					patch[ id ] = table[ row ][ col ]
+					sheet.formula( id, table[ row ][ col ] )
 				}
 			}
 
-			this.formulas( patch )
-
 			event.preventDefault()
-		}
-
-		snapshot_uri() {
-			return this.$.$mol_state_arg.make_link({
-				title : this.title() ,
-				... this.formulas() ,
-			})
 		}
 
 		download_file() {
@@ -366,54 +429,53 @@ namespace $.$$ {
 			
 		}
 		
+		@ $mol_action
 		col_ins( col: number ) {
 			
+			const sheet = this.sheet_changable()
 			const prev = this.formulas()
-			const next = {} as Record< string, string >
 			
 			for( const id in prev ) {
 				
 				const coord = this.id2coord( id )!
 				
 				if( coord[0] < col ) {
-					next[ id ] = prev[ id ]
+					sheet.formula( id, prev[ id ] )
 				} else {
-					if( coord[0] === col ) next[ id ] = ''
-					next[ this.coord2id([ coord[0] + 1, coord[1] ]) ] = prev[ id ]
+					if( coord[0] === col ) sheet.formula( id, '' )
+					sheet.formula( this.coord2id([ coord[0] + 1, coord[1] ]), prev[ id ] )
 				}
 				
 			}
 			
-			this.formulas( next )
-			
 		}
 
+		@ $mol_action
 		row_ins( row: number ) {
 			
+			const sheet = this.sheet_changable()
 			const prev = this.formulas()
-			const next = {} as Record< string, string >
 			
 			for( const id in prev ) {
 				
 				const coord = this.id2coord( id )!
 				
 				if( coord[1] < row ) {
-					next[ id ] = prev[ id ]
+					sheet.formula( id, prev[ id ] )
 				} else {
-					if( coord[1] === row ) next[ id ] = ''
-					next[ this.coord2id([ coord[0], coord[1] + 1 ]) ] = prev[ id ]
+					if( coord[1] === row ) sheet.formula( id, '' )
+					sheet.formula( this.coord2id([ coord[0], coord[1] + 1 ]), prev[ id ] )
 				}
 				
 			}
 			
-			this.formulas( next )
-			
 		}
 
+		@ $mol_action
 		col_right( col: number ) {
 			
+			const sheet = this.sheet_changable()
 			const prev = this.formulas()
-			const next = {} as Record< string, string >
 			
 			for( const id in prev ) {
 				
@@ -424,26 +486,25 @@ namespace $.$$ {
 				} else if( coord[0] === col + 1 ) {
 					var pair = this.coord2id([ coord[0] - 1, coord[1] ])
 				} else {
-					next[ id ] = prev[ id ]
+					sheet.formula( id, prev[ id ] )
 					continue
 				}
 				
-				next[ pair ] = prev[ id ] || ''
-				next[ id ] = prev[ pair ] || ''
+				sheet.formula( pair, prev[ id ] || '' )
+				sheet.formula( id, prev[ pair ] || '' )
 				
 			}
-			
-			this.formulas( next )
 			
 			const coord = this.coord()
 			this.coord([ coord[0] + 1, coord[1] ])
 			
 		}
 
+		@ $mol_action
 		row_down( row: number ) {
 			
+			const sheet = this.sheet_changable()
 			const prev = this.formulas()
-			const next = {} as Record< string, string >
 			
 			for( const id in prev ) {
 				
@@ -454,16 +515,14 @@ namespace $.$$ {
 				} else if( coord[1] === row + 1 ) {
 					var pair = this.coord2id([ coord[0], coord[1] - 1 ])
 				} else {
-					next[ id ] = prev[ id ]
+					sheet.formula( id, prev[ id ] )
 					continue
 				}
 				
-				next[ pair ] = prev[ id ] || ''
-				next[ id ] = prev[ pair ] || ''
+				sheet.formula( pair, prev[ id ] || '' )
+				sheet.formula( id, prev[ pair ] || '' )
 				
 			}
-			
-			this.formulas( next )
 			
 			const coord = this.coord()
 			this.coord([ coord[0], coord[1] + 1 ])

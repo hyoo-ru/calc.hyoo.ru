@@ -1,10 +1,6 @@
 [hyoo_calc_title_edit]:enabled {
-	color: inherit;
-	background: transparent;
 	width: auto;
 	flex: 1000 1 auto;
-	box-shadow: none;
-	padding: .5rem;
 }
 
 [hyoo_calc_tools] {
@@ -54,7 +50,7 @@
 }
 
 [hyoo_calc_col_head]:has( [hyoo_calc_col_tools] ) {
-	z-index: 2;
+	z-index: 5;
 }
 
 [hyoo_calc_col_head] {
@@ -90,7 +86,7 @@
 }
 
 [hyoo_calc_cells_row]:has( [hyoo_calc_cell_selected="true"] ) > [hyoo_calc_row_head] {
-	z-index: 2;
+	z-index: 5;
 }
 
 [hyoo_calc_row_head] {
@@ -140,7 +136,7 @@
 
 [hyoo_calc_cell_selected] {
 	box-shadow: 0 0 0 1px var(--mol_theme_current);
-	z-index: 2;
+	z-index: 5;
 	position: relative;
 	border-radius: var(--mol_gap_round);
 }
