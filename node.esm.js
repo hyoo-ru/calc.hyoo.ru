@@ -3303,7 +3303,7 @@ var $;
 //mol/page/page.view.css.ts
 ;
 "use strict";
-let $hyoo_sync_revision = "95333f3";
+let $hyoo_sync_revision = "083d267";
 //hyoo/sync/-meta.tree/revision.meta.tree.ts
 ;
 "use strict";
