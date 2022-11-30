@@ -3295,7 +3295,7 @@ var $;
 //mol/page/page.view.css.ts
 ;
 "use strict";
-let $hyoo_sync_revision = "083d267";
+let $hyoo_sync_revision = "f0012b4";
 //hyoo/sync/-meta.tree/revision.meta.tree.ts
 ;
 "use strict";
@@ -4796,6 +4796,7 @@ var $;
 (function ($) {
     $.$hyoo_sync_masters = [
         `wss://sync.hyoo.ru/`,
+        `wss://crowd.up.railway.app/`,
         'wss://sync-hyoo-ru.herokuapp.com/',
     ];
 })($ || ($ = {}));
