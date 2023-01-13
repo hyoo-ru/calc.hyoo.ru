@@ -33,6 +33,7 @@
 
 [hyoo_calc_body] {
 	scroll-padding: 2.5rem;
+	padding: 0;
 }
 
 [hyoo_calc_cells][hyoo_calc_cells] {
