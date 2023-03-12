@@ -3334,7 +3334,7 @@ var $;
 //mol/page/page.view.css.ts
 ;
 "use strict";
-let $hyoo_sync_revision = "792f351";
+let $hyoo_sync_revision = "1b2fd4b";
 //hyoo/sync/-meta.tree/revision.meta.tree.ts
 ;
 "use strict";
@@ -11372,8 +11372,6 @@ var $;
                     case $mol_keyboard_code.down: return this.event_down(event);
                     case $mol_keyboard_code.left: return this.event_left(event);
                     case $mol_keyboard_code.right: return this.event_right(event);
-                    case $mol_keyboard_code.pageUp: return this.event_up(event);
-                    case $mol_keyboard_code.pageDown: return this.event_down(event);
                 }
             }
             event_up(event) {
