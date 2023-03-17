@@ -3609,7 +3609,7 @@ declare namespace $.$$ {
         formula_current(next?: string): string;
         sandbox(): $mol_func_sandbox;
         results(range: [string, string]): unknown[];
-        sub(): $mol_view[];
+        sub(): ($mol_view | $mol_scroll)[];
         hint(): string;
         cell_content(id: string): string;
         func(id: string): () => any;
