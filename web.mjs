@@ -2301,7 +2301,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("mol/view/view/view.css", "[mol_view] {\n\ttransition-property: height, width, min-height, min-width, max-width, max-height, transform;\n\ttransition-duration: .2s;\n\ttransition-timing-function: ease-out;\n\t-webkit-appearance: none;\n\tbox-sizing: border-box;\n\tdisplay: flex;\n\tflex-shrink: 0;\n\tcontain: style;\n\tscrollbar-color: var(--mol_theme_line) transparent;\n\tscrollbar-width: thin;\n}\t\n\n[mol_view]::selection {\n\tbackground: var(--mol_theme_line);\n}\t\n\n[mol_view]::-webkit-scrollbar {\n\twidth: .25rem;\n\theight: .25rem;\n}\n\n[mol_view]::-webkit-scrollbar-corner {\n\tbackground-color: var(--mol_theme_line);\n}\n\n[mol_view]::-webkit-scrollbar-track {\n\tbackground-color: transparent;\n}\n\n[mol_view]::-webkit-scrollbar-thumb {\n\tbackground-color: var(--mol_theme_line);\n\tborder-radius: var(--mol_gap_round);\n}\n\n[mol_view] > * {\n\tword-break: inherit;\n}\n\n[mol_view_root] {\n\tmargin: 0;\n\tpadding: 0;\n\twidth: 100%;\n\theight: 100%;\n\tbox-sizing: border-box;\n\tfont-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\n\tfont-size: 1rem;\n\tline-height: 1.5rem;\n\tbackground: var(--mol_theme_back);\n\tcolor: var(--mol_theme_text);\n\tcontain: unset; /** Fixes bg ignoring when applied to body on Chrome */\n\ttab-size: 4;\n}\n\n[mol_view][mol_view_error]:not([mol_view_error=\"Promise\"]) {\n\tbackground-image: repeating-linear-gradient(\n\t\t-45deg,\n\t\t#f92323,\n\t\t#f92323 .5rem,\n\t\t#ff3d3d .5rem,\n\t\t#ff3d3d 1.5rem\n\t);\n\tcolor: black;\n\talign-items: center;\n    justify-content: center;\n}\n\n@keyframes mol_view_wait {\n\tfrom {\n\t\topacity: .75;\n\t}\n\t80% {\n\t\topacity: .25;\n\t}\n\tto {\n\t\topacity: .75;\n\t}\n}\n\n:where([mol_view][mol_view_error=\"Promise\"]) {\n\tbackground: var(--mol_theme_hover);\n}\n\n[mol_view][mol_view_error=\"Promise\"] {\n\tanimation: mol_view_wait 1s steps( 10, end ) infinite;\n}\n");
+    $mol_style_attach("mol/view/view/view.css", "[mol_view] {\n\ttransition-property: height, width, min-height, min-width, max-width, max-height, transform;\n\ttransition-duration: .2s;\n\ttransition-timing-function: ease-out;\n\t-webkit-appearance: none;\n\tbox-sizing: border-box;\n\tdisplay: flex;\n\tflex-shrink: 0;\n\tcontain: style;\n\tscrollbar-color: var(--mol_theme_line) transparent;\n\tscrollbar-width: thin;\n}\t\n\n[mol_view]::selection {\n\tbackground: var(--mol_theme_line);\n}\t\n\n[mol_view]::-webkit-scrollbar {\n\twidth: .25rem;\n\theight: .25rem;\n}\n\n[mol_view]::-webkit-scrollbar-corner {\n\tbackground-color: var(--mol_theme_line);\n}\n\n[mol_view]::-webkit-scrollbar-track {\n\tbackground-color: transparent;\n}\n\n[mol_view]::-webkit-scrollbar-thumb {\n\tbackground-color: var(--mol_theme_line);\n\tborder-radius: var(--mol_gap_round);\n}\n\n[mol_view] > * {\n\tword-break: inherit;\n}\n\n[mol_view_root] {\n\tmargin: 0;\n\tpadding: 0;\n\twidth: 100%;\n\theight: 100%;\n\tbox-sizing: border-box;\n\tfont-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\n\tfont-size: 1rem;\n\tline-height: 1.5rem;\n\tbackground: var(--mol_theme_back);\n\tcolor: var(--mol_theme_text);\n\tcontain: unset; /** Fixes bg ignoring when applied to body on Chrome */\n\ttab-size: 4;\n}\n\n[mol_view][mol_view_error]:not([mol_view_error=\"Promise\"]) {\n\tbackground-image: repeating-linear-gradient(\n\t\t-45deg,\n\t\t#f92323,\n\t\t#f92323 .5rem,\n\t\t#ff3d3d .5rem,\n\t\t#ff3d3d 1.5rem\n\t);\n\tcolor: black;\n\talign-items: center;\n    justify-content: center;\n}\n\n@keyframes mol_view_wait {\n\tfrom {\n\t\topacity: .75;\n\t}\n\t80% {\n\t\topacity: .5;\n\t}\n\tto {\n\t\topacity: .75;\n\t}\n}\n\n:where([mol_view][mol_view_error=\"Promise\"]) {\n\tbackground: var(--mol_theme_hover);\n}\n\n[mol_view][mol_view_error=\"Promise\"] {\n\tanimation: mol_view_wait 1s steps( 10, end ) infinite;\n}\n");
 })($ || ($ = {}));
 //mol/view/view/-css/view.css.ts
 ;
@@ -2862,7 +2862,7 @@ var $;
 //mol/page/page.view.css.ts
 ;
 "use strict";
-let $hyoo_sync_revision = "e443b9f";
+let $hyoo_sync_revision = "fcc9026";
 //hyoo/sync/-meta.tree/revision.meta.tree.ts
 ;
 "use strict";
@@ -4179,6 +4179,8 @@ var $;
             return authors;
         }
         steal_rights(donor) {
+            if (!this.allowed_law())
+                return;
             for (const peer of donor.peers()) {
                 this.level(peer, donor.level(peer));
             }
@@ -4703,9 +4705,9 @@ var $;
 var $;
 (function ($) {
     $.$hyoo_sync_masters = [
-        `wss://sync.hyoo.ru/`,
-        `wss://crowd.up.railway.app/`,
-        `wss://crowd2.up.railway.app/`,
+        `sync.hyoo.ru`,
+        `crowd.up.railway.app`,
+        `crowd2.up.railway.app`,
     ];
 })($ || ($ = {}));
 //hyoo/sync/masters/masters.ts
@@ -4726,7 +4728,7 @@ var $;
             return world;
         }
         land_init(land) {
-            this.land_sync(land);
+            this.db_land_init(land);
             if (!land.grabbed())
                 this.$.$mol_wait_timeout(10_000);
         }
@@ -4844,7 +4846,9 @@ var $;
             return next;
         }
         master_link() {
-            return this.$.$hyoo_sync_masters[this.master_cursor()];
+            const scheme = this.$.$mol_dom_context.document.location.protocol.replace(/^http/, 'ws');
+            const host = this.$.$hyoo_sync_masters[this.master_cursor()];
+            return `${scheme}//${host}`;
         }
         master() {
             return null;
@@ -4874,7 +4878,7 @@ var $;
             const units = land.delta(clocks);
             if (!units.length)
                 return;
-            $mol_wire_sync(this).line_send_units(line, units);
+            this.line_send_units(line, units);
             this.$.$mol_log3_rise({
                 place: this,
                 land: land.id(),
@@ -4933,7 +4937,7 @@ var $;
                     return;
                 }
                 const { allow, forbid } = await world.apply(message);
-                for (const [unit, error] of forbid) {
+                for (const [{ bin, ...unit }, error] of forbid) {
                     this.$.$mol_log3_fail({
                         place: this,
                         land: land.id(),
@@ -4995,6 +4999,9 @@ var $;
     __decorate([
         $mol_mem
     ], $hyoo_sync_yard.prototype, "master_cursor", null);
+    __decorate([
+        $mol_mem
+    ], $hyoo_sync_yard.prototype, "master_link", null);
     __decorate([
         $mol_mem
     ], $hyoo_sync_yard.prototype, "slaves", null);
@@ -5317,10 +5324,14 @@ var $;
             let interval;
             line.onclose = () => {
                 clearInterval(interval);
-                setTimeout(() => this.reconnects(null), 5000);
+                setTimeout(() => this.reconnects(null), 1000);
             };
             Object.assign(line, {
-                destructor: () => line.close()
+                destructor: () => {
+                    line.onclose = () => { };
+                    clearInterval(interval);
+                    line.close();
+                }
             });
             return new Promise((done, fail) => {
                 line.onopen = () => {
@@ -5334,8 +5345,11 @@ var $;
                     done(line);
                 };
                 line.onerror = () => {
+                    line.onclose = event => {
+                        fail(new Error(`Master is unavailable (${event.code})`));
+                    };
+                    clearInterval(interval);
                     this.master_cursor((this.master_cursor() + 1) % this.$.$hyoo_sync_masters.length);
-                    fail(new Error(`Master is unavailable`));
                 };
             });
         }
@@ -6859,6 +6873,13 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    $.$mol_blob = ($node.buffer?.Blob ?? $mol_dom_context.Blob);
+})($ || ($ = {}));
+//mol/blob/blob.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_svg extends $mol_view {
         dom_name() {
             return "svg";
@@ -7063,8 +7084,11 @@ var $;
 var $;
 (function ($) {
     class $mol_button_copy extends $mol_button_minor {
-        text() {
-            return this.title();
+        data() {
+            return {
+                "text/plain": this.text_blob(),
+                "text/html": this.html_blob()
+            };
         }
         sub() {
             return [
@@ -7072,14 +7096,46 @@ var $;
                 this.title()
             ];
         }
-        title() {
+        text() {
+            return this.title();
+        }
+        text_blob(next) {
+            if (next !== undefined)
+                return next;
+            const obj = new this.$.$mol_blob([
+                this.text()
+            ], {
+                type: "text/plain"
+            });
+            return obj;
+        }
+        html() {
             return "";
+        }
+        html_blob(next) {
+            if (next !== undefined)
+                return next;
+            const obj = new this.$.$mol_blob([
+                this.html()
+            ], {
+                type: "text/html"
+            });
+            return obj;
         }
         Icon() {
             const obj = new this.$.$mol_icon_clipboard_outline();
             return obj;
         }
+        title() {
+            return "";
+        }
     }
+    __decorate([
+        $mol_mem
+    ], $mol_button_copy.prototype, "text_blob", null);
+    __decorate([
+        $mol_mem
+    ], $mol_button_copy.prototype, "html_blob", null);
     __decorate([
         $mol_mem
     ], $mol_button_copy.prototype, "Icon", null);
@@ -7090,13 +7146,42 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    const mapping = {
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        '&': '&amp;',
+    };
+    function $mol_html_encode(text) {
+        return text.replace(/[&<">]/gi, str => mapping[str]);
+    }
+    $.$mol_html_encode = $mol_html_encode;
+})($ || ($ = {}));
+//mol/html/encode/encode.ts
+;
+"use strict";
+var $;
+(function ($) {
     var $$;
     (function ($$) {
         class $mol_button_copy extends $.$mol_button_copy {
+            html() {
+                return $mol_html_encode(this.text());
+            }
+            attachments() {
+                return [new ClipboardItem(this.data())];
+            }
             click(event) {
-                this.$.$mol_dom_context.navigator.clipboard.writeText(this.text());
+                const cb = $mol_wire_sync(this.$.$mol_dom_context.navigator.clipboard);
+                cb.write(this.attachments());
             }
         }
+        __decorate([
+            $mol_mem
+        ], $mol_button_copy.prototype, "html", null);
+        __decorate([
+            $mol_mem
+        ], $mol_button_copy.prototype, "attachments", null);
         $$.$mol_button_copy = $mol_button_copy;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -12124,7 +12209,12 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_offline();
+    try {
+        $mol_offline();
+    }
+    catch (error) {
+        console.error(error);
+    }
 })($ || ($ = {}));
 //mol/offline/install/install.ts
 ;
