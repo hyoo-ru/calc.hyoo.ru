@@ -2343,8 +2343,8 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    function $mol_huggingface_run(this: $, space: string, method: string | number, ...data: readonly any[]): readonly string[];
-    function $mol_huggingface_async(space: string, method: number, ...data: readonly any[]): Promise<[string]> & {
+    function $mol_huggingface_run(this: $, space: string, method: string | number, ...data: readonly any[]): any[] | readonly string[];
+    function $mol_huggingface_async(space: string, method: number, ...data: readonly any[]): Promise<any[]> & {
         destructor: () => void;
     };
 }
@@ -2362,7 +2362,7 @@ declare namespace $ {
         static lang(next?: string): string;
         static source(lang: string): any;
         static texts(lang: string, next?: $mol_locale_dict): $mol_locale_dict;
-        static text(key: string): {} | null;
+        static text(key: string): string;
         static warn(key: string): null;
     }
 }
@@ -2912,7 +2912,7 @@ declare namespace $ {
 declare namespace $ {
     class $mol_lights_toggle extends $mol_check_icon {
         Icon(): $mol_icon_brightness_6;
-        hint(): {} | null;
+        hint(): string;
         checked(val?: any): boolean;
         Lights_icon(): $mol_icon_brightness_6;
         lights(val?: any): boolean;
@@ -2978,7 +2978,7 @@ declare namespace $ {
 
 declare namespace $ {
     class $mol_link_source extends $mol_link {
-        hint(): {} | null;
+        hint(): string;
         sub(): readonly any[];
         Icon(): $mol_icon_github_circle;
     }
@@ -3638,7 +3638,7 @@ declare namespace $ {
             paste: (event?: any) => any;
         };
         title(val?: any): string;
-        title_default(): {} | null;
+        title_default(): string;
         Title_edit(): $mol_string_button;
         download_file(): string;
         download_uri(val?: any): string;
@@ -3659,7 +3659,7 @@ declare namespace $ {
         Hint_trigger_icon(): $mol_icon_hint;
         Hint_trigger(): $mol_check_icon;
         Current(): $mol_bar;
-        hint(): {} | null;
+        hint(): string;
         Hint(): $$.$mol_text;
         col_ids(): readonly any[];
         row_ids(): readonly any[];
@@ -3806,7 +3806,7 @@ declare namespace $.$$ {
         sandbox(): $mol_func_sandbox;
         results(range: [string, string]): unknown[];
         sub(): ($mol_view | $mol_scroll)[];
-        hint(): any;
+        hint(): string;
         cell_content(id: string): string;
         func(id: string): () => any;
         result(id: string): string | number;
