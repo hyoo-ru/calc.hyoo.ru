@@ -4628,6 +4628,9 @@ var $;
             return this.land.node(unit.self, Node);
         }
     }
+    __decorate([
+        $mol_mem
+    ], $hyoo_crowd_list.prototype, "set", null);
     $.$hyoo_crowd_list = $hyoo_crowd_list;
 })($ || ($ = {}));
 //hyoo/crowd/list/list.ts
