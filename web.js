@@ -2900,7 +2900,7 @@ var $;
 //mol/page/page.view.css.ts
 ;
 "use strict";
-let $hyoo_sync_revision = "9edf754";
+let $hyoo_sync_revision = "697bb43";
 //hyoo/sync/-meta.tree/revision.meta.tree.ts
 ;
 "use strict";
@@ -4491,8 +4491,14 @@ var $;
         }
         async *delta(clocks = new Map()) {
             for (const land of this.lands.values()) {
-                yield await this.delta_batch(land, clocks.get(land.id()));
+                const batch = await this.delta_batch(land, clocks.get(land.id()));
+                if (batch.length)
+                    yield batch;
             }
+        }
+        async merge(donor) {
+            for await (const batch of donor.delta())
+                await this.apply(batch);
         }
         async apply(delta) {
             const units = [];
