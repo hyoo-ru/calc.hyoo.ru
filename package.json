@@ -252,6 +252,7 @@
     "$mol_embed",
     "$mol_embed_native",
     "$mol_embed_youtube",
+    "$mol_icon_youtube",
     "$mol_frame",
     "$mol_icon_chevron_down",
     "$mol_icon_chevron_right",
