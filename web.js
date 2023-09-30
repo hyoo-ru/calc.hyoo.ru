@@ -2991,7 +2991,7 @@ var $;
 //mol/page/page.view.css.ts
 ;
 "use strict";
-let $hyoo_sync_revision = "bccfe4d";
+let $hyoo_sync_revision = "echo";
 //hyoo/sync/-meta.tree/revision.meta.tree.ts
 ;
 "use strict";
