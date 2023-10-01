@@ -4852,8 +4852,7 @@ var $;
 (function ($) {
     $.$hyoo_sync_masters = [
         `sync.hyoo.ru`,
-        `crowd.up.railway.app`,
-        `crowd2.up.railway.app`,
+        `sync-pmzz.onrender.com`,
     ];
 })($ || ($ = {}));
 //hyoo/sync/masters/masters.ts
@@ -5039,13 +5038,6 @@ var $;
             if (!units.length)
                 return;
             this.line_send_units(line, units);
-            this.$.$mol_log3_rise({
-                place: this,
-                land: land.id(),
-                message: 'Sync Sent',
-                line: $mol_key(line),
-                units: this.log_pack(units),
-            });
             for (const unit of units) {
                 clocks[unit.group()].see_peer(unit.auth, unit.time);
             }
