@@ -4190,12 +4190,7 @@ var $;
             }
             else {
                 this.native().setItem(key, JSON.stringify(next));
-                try {
-                    this.$.$mol_storage.persisted(true);
-                }
-                catch (error) {
-                    $mol_fail_log(error);
-                }
+                this.$.$mol_storage.persisted(true);
             }
             return next;
         }
@@ -5835,7 +5830,7 @@ var $;
                 Unit.put(unit, [unit.land, unit.head, unit.self]);
             }
             await trans.commit();
-            this.$.$mol_storage.native().persist();
+            this.$.$mol_storage.persisted(true);
         }
         reconnects(reset) {
             return ($mol_wire_probe(() => this.reconnects()) ?? 0) + 1;
