@@ -8,9 +8,14 @@ namespace $.$$ {
 		}
 		
 		@ $mol_mem
+		sheet_id() {
+			return this.$.$mol_state_arg.value( 'sheet' )
+		}
+		
+		@ $mol_mem
 		sheet() {
 			
-			const id = $mol_int62_string_ensure( this.$.$mol_state_arg.value( 'sheet' ) )
+			const id = $mol_int62_string_ensure( this.sheet_id() )
 			if( !id ) return null
 			
 			return this.sheet_fund().Item( id )
@@ -386,7 +391,7 @@ namespace $.$$ {
 
 		paste( event : ClipboardEvent ) {
 			
-			const table = event.clipboardData!.getData( 'text/plain' ).trim().split( '\n' ).map( row => row.split( '\t' ) ) as string[][]
+			const table = event.clipboardData!.getData( 'text/plain' ).trim().split( /\r?\n/ ).map( row => row.split( '\t' ) ) as string[][]
 			if( table.length === 1 && table[0].length === 1 ) return
 			
 			const sheet = this.sheet_changable()

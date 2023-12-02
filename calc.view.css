@@ -41,7 +41,8 @@
 
 [hyoo_calc_cells][hyoo_calc_cells] {
 	flex-shrink: 0;
-	align-self: flex-start;
+	flex-grow: 1;
+	align-self: stretch;
 }
 
 [hyoo_calc_col_head] ,
