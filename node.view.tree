@@ -829,11 +829,14 @@ $mol_text_list_item $mol_paragraph
 
 $hyoo_calc $mol_page
 	yard $hyoo_sync_client
+	editable true
+	sheet_id \
 	formulas_default *
 	formula!id?val \
 	head /
 		<= Title_edit $mol_string_button
 			value?val <=> title?val \
+			enabled <= editable
 			hint <= title_default @ \Spreedsheet
 		<= Tools
 	tools /
@@ -882,6 +885,7 @@ $hyoo_calc $mol_page
 	Edit!id $mol_textarea
 		hint \=
 		value?val <=> formula!id?val \
+		enabled <= editable
 	Col_head* $mol_float
 		dom_name \th
 		sub <= col_head_content* /
@@ -896,6 +900,7 @@ $hyoo_calc $mol_page
 						<= Col_left_icon* $mol_icon_chevron_left
 				<= Col_ins* $mol_button_minor
 					hint @ \Insert Column
+					enabled <= editable
 					click? <=> col_ins*? null
 					sub /
 						<= col_title* \
@@ -903,6 +908,7 @@ $hyoo_calc $mol_page
 				<= Col_right* $mol_button_minor
 					hint @ \Move Right
 					click? <=> col_right*? null
+					enabled <= editable
 					sub /
 						<= Col_right_icon* $mol_icon_chevron_right
 	Row_head* $mol_float
@@ -920,12 +926,14 @@ $hyoo_calc $mol_page
 				<= Row_ins* $mol_button_minor
 					hint @ \Insert Row
 					click? <=> row_ins*? null
+					enabled <= editable
 					sub /
 						<= row_title* \
 						<= Row_ins_icon* $mol_icon_chevron_right
 				<= Row_down* $mol_button_minor
 					hint @ \Move Down
 					click? <=> row_down*? null
+					enabled <= editable
 					sub /
 						<= Row_down_icon* $mol_icon_chevron_down
 	Cell!id $hyoo_calc_cell

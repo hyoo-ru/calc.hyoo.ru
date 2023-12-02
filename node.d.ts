@@ -3755,6 +3755,8 @@ declare namespace $ {
 declare namespace $ {
     class $hyoo_calc extends $mol_page {
         yard(): $hyoo_sync_client;
+        editable(): boolean;
+        sheet_id(): string;
         formulas_default(): Record<string, any>;
         formula(id: any, val?: any): string;
         head(): readonly any[];
@@ -3893,6 +3895,7 @@ declare namespace $ {
 declare namespace $.$$ {
     class $hyoo_calc extends $.$hyoo_calc {
         sheet_fund(): $hyoo_crowd_fund<typeof $hyoo_calc_sheet>;
+        sheet_id(): string;
         sheet(): $hyoo_calc_sheet | null;
         sheet_new(): $hyoo_calc_sheet;
         sheet_fork(): $hyoo_calc_sheet;

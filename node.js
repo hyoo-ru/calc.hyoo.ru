@@ -6935,7 +6935,7 @@ var $;
                     throw new Error('Empty token');
                 var prefix = found[1];
                 if (prefix)
-                    handle('', prefix, [], start);
+                    handle('', prefix, [prefix], start);
                 var suffix = found[2];
                 if (!suffix)
                     continue;
@@ -13373,6 +13373,12 @@ var $;
             const obj = new this.$.$hyoo_sync_client();
             return obj;
         }
+        editable() {
+            return true;
+        }
+        sheet_id() {
+            return "";
+        }
         formulas_default() {
             return {};
         }
@@ -13414,6 +13420,7 @@ var $;
             const obj = new this.$.$mol_textarea();
             obj.hint = () => "=";
             obj.value = (val) => this.formula(id, val);
+            obj.enabled = () => this.editable();
             return obj;
         }
         Col_head(id) {
@@ -13456,6 +13463,7 @@ var $;
         Title_edit() {
             const obj = new this.$.$mol_string_button();
             obj.value = (val) => this.title(val);
+            obj.enabled = () => this.editable();
             obj.hint = () => this.title_default();
             return obj;
         }
@@ -13613,6 +13621,7 @@ var $;
         Col_ins(id) {
             const obj = new this.$.$mol_button_minor();
             obj.hint = () => this.$.$mol_locale.text('$hyoo_calc_Col_ins_hint');
+            obj.enabled = () => this.editable();
             obj.click = (next) => this.col_ins(id, next);
             obj.sub = () => [
                 this.col_title(id),
@@ -13633,6 +13642,7 @@ var $;
             const obj = new this.$.$mol_button_minor();
             obj.hint = () => this.$.$mol_locale.text('$hyoo_calc_Col_right_hint');
             obj.click = (next) => this.col_right(id, next);
+            obj.enabled = () => this.editable();
             obj.sub = () => [
                 this.Col_right_icon(id)
             ];
@@ -13678,6 +13688,7 @@ var $;
             const obj = new this.$.$mol_button_minor();
             obj.hint = () => this.$.$mol_locale.text('$hyoo_calc_Row_ins_hint');
             obj.click = (next) => this.row_ins(id, next);
+            obj.enabled = () => this.editable();
             obj.sub = () => [
                 this.row_title(id),
                 this.Row_ins_icon(id)
@@ -13697,6 +13708,7 @@ var $;
             const obj = new this.$.$mol_button_minor();
             obj.hint = () => this.$.$mol_locale.text('$hyoo_calc_Row_down_hint');
             obj.click = (next) => this.row_down(id, next);
+            obj.enabled = () => this.editable();
             obj.sub = () => [
                 this.Row_down_icon(id)
             ];
@@ -14254,8 +14266,11 @@ var $;
             sheet_fund() {
                 return this.yard().world().Fund($hyoo_calc_sheet);
             }
+            sheet_id() {
+                return this.$.$mol_state_arg.value('sheet') || '';
+            }
             sheet() {
-                const id = $mol_int62_string_ensure(this.$.$mol_state_arg.value('sheet'));
+                const id = $mol_int62_string_ensure(this.sheet_id());
                 if (!id)
                     return null;
                 return this.sheet_fund().Item(id);
@@ -14528,7 +14543,7 @@ var $;
                 return Number(res);
             }
             paste(event) {
-                const table = event.clipboardData.getData('text/plain').trim().split('\n').map(row => row.split('\t'));
+                const table = event.clipboardData.getData('text/plain').trim().split(/\r?\n/).map(row => row.split('\t'));
                 if (table.length === 1 && table[0].length === 1)
                     return;
                 const sheet = this.sheet_changable();
@@ -14635,6 +14650,9 @@ var $;
         ], $hyoo_calc.prototype, "sheet_fund", null);
         __decorate([
             $mol_mem
+        ], $hyoo_calc.prototype, "sheet_id", null);
+        __decorate([
+            $mol_mem
         ], $hyoo_calc.prototype, "sheet", null);
         __decorate([
             $mol_action
@@ -14736,7 +14754,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("hyoo/calc/calc.view.css", "[hyoo_calc_title_edit]:enabled {\n\twidth: auto;\n\tflex: 1000 1 auto;\n}\n\n[hyoo_calc_tools] {\n\tflex-grow: 0;\n}\n\n[hyoo_calc_current] {\n\tflex: none;\n}\n\n[hyoo_calc_pos] {\n\tflex: none;\n\twidth: 2.5rem;\n\tfont-family: monospace;\n\talign-items: flex-start;\n}\n\n[hyoo_calc_edit] {\n\tflex-shrink: 1;\n}\n\n[hyoo_calc_hint] {\n\tmax-width: none;\n\tpadding: 0;\n}\n\n[hyoo_calc_hint_trigger] {\n\talign-items: center;\n}\n\n[hyoo_calc_body] {\n\tscroll-padding: 2.5rem;\n}\n\n[hyoo_calc_body_content] {\n\tpadding: 0;\n}\n\n[hyoo_calc_cells][hyoo_calc_cells] {\n\tflex-shrink: 0;\n\talign-self: flex-start;\n}\n\n[hyoo_calc_col_head] ,\n[hyoo_calc_row_head] {\n\tfont-family: monospace;\n\tbackground: var(--mol_theme_back);\n\tcolor: var(--mol_theme_shade);\n\tuser-select: none;\n\tfont-weight: inherit;\n}\n\n[hyoo_calc_col_head]:has( [hyoo_calc_col_tools] ) {\n\tz-index: 5;\n}\n\n[hyoo_calc_col_head] {\n\ttext-align: left;\n\tpadding: 0;\n\twhite-space: nowrap;\n\tmin-width: 5rem;\n}\n\n[hyoo_calc_col_title] {\n\tpadding: var(--mol_gap_text);\n\tdisplay: inline-flex;\n\tvertical-align: top;\n}\n\n[hyoo_calc_col_tools] {\n\tdisplay: inline-flex;\n\tposition: absolute;\n\tbackground: var(--mol_theme_back);\n\tz-index: 1;\n\tleft: 0;\n\tbox-shadow: 0 0 0.5rem hsl(0deg 0% 0% / 25%);\n}\n\n[hyoo_calc_col_tools] > [mol_button_minor] {\n\tbackground: var(--mol_theme_card);\n\tjustify-content: center;\n}\n\n[hyoo_calc_col_ins_icon] {\n    position: absolute;\n\tbottom: -0.25rem;\n}\n\n[hyoo_calc_cells_row]:has( [hyoo_calc_cell_selected=\"true\"] ) > [hyoo_calc_row_head] {\n\tz-index: 5;\n}\n\n[hyoo_calc_row_head] {\n\tvertical-align: top;\n\tpadding: 0;\n\twhite-space: nowrap;\n}\n\n[hyoo_calc_row_title] {\n\tpadding: var(--mol_gap_text);\n\tdisplay: inline-flex;\n\tvertical-align: top;\n}\n\n[hyoo_calc_row_tools] {\n\tposition: absolute;\n\tbackground: var(--mol_theme_back);\n\tflex-direction: column;\n\tz-index: 1;\n\ttop: 0;\n\tleft: 1px;\n\tbox-shadow: 0 0 0.5rem hsl(0deg 0% 0% / 25%);\n}\n\n[hyoo_calc_row_tools] > [mol_button_minor] {\n\tbackground: var(--mol_theme_card);\n}\n\n[hyoo_calc_row_ins_icon] {\n    position: absolute;\n    right: 0px;\n}\n\n[hyoo_calc_cell] {\n\tuser-select: text;\n\tborder-radius: 0;\n\tdisplay: table-cell;\n\twhite-space: normal;\n\tword-break: normal;\n\tvertical-align: top;\n\tpadding: 0;\n}\n\n[hyoo_calc_cell_rows] {\n\tpadding: 0;\n}\n\n[hyoo_calc_cell_selected] {\n\tbox-shadow: 0 0 0 1px var(--mol_theme_current);\n\tz-index: 5;\n\tposition: relative;\n\tborder-radius: var(--mol_gap_round);\n}\n\n[hyoo_calc_cell_type=\"number\"] {\n\ttext-align: right;\n}\n");
+    $mol_style_attach("hyoo/calc/calc.view.css", "[hyoo_calc_title_edit]:enabled {\n\twidth: auto;\n\tflex: 1000 1 auto;\n}\n\n[hyoo_calc_tools] {\n\tflex-grow: 0;\n}\n\n[hyoo_calc_current] {\n\tflex: none;\n}\n\n[hyoo_calc_pos] {\n\tflex: none;\n\twidth: 2.5rem;\n\tfont-family: monospace;\n\talign-items: flex-start;\n}\n\n[hyoo_calc_edit] {\n\tflex-shrink: 1;\n}\n\n[hyoo_calc_hint] {\n\tmax-width: none;\n\tpadding: 0;\n}\n\n[hyoo_calc_hint_trigger] {\n\talign-items: center;\n}\n\n[hyoo_calc_body] {\n\tscroll-padding: 2.5rem;\n}\n\n[hyoo_calc_body_content] {\n\tpadding: 0;\n}\n\n[hyoo_calc_cells][hyoo_calc_cells] {\n\tflex-shrink: 0;\n\tflex-grow: 1;\n\talign-self: stretch;\n}\n\n[hyoo_calc_col_head] ,\n[hyoo_calc_row_head] {\n\tfont-family: monospace;\n\tbackground: var(--mol_theme_back);\n\tcolor: var(--mol_theme_shade);\n\tuser-select: none;\n\tfont-weight: inherit;\n}\n\n[hyoo_calc_col_head]:has( [hyoo_calc_col_tools] ) {\n\tz-index: 5;\n}\n\n[hyoo_calc_col_head] {\n\ttext-align: left;\n\tpadding: 0;\n\twhite-space: nowrap;\n\tmin-width: 5rem;\n}\n\n[hyoo_calc_col_title] {\n\tpadding: var(--mol_gap_text);\n\tdisplay: inline-flex;\n\tvertical-align: top;\n}\n\n[hyoo_calc_col_tools] {\n\tdisplay: inline-flex;\n\tposition: absolute;\n\tbackground: var(--mol_theme_back);\n\tz-index: 1;\n\tleft: 0;\n\tbox-shadow: 0 0 0.5rem hsl(0deg 0% 0% / 25%);\n}\n\n[hyoo_calc_col_tools] > [mol_button_minor] {\n\tbackground: var(--mol_theme_card);\n\tjustify-content: center;\n}\n\n[hyoo_calc_col_ins_icon] {\n    position: absolute;\n\tbottom: -0.25rem;\n}\n\n[hyoo_calc_cells_row]:has( [hyoo_calc_cell_selected=\"true\"] ) > [hyoo_calc_row_head] {\n\tz-index: 5;\n}\n\n[hyoo_calc_row_head] {\n\tvertical-align: top;\n\tpadding: 0;\n\twhite-space: nowrap;\n}\n\n[hyoo_calc_row_title] {\n\tpadding: var(--mol_gap_text);\n\tdisplay: inline-flex;\n\tvertical-align: top;\n}\n\n[hyoo_calc_row_tools] {\n\tposition: absolute;\n\tbackground: var(--mol_theme_back);\n\tflex-direction: column;\n\tz-index: 1;\n\ttop: 0;\n\tleft: 1px;\n\tbox-shadow: 0 0 0.5rem hsl(0deg 0% 0% / 25%);\n}\n\n[hyoo_calc_row_tools] > [mol_button_minor] {\n\tbackground: var(--mol_theme_card);\n}\n\n[hyoo_calc_row_ins_icon] {\n    position: absolute;\n    right: 0px;\n}\n\n[hyoo_calc_cell] {\n\tuser-select: text;\n\tborder-radius: 0;\n\tdisplay: table-cell;\n\twhite-space: normal;\n\tword-break: normal;\n\tvertical-align: top;\n\tpadding: 0;\n}\n\n[hyoo_calc_cell_rows] {\n\tpadding: 0;\n}\n\n[hyoo_calc_cell_selected] {\n\tbox-shadow: 0 0 0 1px var(--mol_theme_current);\n\tz-index: 5;\n\tposition: relative;\n\tborder-radius: var(--mol_gap_round);\n}\n\n[hyoo_calc_cell_type=\"number\"] {\n\ttext-align: right;\n}\n");
 })($ || ($ = {}));
 //hyoo/calc/-css/calc.view.css.ts
 ;
