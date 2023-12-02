@@ -9,7 +9,7 @@ namespace $.$$ {
 		
 		@ $mol_mem
 		sheet_id() {
-			return this.$.$mol_state_arg.value( 'sheet' )
+			return this.$.$mol_state_arg.value( 'sheet' ) || ''
 		}
 		
 		@ $mol_mem
