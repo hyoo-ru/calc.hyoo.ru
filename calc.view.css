@@ -140,6 +140,7 @@
 }
 
 [hyoo_calc_cell_selected] {
+	background: var(--mol_theme_back);
 	box-shadow: 0 0 0 1px var(--mol_theme_current);
 	z-index: 5;
 	position: relative;
