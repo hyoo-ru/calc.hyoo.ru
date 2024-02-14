@@ -3711,12 +3711,28 @@ var $;
 var $;
 (function ($) {
     class $mol_error_mix extends AggregateError {
-        name = '$mol_error_mix';
+        name = $$.$mol_func_name(this.constructor);
         constructor(message, ...errors) {
-            super(errors, [message, ...errors.map(e => '  ' + e.message)].join('\n'));
+            super(errors, [message, ...errors.map(e => e.message.replace(/^/gm, '  '))].join('\n'));
+        }
+        get cause() {
+            return [].concat(...this.errors.map(e => e.cause).filter(Boolean));
         }
         toJSON() {
-            return this.message;
+            return this.errors.map(e => e.message);
+        }
+        pick(Class) {
+            if (this instanceof Class)
+                return this;
+            for (const e of this.errors) {
+                if (e instanceof Class)
+                    return e;
+            }
+            for (const e of this.cause) {
+                if (e && e instanceof Class)
+                    return e;
+            }
+            return null;
         }
     }
     $.$mol_error_mix = $mol_error_mix;
@@ -8203,7 +8219,7 @@ var $;
 		}
 		Copy(){
 			const obj = new this.$.$mol_button_copy();
-			(obj.hint) = () => (this.$.$mol_locale.text("$mol_text_code_Copy_hint"));
+			(obj.hint) = () => ((this.$.$mol_locale.text("$mol_text_code_Copy_hint")));
 			(obj.text) = () => ((this.text_export()));
 			return obj;
 		}
@@ -10197,7 +10213,7 @@ var $;
 		}
 		Clear(){
 			const obj = new this.$.$mol_button_minor();
-			(obj.hint) = () => (this.$.$mol_locale.text("$mol_search_Clear_hint"));
+			(obj.hint) = () => ((this.$.$mol_locale.text("$mol_search_Clear_hint")));
 			(obj.click) = (next) => ((this.clear(next)));
 			(obj.sub) = () => ([(this.Clear_icon())]);
 			return obj;
@@ -12123,7 +12139,7 @@ var $;
 		Link(){
 			const obj = new this.$.$mol_link();
 			(obj.arg) = () => ((this.arg()));
-			(obj.hint) = () => (this.$.$mol_locale.text("$mol_text_header_Link_hint"));
+			(obj.hint) = () => ((this.$.$mol_locale.text("$mol_text_header_Link_hint")));
 			(obj.sub) = () => ((this.content()));
 			return obj;
 		}
@@ -12641,7 +12657,7 @@ var $;
 		}
 		Download(){
 			const obj = new this.$.$mol_button_download();
-			(obj.hint) = () => (this.$.$mol_locale.text("$hyoo_calc_Download_hint"));
+			(obj.hint) = () => ((this.$.$mol_locale.text("$hyoo_calc_Download_hint")));
 			(obj.file_name) = () => ((this.download_file()));
 			(obj.uri) = () => ((this.download_uri()));
 			return obj;
@@ -12656,7 +12672,7 @@ var $;
 		}
 		Fork(){
 			const obj = new this.$.$mol_button_minor();
-			(obj.hint) = () => (this.$.$mol_locale.text("$hyoo_calc_Fork_hint"));
+			(obj.hint) = () => ((this.$.$mol_locale.text("$hyoo_calc_Fork_hint")));
 			(obj.click) = (next) => ((this.sheet_fork(next)));
 			(obj.sub) = () => ([(this.Fork_icon())]);
 			return obj;
@@ -12671,7 +12687,7 @@ var $;
 		}
 		New(){
 			const obj = new this.$.$mol_button_minor();
-			(obj.hint) = () => (this.$.$mol_locale.text("$hyoo_calc_New_hint"));
+			(obj.hint) = () => ((this.$.$mol_locale.text("$hyoo_calc_New_hint")));
 			(obj.click) = (next) => ((this.sheet_new(next)));
 			(obj.sub) = () => ([(this.New_icon())]);
 			return obj;
@@ -12777,7 +12793,7 @@ var $;
 		}
 		Col_ins(id){
 			const obj = new this.$.$mol_button_minor();
-			(obj.hint) = () => (this.$.$mol_locale.text("$hyoo_calc_Col_ins_hint"));
+			(obj.hint) = () => ((this.$.$mol_locale.text("$hyoo_calc_Col_ins_hint")));
 			(obj.enabled) = () => ((this.editable()));
 			(obj.click) = (next) => ((this.col_ins(id, next)));
 			(obj.sub) = () => ([(this.col_title(id)), (this.Col_ins_icon(id))]);
@@ -12793,7 +12809,7 @@ var $;
 		}
 		Col_right(id){
 			const obj = new this.$.$mol_button_minor();
-			(obj.hint) = () => (this.$.$mol_locale.text("$hyoo_calc_Col_right_hint"));
+			(obj.hint) = () => ((this.$.$mol_locale.text("$hyoo_calc_Col_right_hint")));
 			(obj.click) = (next) => ((this.col_right(id, next)));
 			(obj.enabled) = () => ((this.editable()));
 			(obj.sub) = () => ([(this.Col_right_icon(id))]);
@@ -12828,7 +12844,7 @@ var $;
 		}
 		Row_ins(id){
 			const obj = new this.$.$mol_button_minor();
-			(obj.hint) = () => (this.$.$mol_locale.text("$hyoo_calc_Row_ins_hint"));
+			(obj.hint) = () => ((this.$.$mol_locale.text("$hyoo_calc_Row_ins_hint")));
 			(obj.click) = (next) => ((this.row_ins(id, next)));
 			(obj.enabled) = () => ((this.editable()));
 			(obj.sub) = () => ([(this.row_title(id)), (this.Row_ins_icon(id))]);
@@ -12844,7 +12860,7 @@ var $;
 		}
 		Row_down(id){
 			const obj = new this.$.$mol_button_minor();
-			(obj.hint) = () => (this.$.$mol_locale.text("$hyoo_calc_Row_down_hint"));
+			(obj.hint) = () => ((this.$.$mol_locale.text("$hyoo_calc_Row_down_hint")));
 			(obj.click) = (next) => ((this.row_down(id, next)));
 			(obj.enabled) = () => ((this.editable()));
 			(obj.sub) = () => ([(this.Row_down_icon(id))]);
