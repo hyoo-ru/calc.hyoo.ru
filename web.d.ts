@@ -4890,7 +4890,9 @@ declare namespace $ {
 declare namespace $ {
 
 	export class $mol_theme_auto extends $mol_plugin {
-		theme( ): string
+		dark( ): string
+		theme( ): ReturnType< $mol_theme_auto['dark'] >
+		light( ): string
 		attr( ): ({ 
 			'mol_theme': ReturnType< $mol_theme_auto['theme'] >,
 		}) 
@@ -4901,7 +4903,7 @@ declare namespace $ {
 //# sourceMappingURL=auto.view.tree.d.ts.map
 declare namespace $.$$ {
     class $mol_theme_auto extends $.$mol_theme_auto {
-        theme(): "$mol_theme_light" | "$mol_theme_dark";
+        theme(): string;
     }
 }
 
