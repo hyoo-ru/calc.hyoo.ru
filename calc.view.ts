@@ -392,7 +392,7 @@ namespace $.$$ {
 		paste( event : ClipboardEvent ) {
 			
 			const table = event.clipboardData!.getData( 'text/plain' ).trim().split( /\r?\n/ ).map( row => row.split( '\t' ) ) as string[][]
-			if( table.length === 1 && table[0].length === 1 ) return
+			if( !table.length || ( table[0].length === 1 ) ) return
 			
 			const sheet = this.sheet_changable()
 
