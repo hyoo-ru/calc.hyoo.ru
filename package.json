@@ -282,6 +282,8 @@
     "$hyoo_crowd_dict",
     "$mol_reconcile",
     "$mol_fetch",
+    "$mol_rest_code",
+    "$mol_rest",
     "$mol_dom_parse",
     "$mol_func_sandbox",
     "$mol_offline_install",
