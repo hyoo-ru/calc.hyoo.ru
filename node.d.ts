@@ -2159,7 +2159,9 @@ declare namespace $ {
 }
 
 //# sourceMappingURL=source.view.tree.d.ts.map
-declare let $hyoo_sync_revision: string;
+declare namespace $ {
+    let $hyoo_sync_revision: string;
+}
 
 declare namespace $ {
 
