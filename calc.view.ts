@@ -391,7 +391,7 @@ namespace $.$$ {
 
 		paste( event : ClipboardEvent ) {
 			
-			const table = event.clipboardData!.getData( 'text/plain' ).trim().split( /\r?\n/ ).map( row => row.split( '\t' ) ) as string[][]
+			const table = $mol_csv_parse_table( event.clipboardData!.getData( 'text/plain' ).trim(), '\t' )
 			if( !table.length || ( table[0].length === 1 ) ) return
 			
 			const sheet = this.sheet_changable()
@@ -428,8 +428,7 @@ namespace $.$$ {
 
 			}
 
-			const content = table.map( row => row.map( val => `"${ val.replace( /"/g , '""' ) }"` ).join( ';' ) ).join( '\n' )
-
+			const content = $mol_csv_serial_table( table, '\t' )
 			return `data:text/csv;charset=utf-8,${ encodeURIComponent( content ) }`
 			
 		}
