@@ -296,6 +296,10 @@
     "$mol_rest",
     "$mol_dom_parse",
     "$mol_func_sandbox",
+    "$mol_csv_parse",
+    "$mol_csv",
+    "$mol_csv_syntax",
+    "$mol_csv_serial",
     "$mol_offline_install",
     "$mol_offline"
   ],
