@@ -2414,6 +2414,8 @@ var $;
         'field',
         'image',
         'spirit',
+        'hue',
+        'hue_spread',
     ]);
 })($ || ($ = {}));
 
@@ -3921,7 +3923,7 @@ var $;
                         }
                     }
                 }
-                else if (key === '@media') {
+                else if (key === '@media' || key === '@container') {
                     const media = config[key];
                     for (let query of Object.keys(media).reverse()) {
                         rules.push('}\n');
