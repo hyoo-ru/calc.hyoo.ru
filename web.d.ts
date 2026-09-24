@@ -2828,10 +2828,6 @@ declare namespace $ {
 
 //# sourceMappingURL=source.view.tree.d.ts.map
 declare namespace $ {
-    let $hyoo_sync_revision: string;
-}
-
-declare namespace $ {
 
 	export class $mol_ghost extends $mol_view {
 		Sub( ): $mol_view
@@ -4325,7 +4321,6 @@ declare namespace $.$$ {
     class $hyoo_sync_online extends $.$hyoo_sync_online {
         message(): string;
         link_content(): $mol_icon_sync_off[];
-        hint(): string;
         master_link(): string;
         master_id(index: number): string;
         option_label(index: number): string;
